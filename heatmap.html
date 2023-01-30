@@ -55,6 +55,7 @@
     }
     canvas {
       width: 100%;
+      height: 100px;
     }
     table {
       width: 100%;
@@ -63,6 +64,20 @@
     }
     th {
       font-weight: normal;
+    }
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    .row table {
+      display: flex;
+      flex-direction: column;
+      flex-basis: 100%;
+      flex: 1;
+    }
+    .row td {
+      width: 4em;
     }
     footer {
       margin-top: 2em;
@@ -112,15 +127,33 @@
 
   <h3> Charge des doigts </h3>
   <small><span id="load-left"></span> / <span id="load-right"></span></small>
-  <div id="load"></div>
+  <div id="load">
+    <canvas></canvas>
+    <table></table>
+  </div>
 
   <h3> Digrammes à un doigt </h3>
   <small><span id="sfu-all"></span></small>
-  <div id="sfu"></div>
+  <div id="sfu">
+    <canvas></canvas>
+    <table></table>
+  </div>
 
-  <h3> Touches répétées </h3>
+  <h3> Touches doublées </h3>
   <small><span id="sku-all"></span></small>
-  <div id="sku"></div>
+  <div id="sku">
+    <canvas></canvas>
+    <table></table>
+  </div>
+
+  <h3> Achoppements </h3>
+  <div class="row">
+    <table></table>
+    <table id="sfu-digrams"></table>
+    <table></table>
+    <table id="sku-digrams"></table>
+    <table></table>
+  </div>
 
   <footer>
     <small>

@@ -39,20 +39,15 @@ window.addEventListener('DOMContentLoaded', () => {
   };
 
   // display a percentage value
-  const setPercent = (elt, num, precision) => {
-    const x = 10 ** precision;
-    elt.innerText = `${Math.round(x * num) / x}%`;
-  };
+  const fmtPercent = (num, p) => `${Math.round(10 ** p * num) / 10 ** p}%`;
   const showPercent = (sel, num, precision) => {
-    setPercent(document.querySelector(sel), num, precision);
+    document.querySelector(sel).innerText = fmtPercent(num, precision);
   };
 
   // display a finger/frequency table and bar graph
-  const showFingerData = (div, values, maxValue, precision) => {
-    const canvas = document.createElement('canvas');
-    const table = document.createElement('table');
-    const tr = document.createElement('tr');
-    tr.appendChild(document.createElement('td'));
+  const showFingerData = (sel, values, maxValue, precision) => {
+    const canvas = document.querySelector(`${sel} canvas`);
+    const table = document.querySelector(`${sel} table`);
 
     canvas.width = 1000;
     canvas.height = 100;
@@ -63,32 +58,32 @@ window.addEventListener('DOMContentLoaded', () => {
     const margin = 20;
     const scale = 100 / maxValue;
 
-    // for (const [f, load] of Object.entries(fingerLoad)) {
+    let cols = '';
     Object.values(values).forEach((value, i) => {
-      if (i == 4) {
-        tr.appendChild(document.createElement('td'));
-      }
       const idx = i >= 4 ? i + 2 : i + 1;
-      const td = document.createElement('td');
-      setPercent(td, value, precision);
-      tr.appendChild(td);
+      cols += (i === 4 ? '<td></td>' : '')
+           + `<td>${fmtPercent(value, precision)}</td>`;
       ctx.fillRect(idx * width + margin / 2, canvas.height - value * scale,
         width - margin / 2, value * scale);
     });
     ctx.restore();
+    table.innerHTML = `<tr><td></td>${cols}<td></td></tr>`;
+  };
 
-    tr.appendChild(document.createElement('td'));
-    table.appendChild(tr);
-    div.innerHTML = '';
-    div.appendChild(canvas);
-    div.appendChild(table);
+  // display a digram/frequency table
+  const showDigramData = (tableSelector, values, precision) => {
+    document.querySelector(tableSelector).innerHTML = Object.entries(values)
+      .filter(([digram, freq]) => freq >= 10 ** (-precision))
+      .reduce((rows, [digram, freq]) => rows +
+        `<tr><td>${digram}</td><td>${fmtPercent(freq, precision)}</td></tr>`, '');
   };
 
   // compute the same-finger and same-key usages
   const sfu = () => {
     const skuCount = {}; // same-key usage
     const sfuCount = {}; // same-finger usage
-    const sfuDigrams = [];
+    const skuDigrams = {};
+    const sfuDigrams = {};
     const fingers = ['l5', 'l4', 'l3', 'l2', 'r2', 'r3', 'r4', 'r5'];
     fingers.forEach((finger) => {
       sfuCount[finger] = 0;
@@ -100,34 +95,37 @@ window.addEventListener('DOMContentLoaded', () => {
       keys.forEach((keyName) => { keyFinger[keyName] = f; });
     });
 
-    Object.entries(digrams).forEach(([digram, frequency]) => {
-      keyboard.layout.getKeySequence(digram).reduce((acc, key) => {
-        const finger = keyFinger[key.id];
-        if (finger) { // in case there's no key for the current character...
-          if (acc === key.id) {
-            skuCount[finger] += frequency;
-            // sfuCount[finger] += frequency;
-          }
-          else if (keyFinger[acc] === finger) {
-            console.log(digram, frequency);
-            sfuDigrams.push({digram, frequency});
-            sfuCount[finger] += frequency;
-          }
-        }
-        return key.id;
-      }, '');
-    });
-
-    // note: in Ergol, ï and î are same-finger digrams
-    // even though they are single characters => count symbols, too?
+    // note: in Ergol, ï and î are same-finger digrams even though they are
+    // single characters => count symbols, too?
     const sum = (acc, freq) => acc + freq;
+    const total = Object.values(digrams).reduce(sum, 0);
+    Object.entries(digrams)
+      .map(([digram, frequency]) => [digram, 100 * frequency / total])
+      .forEach(([digram, frequency]) => {
+        keyboard.layout.getKeySequence(digram).reduce((acc, key) => {
+          const finger = keyFinger[key.id];
+          if (finger) { // in case there's no key for the current character...
+            if (acc === key.id) {
+              skuDigrams[digram] = frequency;
+              skuCount[finger] += frequency;
+            }
+            else if (keyFinger[acc] === finger) {
+              sfuDigrams[digram] = frequency;
+              sfuCount[finger] += frequency;
+            }
+          }
+          return key.id;
+        }, '');
+      });
+
     showPercent('#sfu-all', Object.values(sfuCount).reduce(sum, 0), 2);
     showPercent('#sku-all', Object.values(skuCount).reduce(sum, 0), 2);
 
     // display metrics
-    showFingerData(document.querySelector('#sfu'), sfuCount, 2.0, 2);
-    showFingerData(document.querySelector('#sku'), skuCount, 2.0, 2);
-    console.log(sfuDigrams);
+    showFingerData('#sfu', sfuCount, 2.0, 2);
+    showFingerData('#sku', skuCount, 2.0, 2);
+    showDigramData('#sfu-digrams', sfuDigrams, 2);
+    showDigramData('#sku-digrams', skuDigrams, 2);
   };
 
   // compute the heatmap for a text on a given layout
@@ -182,7 +180,7 @@ window.addEventListener('DOMContentLoaded', () => {
     showPercent('#load-right', ['r2', 'r3', 'r4', 'r5'].reduce(sum, 0), 1);
 
     // display metrics
-    showFingerData(document.querySelector('#load'), fingerLoad, 25.0, 1);
+    showFingerData('#load', fingerLoad, 25.0, 1);
   };
 
   // keyboard state: these <select> element IDs match the x-keyboard properties
