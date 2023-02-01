@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="description" content="a Colemak-style keyboard layout for French-speaking users" />
-  <title> ErgoL </title>
+  <title> Ergo-L </title>
   <link type="text/css" rel="stylesheet" href="css/layout.css" />
   <link type="text/css" rel="stylesheet" href="css/demo.css" />
   <link type="image/svg+xml" rel="icon" href="favicon.svg" sizes="any" />
@@ -207,18 +207,21 @@
         </li>
       </ul>
     </li>
-    <li> la couche AltGr est réservée aux symboles de programmation :
+    <li> la couche AltGr (voir ci-dessous) est réservée aux symboles de programmation :
       <ul>
-        <li> tous les symboles de programmation sont en AltGr + main gauche</li>
-        <li> accolades, crochets et chevrons sont sur les 6 touches les plus accessibles</li>
+        <li> tous les symboles de programmation sont en AltGr </li>
+        <li> accolades, crochets et parenthèses sont sur les 6 touches les plus accessibles</li>
         <li> la disposition est optimisée pour les enchaînements fréquents en programmation :
             <code> -&gt; =&gt; </ /> (0) [0] [''] ("") {} ~/ </code> </li>
       </ul>
     </li>
-    <li> <strong>la disposition est compatible avec les claviers compacts</strong>,
-      voire ultra compacts avec une <a href="42.html">version alternative</a>
-      (moins intuitive, mais légèrement plus ergonimique). </li>
   </ul>
+
+  <p> La touche morte et la couche altgr rendent la disposition <strong>compatible avec les
+	  claviers ultra compacts</strong> (34 touches minimum). </p>
+
+  <img src="img/ergol_altgr.png" alt="La couche AltGr de la disposition.">
+
   <p> Les chiffres sont en accès direct, sans <kbd>Shift</kbd>, pour faciliter
     leur enchaînement (= la saisie de nombres). Oubliez votre pavé numérique ! </p>
   <p> Les raccourcis usuels
@@ -309,6 +312,15 @@
   <p> Ce projet est encore un travail en cours, certains caractères sont
     susceptibles de bouger pour améliorer l’équilibre de la <i lang="en">heatmap</i>
     ou certains enchaînements. </p>
+
+  <p> À l'heure actuelle le layout à un problème avec les enchaînements sur un même
+    doigt, ce qui nuit au confort de la disposition. Ergo-L étant encore à ses
+	débuts (pour l'instant en version 0.4), nous sommes en train de nous pencher
+	sur la question, notamment avec le développement d'outils nous permettant d'avoir
+	des données précises, dont la plupart sont regroupés <a href="heatmap#/ergol/iso/en">ici</a>.
+    Si vous voulez suivre l'évolution du projet, poser des questions ou juste discuter,
+	hésitez pas à rejoindre le <a href="https://discord.gg/RH34GjQEgC">serveur discord</a> ! </p>
+
   <p> On a envisagé par le passé de placer le <kbd>E</kbd> sous l’index, comme
     en Bépo, parce que c’est la lettre la plus fréquente en français ; mais cela
     ruine l’équilibre de la charge des doigts et complique beaucoup
@@ -316,16 +328,9 @@
     côté (comme Dvorak ou Bépo) mais cela engendrait plus de problèmes que
 	cela n’en résolvait. </p>
 
-  <h3> Variante compacte </h3>
-  <p> <a href="42.html">ErgoL42</a> est une variante compacte de Ergol.
-	Elle vise à rendre la touche morte plus ergonomique (en n’en mettant qu’une
-	au lieu de trois) et rendre la disposition compatible avec les claviers
-	ultra compacts, mais est moins intuitive et fait des compromis sur la
-	typographie (apostrophe et guillemets typographiques moins faciles
-    d’accès). </p>
-
   <footer>
-    <a href="https://github.com/Leo-Caz/ErgoL">page github</a>
+	  <p> <a href="https://github.com/Leo-Caz/ErgoL">page github</a> </p>
+	  <p> <a href="https://discord.gg/RH34GjQEgC">serveur discord</a> </p>
   </footer>
 
 </body>
