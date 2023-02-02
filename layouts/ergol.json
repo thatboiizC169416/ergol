@@ -1,6 +1,6 @@
 {
-  "name": "Ergo-L-42",
-  "description": "French (Ergo-L, compact variant)",
+  "name": "Ergo-L",
+  "description": "French (Ergo-L)",
   "geometry": "ergo",
   "keymap": {
     "Digit1": [ "1", "!" ],
