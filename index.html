@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="description" content="a Colemak-style keyboard layout for French-speaking users" />
-  <title> ErgoL </title>
+  <title> Ergo-L </title>
   <link type="text/css" rel="stylesheet" href="css/layout.css" />
   <link type="text/css" rel="stylesheet" href="css/demo.css" />
   <link type="image/svg+xml" rel="icon" href="favicon.svg" sizes="any" />
@@ -201,24 +201,31 @@
       <ul>
         <li> c’est moins intuitif qu’une couche <kbd>AltGr</kbd>, mais favorise
           les enchaînements et l’apprentissage en mémoire musculaire </li>
-        <li> (pour préserver un minimum d’intuitivité il y a deux touches mortes
-          secondaires excentrées, mais elles n’apparaissent pas dans la <a
-          href="42.html">variante compacte</a>)
-        </li>
+        <li> la touche morte transforme les voyelles qui suivent en leur diacritiques principal</li>
+        <li> les accents circonflexes se font avec une touche de la même colonne que la
+		  voyelle, et les trémas avec shift + touche morte, puis la voyelle. Ce n’est pas
+		  du tout intuitif, mais ça permet de garder tous les accents courants en accès rapide.</li>
+		<li> faire shift + voyelle <b>après</b> la touche morte permet d’avoir les lettres
+	      accentués en majuscule. Oubliez vos alt codes !</li>
+		<li> une exception : le <code>é</code> se fait en touche morte -&gt; <code> t </code>
+			pour garder l’enchaînement <code>ée</code> efficace.</li>
       </ul>
     </li>
-    <li> la couche AltGr est réservée aux symboles de programmation :
+    <li> la couche AltGr (voir ci-dessous) est réservée aux symboles de programmation :
       <ul>
-        <li> tous les symboles de programmation sont en AltGr + main gauche</li>
-        <li> accolades, crochets et chevrons sont sur les 6 touches les plus accessibles</li>
+        <li> tous les symboles de programmation sont en AltGr </li>
+        <li> accolades, crochets et parenthèses sont sur les 6 touches les plus accessibles</li>
         <li> la disposition est optimisée pour les enchaînements fréquents en programmation :
             <code> -&gt; =&gt; </ /> (0) [0] [''] ("") {} ~/ </code> </li>
       </ul>
     </li>
-    <li> <strong>la disposition est compatible avec les claviers compacts</strong>,
-      voire ultra compacts avec une <a href="42.html">version alternative</a>
-      (moins intuitive, mais légèrement plus ergonimique). </li>
   </ul>
+
+  <p> La touche morte et la couche altgr rendent la disposition <strong>compatible avec les
+	  claviers ultra compacts</strong> (34 touches minimum). </p>
+
+  <img src="img/ergol_altgr.png" alt="La couche AltGr de la disposition.">
+
   <p> Les chiffres sont en accès direct, sans <kbd>Shift</kbd>, pour faciliter
     leur enchaînement (= la saisie de nombres). Oubliez votre pavé numérique ! </p>
   <p> Les raccourcis usuels
@@ -306,9 +313,10 @@
   </table>
 
   <h3> Expériences rejetées et évolutions possibles </h3>
-  <p> Ce projet est encore un travail en cours, certains caractères sont
-    susceptibles de bouger pour améliorer l’équilibre de la <i lang="en">heatmap</i>
-    ou certains enchaînements. </p>
+  <p> Le layout est encore en cours de développement, notamment pour réduire les cas
+    d’enchaînements sur un même doigt. Vous pouvez participer aux travaux en
+	rejoignant le <a href="https://discord.gg/RH34GjQEgC">serveur Discord</a> dédié. </p>
+
   <p> On a envisagé par le passé de placer le <kbd>E</kbd> sous l’index, comme
     en Bépo, parce que c’est la lettre la plus fréquente en français ; mais cela
     ruine l’équilibre de la charge des doigts et complique beaucoup
@@ -316,16 +324,9 @@
     côté (comme Dvorak ou Bépo) mais cela engendrait plus de problèmes que
 	cela n’en résolvait. </p>
 
-  <h3> Variante compacte </h3>
-  <p> <a href="42.html">ErgoL42</a> est une variante compacte de Ergol.
-	Elle vise à rendre la touche morte plus ergonomique (en n’en mettant qu’une
-	au lieu de trois) et rendre la disposition compatible avec les claviers
-	ultra compacts, mais est moins intuitive et fait des compromis sur la
-	typographie (apostrophe et guillemets typographiques moins faciles
-    d’accès). </p>
-
   <footer>
-    <a href="https://github.com/Leo-Caz/ErgoL">page github</a>
+	  <p> <a href="https://github.com/Leo-Caz/ErgoL">page github</a> </p>
+	  <p> <a href="https://discord.gg/RH34GjQEgC">serveur discord</a> </p>
   </footer>
 
 </body>

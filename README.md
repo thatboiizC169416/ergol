@@ -26,7 +26,7 @@ The dead <kbd>★</kbd> key gives access to all acute accents, grave accents, ce
 
 … which leaves the AltGr layer fully available for any customization you have in mind.
 
-![altgr layout](img/ergol_alt.png)
+![altgr layout](img/ergol_altgr.png)
 
 The default layout allows to write in English, French, German and Esperanto easily.
 
