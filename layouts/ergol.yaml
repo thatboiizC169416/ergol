@@ -41,5 +41,5 @@ spacebar:
   shift:       "\u202f"  # NARROW NO-BREAK SPACE
   altgr:       "\u0020"  # SPACE
   altgr_shift: "\u00a0"  # NO-BREAK SPACE
-  1dk:         "\u0027"  # APOSTROPHE
+  1dk:         "\u2019"  # APOSTROPHE
   1dk_shift:   "\u0027"  # APOSTROPHE
