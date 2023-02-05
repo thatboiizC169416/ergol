@@ -8,6 +8,24 @@ window.addEventListener('DOMContentLoaded', () => {
   let digrams = {};
   let corpusName = '';
 
+  const substituteChars = {
+    '\u00a0': ' ',  // ( ) no-break space
+    '\u202f': ' ',  // ( ) narrow no-break space
+
+    '\u00ab': '"',  // («) left-pointing double angle quotation mark
+    '\u00bb': '"',  // (») right-pointing double angle quotation mark
+    '\u201c': '"',  // (“) left double quotation mark
+    '\u201d': '"',  // (”) right double quotation mark
+    '\u201e': '"',  // („) double low-9 quotation mark
+
+    '\u2018': "'",  // (‘) left single quotation mark
+    '\u2019': "'",  // (’) right single quotation mark
+
+    '\u2013': "-",  // (–) en dash
+    '\u2014': "-",  // (—) em dash
+    '\u2026': '...' // (…) ellipsis
+  };
+
   // create an efficient hash table to parse a text
   const supportedChars = (keymap, deadkeys) => {
     const charTable = {};
@@ -142,7 +160,7 @@ window.addEventListener('DOMContentLoaded', () => {
     // count the key strokes in the corpus
     const unsupportedChars = {};
     Object.entries(corpus).forEach(([char, count]) => {
-      const keys = keyChars[char];
+      const keys = keyChars[char] || keyChars[substituteChars[char]];
       if (keys) {
         keys.forEach((key) => { keyCount[key] += count; });
       } else {
