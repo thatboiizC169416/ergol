@@ -70,12 +70,14 @@ window.addEventListener('DOMContentLoaded', () => {
     table.innerHTML = `<tr><td></td>${cols}<td></td></tr>`;
   };
 
-  // display a digram/frequency table
-  const showDigramData = (tableSelector, values, precision) => {
-    document.querySelector(tableSelector).innerHTML = Object.entries(values)
+  // display a string/frequency table
+  const showTableData = (tableSelector, title, values, precision) => {
+    document.querySelector(tableSelector).innerHTML =
+      `<tr><th colspan="2">${title}</td><th></tr>` + Object.entries(values)
       .filter(([digram, freq]) => freq >= 10 ** (-precision))
-      .reduce((rows, [digram, freq]) => rows +
-        `<tr><td>${digram}</td><td>${fmtPercent(freq, precision)}</td></tr>`, '');
+      .map(([digram, freq]) =>
+        `<tr><td>${digram}</td><td>${fmtPercent(freq, precision)}</td></tr>`)
+      .join('');
   };
 
   // compute the same-finger and same-key usages
@@ -122,10 +124,10 @@ window.addEventListener('DOMContentLoaded', () => {
     showPercent('#sku-all', Object.values(skuCount).reduce(sum, 0), 2);
 
     // display metrics
-    showFingerData('#sfu', sfuCount, 2.0, 2);
-    showFingerData('#sku', skuCount, 2.0, 2);
-    showDigramData('#sfu-digrams', sfuDigrams, 2);
-    showDigramData('#sku-digrams', skuDigrams, 2);
+    showFingerData('#sfu', sfuCount, 3.5, 2);
+    showFingerData('#sku', skuCount, 3.5, 2);
+    showTableData('#sfu-digrams', 'SFU', sfuDigrams, 2);
+    showTableData('#sku-digrams', 'SKU', skuDigrams, 2);
   };
 
   // compute the heatmap for a text on a given layout
@@ -144,19 +146,17 @@ window.addEventListener('DOMContentLoaded', () => {
       if (keys) {
         keys.forEach((key) => { keyCount[key] += count; });
       } else {
-        unsupportedChars[char] = true;
+        unsupportedChars[char] = count;
       }
     });
-
-    // console.log(Object.keys(unsupportedChars).sort());
-    // console.log(keyCount);
 
     // display the heatmap
     const colormap = {};
     const contrast = 5;
-    const total = Object.values(corpus).reduce((acc, n) => n + acc);
-    Object.entries(keyCount).forEach(([key, count]) => {
+    const total = Object.values(corpus).reduce((acc, n) => n + acc, 0);
+    Object.keys(keyboard.layout.keyMap).forEach((key) => {
       if (key !== 'Space') {
+        const count = key in keyCount ? keyCount[key] : 0;
         const lvl = 255 - Math.floor((255 * contrast * count) / total);
         colormap[key] = `rgb(${lvl}, ${lvl}, 255)`; // blue scale
       }
@@ -181,6 +181,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // display metrics
     showFingerData('#load', fingerLoad, 25.0, 1);
+    showTableData('#unsupported', 'non-support\u00e9', unsupportedChars, 3);
   };
 
   // keyboard state: these <select> element IDs match the x-keyboard properties

@@ -66,7 +66,6 @@ function getKeySequence(keyMap, dkDict, str = '') {
       rv.push(getKeyList(keyMap, dk.base)[0]);
     } else { // not available
       rv.push({});
-      console.error('char not found:', char); // eslint-disable-line
     }
   });
   return rv;
