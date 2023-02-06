@@ -208,7 +208,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const setProp = (key, value) => {
     if (key === 'layout') {
       if (value) {
-        fetch(`layouts.heatmap/${value}.json`)
+        fetch(`layouts/${value}.json`)
           .then((response) => response.json())
           .then((data) => {
             keyboard.setKeyboardLayout(data.keymap, data.deadkeys,
