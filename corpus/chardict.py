@@ -44,7 +44,7 @@ def parse_corpus(file_path):
     file.close()
 
     # sort the dictionary by symbol frequency (requires CPython 3.6+)
-    def sort_by_frequency(table, precision=2):
+    def sort_by_frequency(table, precision=3):
         sorted_dict = {}
         for (key, count) in sorted(table.items(), key=lambda x: -x[1]):
             freq = round(100 * count / char_count, precision)
