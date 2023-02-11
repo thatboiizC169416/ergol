@@ -6,6 +6,7 @@ window.addEventListener('DOMContentLoaded', () => {
   let keyChars = {};
   let corpus = {};
   let digrams = {};
+  let trigrams = {};
   let corpusName = '';
 
   const substituteChars = {
@@ -98,7 +99,7 @@ window.addEventListener('DOMContentLoaded', () => {
       .join('');
   };
 
-  // compute the same-finger and same-key usages
+  // compute the same-finger usages and rolls
   const computeDigrams = () => {
     const skuCount = {}; // same-key usage
     const sfuCount = {}; // same-finger usage
@@ -150,18 +151,49 @@ window.addEventListener('DOMContentLoaded', () => {
         }, '');
       });
 
+    // display metrics
     showPercent('#sfu-all', Object.values(sfuCount).reduce(sum, 0), 2);
     showPercent('#sku-all', Object.values(skuCount).reduce(sum, 0), 2);
     showPercent('#inward-all', Object.values(inwardDigrams).reduce(sum, 0), 1);
     showPercent('#outward-all', Object.values(outwardDigrams).reduce(sum, 0), 1);
 
-    // display metrics
     showFingerData('#sfu', sfuCount, 3.5, 2);
     showFingerData('#sku', skuCount, 3.5, 2);
     showTableData('#sfu-digrams', 'SFU', sfuDigrams, 2);
     showTableData('#sku-digrams', 'SKU', skuDigrams, 2);
     showTableData('#inward', 'intérieur', inwardDigrams, 2);
     showTableData('#outward', 'extérieur', outwardDigrams, 2);
+  };
+
+  // compute the redirected rolls
+  const computeTrigrams = () => {
+    const redirects = {};
+    const keyFinger = {Space: 'th'};
+    Object.entries(keyboard.fingerAssignments).forEach(([f, keys]) => {
+      keys.forEach((keyName) => { keyFinger[keyName] = f; });
+    });
+
+    const sum = (acc, freq) => acc + freq;
+    const total = Object.values(trigrams).reduce(sum, 0);
+    Object.entries(trigrams)
+      .map(([trigram, frequency]) => [trigram, 100 * frequency / total])
+      .forEach(([trigram, frequency]) => {
+        const fingers = keyboard.layout.getKeySequence(trigram)
+          .map(key => keyFinger[key.id] ?? '  '); // XXX dirty workaround, FIXME
+        const hands = fingers.map(key => key.charAt(0)).join('');
+        // TODO: handle trigrams that involve more than 3 keys
+        if (hands === 'lll' || hands === 'rrr') {
+          const nums = fingers.map(key => Number(key.charAt(1)));
+          if ((nums[0] < nums[1] && nums[1] > nums[2]) ||
+              (nums[0] > nums[1] && nums[1] < nums[2])) {
+            redirects[trigram] = frequency;
+          }
+        }
+      });
+
+    // display metrics
+    showPercent('#redirect-all', Object.values(redirects).reduce(sum, 0), 1);
+    showTableData('#redirect', 'redirections', redirects, 2);
   };
 
   // compute the heatmap for a text on a given layout
@@ -197,7 +229,7 @@ window.addEventListener('DOMContentLoaded', () => {
     });
     keyboard.setCustomColors(colormap);
 
-    // give some metrics
+    // compute metrics
     const fingerCount = {};
     const fingerLoad = {};
     let keystrokes = 0;
@@ -209,11 +241,11 @@ window.addEventListener('DOMContentLoaded', () => {
     Object.entries(fingerCount).forEach(([f, count]) => {
       fingerLoad[f] = (100 * count) / keystrokes;
     });
+
+    // display metrics
     const sum = (acc, id) => fingerLoad[id] + acc;
     showPercent('#load-left', ['l2', 'l3', 'l4', 'l5'].reduce(sum, 0), 1);
     showPercent('#load-right', ['r2', 'r3', 'r4', 'r5'].reduce(sum, 0), 1);
-
-    // display metrics
     showFingerData('#load', fingerLoad, 25.0, 1);
     showTableData('#unsupported', 'non-support\u00e9', unsupportedChars, 3);
   };
@@ -234,6 +266,7 @@ window.addEventListener('DOMContentLoaded', () => {
             if (Object.keys(corpus).length > 0) {
               computeHeatmap();
               computeDigrams();
+              computeTrigrams();
             }
           });
       } else {
@@ -248,9 +281,11 @@ window.addEventListener('DOMContentLoaded', () => {
           .then((data) => {
             corpus = data.symbols;
             digrams = data.digrams;
+            trigrams = data.trigrams;
             if (Object.keys(keyChars).length > 0) {
               computeHeatmap();
               computeDigrams();
+              computeTrigrams();
             }
           });
         corpusName = value;
