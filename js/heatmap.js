@@ -99,11 +99,14 @@ window.addEventListener('DOMContentLoaded', () => {
   };
 
   // compute the same-finger and same-key usages
-  const sfu = () => {
+  const computeDigrams = () => {
     const skuCount = {}; // same-key usage
     const sfuCount = {}; // same-finger usage
     const skuDigrams = {};
     const sfuDigrams = {};
+    const inwardDigrams = {};
+    const outwardDigrams = {};
+
     const fingers = ['l5', 'l4', 'l3', 'l2', 'r2', 'r3', 'r4', 'r5'];
     fingers.forEach((finger) => {
       sfuCount[finger] = 0;
@@ -123,15 +126,24 @@ window.addEventListener('DOMContentLoaded', () => {
       .map(([digram, frequency]) => [digram, 100 * frequency / total])
       .forEach(([digram, frequency]) => {
         keyboard.layout.getKeySequence(digram).reduce((acc, key) => {
-          const finger = keyFinger[key.id];
-          if (finger) { // in case there's no key for the current character...
-            if (acc === key.id) {
+          const curr_finger = keyFinger[key.id];
+          const last_finger = keyFinger[acc];
+          if (curr_finger && last_finger) {
+            if (acc === key.id) { // same key
               skuDigrams[digram] = frequency;
-              skuCount[finger] += frequency;
+              skuCount[curr_finger] += frequency;
             }
-            else if (keyFinger[acc] === finger) {
+            else if (curr_finger === last_finger) { // same finger
               sfuDigrams[digram] = frequency;
-              sfuCount[finger] += frequency;
+              sfuCount[curr_finger] += frequency;
+            }
+            else if (curr_finger[0] === last_finger[0]) { // same hand
+              if (curr_finger[1] < last_finger[1]) {
+                inwardDigrams[digram] = frequency;
+              }
+              else {
+                outwardDigrams[digram] = frequency;
+              }
             }
           }
           return key.id;
@@ -140,16 +152,20 @@ window.addEventListener('DOMContentLoaded', () => {
 
     showPercent('#sfu-all', Object.values(sfuCount).reduce(sum, 0), 2);
     showPercent('#sku-all', Object.values(skuCount).reduce(sum, 0), 2);
+    showPercent('#inward-all', Object.values(inwardDigrams).reduce(sum, 0), 1);
+    showPercent('#outward-all', Object.values(outwardDigrams).reduce(sum, 0), 1);
 
     // display metrics
     showFingerData('#sfu', sfuCount, 3.5, 2);
     showFingerData('#sku', skuCount, 3.5, 2);
     showTableData('#sfu-digrams', 'SFU', sfuDigrams, 2);
     showTableData('#sku-digrams', 'SKU', skuDigrams, 2);
+    showTableData('#inward', 'intérieur', inwardDigrams, 2);
+    showTableData('#outward', 'extérieur', outwardDigrams, 2);
   };
 
   // compute the heatmap for a text on a given layout
-  const heatmap = () => {
+  const computeHeatmap = () => {
     const keyCount = {};
     Object.values(keyChars).forEach((keys) => {
       keys.forEach((key) => {
@@ -216,8 +232,8 @@ window.addEventListener('DOMContentLoaded', () => {
             data.keymap.Enter = [ '\r', '\n' ];
             keyChars = supportedChars(data.keymap, data.deadkeys);
             if (Object.keys(corpus).length > 0) {
-              heatmap();
-              sfu();
+              computeHeatmap();
+              computeDigrams();
             }
           });
       } else {
@@ -233,8 +249,8 @@ window.addEventListener('DOMContentLoaded', () => {
             corpus = data.symbols;
             digrams = data.digrams;
             if (Object.keys(keyChars).length > 0) {
-              heatmap();
-              sfu();
+              computeHeatmap();
+              computeDigrams();
             }
           });
         corpusName = value;
