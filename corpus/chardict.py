@@ -19,7 +19,7 @@ def parse_corpus(file_path):
     prev_prev_symbol = None
 
     # get a dictionary of all symbols (letters, punctuation marks...)
-    file = open(file_path, "r")
+    file = open(file_path, "r", encoding="utf-8")
     for char in file.read():
         symbol = char.lower()
         if char not in IGNORED_CHARS:
@@ -55,8 +55,8 @@ def parse_corpus(file_path):
     results = {}
     results["corpus"] = file_path
     results["symbols"] = sort_by_frequency(symbols)
-    results["digrams"] = sort_by_frequency(digrams, 6)
-    results["trigrams"] = sort_by_frequency(trigrams, 6)
+    results["digrams"] = sort_by_frequency(digrams, 4)
+    results["trigrams"] = sort_by_frequency(trigrams)
     return results
 
 
@@ -72,5 +72,5 @@ if __name__ == "__main__":
                 print(f"    {filename}...")
                 data = parse_corpus(path.join(rootdir, filename))
                 destfile = path.join(destdir, filename[:-4] + ".json")
-                with open(destfile, "w") as outfile:
+                with open(destfile, "w", encoding="utf-8") as outfile:
                     json.dump(data, outfile, indent=4, ensure_ascii=False)
