@@ -218,13 +218,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // display the heatmap
     const colormap = {};
-    const contrast = 5;
+    const contrast = 6;
     const total = Object.values(corpus).reduce((acc, n) => n + acc, 0);
     Object.keys(keyboard.layout.keyMap).forEach((key) => {
       if (key !== 'Space') {
         const count = key in keyCount ? keyCount[key] : 0;
-        const lvl = 255 - Math.floor((255 * contrast * count) / total);
-        colormap[key] = `rgb(${lvl}, ${lvl}, 255)`; // blue scale
+        const lvl = (contrast * count) / total;
+        colormap[key] = `rgb(127, 127, 255, ${lvl})`; // blue scale
       }
     });
     keyboard.setCustomColors(colormap);

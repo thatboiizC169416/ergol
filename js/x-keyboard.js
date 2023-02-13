@@ -861,6 +861,16 @@ const themes = `
   .dk .level6, .altgr .level4 { opacity: 1; }
   .dk .level3,
   .dk .level4 { display: none; }
+
+  @media (prefers-color-scheme: dark) {
+    rect, path { stroke: #777; fill: #333; }
+    .specialKey, .specialKey rect, .specialKey path { fill: #444; }
+    g:target rect, .press rect, g:target path, .press path { fill: #558; }
+    text { fill: #888; }
+    .level3, .level4 { fill: #66a; opacity: .7; }
+    .level5, .level6 { fill: #6a6; }
+    .deadKey { fill: #f44; }
+  }
 `;
 
 // export full stylesheet
