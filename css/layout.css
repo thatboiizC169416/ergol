@@ -73,7 +73,7 @@ input, select { color-scheme: light dark; }
 @media (prefers-color-scheme: dark) {
 
   html {
-    background-color: #333;
+    background-color: #111;
   }
 
   body {
@@ -83,8 +83,8 @@ input, select { color-scheme: light dark; }
     color: #ccc;
   }
 
-  h1, h2, header, a { color: #d44; }
-  h1, h2, footer { border-color: #d44; }
-  h1 + p { color: #d44c; }
+  h1, h2, header, a { color: #e74; }
+  h1, h2, footer { border-color: #e74; }
+  h1 + p { color: #e74b; }
 
 }
