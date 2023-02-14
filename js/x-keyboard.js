@@ -866,7 +866,7 @@ const themes = `
     rect, path { stroke: #777; fill: #333; }
     .specialKey, .specialKey rect, .specialKey path { fill: #444; }
     g:target rect, .press rect, g:target path, .press path { fill: #558; }
-    text { fill: #888; }
+    text { fill: #baa; }
     .level3, .level4 { fill: #66a; opacity: .7; }
     .level5, .level6 { fill: #6a6; }
     .deadKey { fill: #f44; }
