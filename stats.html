@@ -6,76 +6,8 @@
   <title> Ergo-L </title>
   <link type="text/css" rel="stylesheet" href="css/layout.css" />
   <link type="text/css" rel="stylesheet" href="css/demo.css" />
+  <link type="text/css" rel="stylesheet" href="css/heatmap.css" />
   <link type="image/svg+xml" rel="icon" href="favicon.svg" sizes="any" />
-  <style>
-    html {
-      height: 100%;
-      width: 100%;
-      font-family: sans-serif;
-    }
-    body {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 0 25px;
-      margin: auto;
-      max-width: 51em;
-      min-height: calc(100% - 50px);
-    }
-    header {
-      font-size: 1rem;
-    }
-    h1 {
-      margin-bottom: 0.2em;
-      font-size: 1.4rem;
-    }
-    h3 {
-      border-bottom: 1px dotted;
-    }
-    h3 + small {
-      text-align: right;
-      margin-top: -1em;
-    }
-    div {
-      text-align: center;
-    }
-    input {
-      box-sizing: border-box;
-      width: 100%;
-      margin-bottom: .5em;
-      text-align: center;
-      font-size: 1.3em;
-    }
-    canvas {
-      width: 100%;
-      height: 100px;
-    }
-    table {
-      width: 100%;
-      font-size: small;
-      table-layout: fixed;
-    }
-    th {
-      font-weight: normal;
-    }
-    .row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-    }
-    .row table {
-      display: flex;
-      flex-direction: column;
-      flex-basis: 100%;
-      flex: 1;
-    }
-    .row td {
-      width: 4em;
-    }
-    footer {
-      margin-top: 2em;
-    }
-  </style>
   <script src="js/x-keyboard.js" type="module"></script>
   <script src="js/heatmap.js" type="text/javascript"></script>
 </head>
@@ -83,9 +15,7 @@
 
   <header>
     <h1> Heatmap </h1>
-    <p>
-      Fréquences de touches obtenues avec le “Don Quichotte” de Cervantès.
-    </p>
+    <p> Fréquences de touches obtenues avec le “Don Quichotte” de Cervantès. </p>
   </header>
 
   <div id="selector">
@@ -96,21 +26,16 @@
         <option>          qwerty      </option>
         <option>          dvorak      </option>
         <option>          colemak     </option>
+        <option>          colemak-dh  </option>
         <option>          workman     </option>
+        <option>          ISRT        </option>
+        <option>          MTGAP       </option>
         <option disabled>  [fr]       </option>
         <option>          azerty      </option>
         <option>          lafayette   </option>
         <option selected> ergol       </option>
         <option>          bepo        </option>
-        <option disabled>  [fr-dev]   </option>
-        <option>          ergolak-m   </option>
-        <option>          ergolak-i   </option>
-        <option>          ergolak-o   </option>
-        <option>          ergoleo-m   </option>
-        <option>          ergoleo-i   </option>
-        <option>          ergoleo-o   </option>
-        <option>          dvorak42    </option>
-        <option>          bepo42      </option>
+        <option>          optimot     </option>
       </select>
       <select id="geometry">
         <option value="iso">           ISO   </option>
