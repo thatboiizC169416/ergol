@@ -221,7 +221,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const contrast = 6;
     const total = Object.values(corpus).reduce((acc, n) => n + acc, 0);
     Object.keys(keyboard.layout.keyMap).forEach((key) => {
-      if (key !== 'Space') {
+      if (key !== 'Enter') {
         const count = key in keyCount ? keyCount[key] : 0;
         const lvl = (contrast * count) / total;
         colormap[key] = `rgb(127, 127, 255, ${lvl})`; // blue scale

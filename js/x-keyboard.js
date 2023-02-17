@@ -960,10 +960,9 @@ class Keyboard extends HTMLElement {
 
   setCustomColors(keymap) {
     Object.entries(keymap).forEach(([id, color]) => {
-      const key = this.root.getElementById(id).querySelector('rect');
-      if (key) {
+      this.root.getElementById(id).querySelectorAll('rect').forEach((key) => {
         key.style.fill = color;
-      }
+      });
     });
   }
 

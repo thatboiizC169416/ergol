@@ -1,6 +1,6 @@
 {
   "name": "bépo",
-  "description": "French Dvorak-style layout - https://bepo.fr/",
+  "description": "French Dvorak-style layout",
   "geometry": "iso",
   "keymap": {
     "Digit1": [ "\"", "1", "—", "„" ],
