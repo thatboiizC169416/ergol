@@ -3,6 +3,13 @@ all:
 		kalamine $$file --out "layouts/$$(basename $${file%.*}).json"; \
 	done
 
+watch:
+	@inotifywait -m layouts -e close_write | while read -r _path _action file; do \
+		case $$file in \
+			*yaml) kalamine "layouts/$$file" --out "layouts/$$(basename "$${file%.*}").json";; \
+		esac \
+	done
+
 dev:
 	pip3 install kalamine
 
