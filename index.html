@@ -28,6 +28,8 @@
           <option value="iso">  ISO  </option>
           <option value="ansi"> ANSI </option>
           <option value="ol60"> TMx  </option>
+          <option value="ol50"> 50%  </option>
+          <option value="ol40"> 40%  </option>
         </select>
       </p>
     </div>
@@ -38,7 +40,8 @@
     <li> disposition <strong>optimisée pour le français et l’anglais</strong> </li>
     <li> couche AltGr optimisée pour l’enchaînement des symboles de programmation </li>
     <li> <strong>conservation des raccourcis usuels</strong> :
-      <kbd>Ctrl</kbd>-{<kbd>Q</kbd>,<kbd>A</kbd>,<kbd>S</kbd>,<kbd>Z</kbd>,<kbd>X</kbd>,<kbd>C</kbd>,<kbd>V</kbd>} </li>
+      <kbd>Ctrl</kbd>-{<kbd>Q</kbd>,<kbd>A</kbd>,<kbd>S</kbd>,<kbd>Z</kbd>,<kbd>X</kbd>}
+      (<kbd>Ctrl</kbd>-{<kbd>C</kbd>,<kbd>V</kbd>} sont décalés, mais reste faisable d’une main) </li>
     <li> support de tous les caractères spéciaux utilisés en français
       (diacritiques, majuscules accentuées, lettres entrelacées, symboles de ponctuation…) </li>
     <li> <strong>chiffres en accès direct</strong> </li>
@@ -100,8 +103,10 @@
       doigts. Là encore, les raccourcis sont préservés — sauf
       <kbd>Ctrl</kbd>-<kbd>C</kbd>,<kbd>V</kbd>, décalés d’une colonne. </li>
   </ul>
-  <p> ErgoL reprend les principes de Colemak et Workman et respecte strictement
-    tous les raccourcis usuels du Qwerty. </p>
+  <!-- FIXME: mal dit -->
+  <p> ErgoL reprend les principes de Colemak et Workman. Comme Workman, ErgoL
+    décale <kbd>Ctrl</kbd>-<kbd>C</kbd>,<kbd>V</kbd> d’une colonne, car on pense
+    que le gain d’ergomonie justifie ce décalage. </p>
 
   <h3> Polyvalence français / anglais </h3>
   <p> Les dispositions Dvorak, Colemak et Workman sont optimisées pour l’anglais
@@ -185,10 +190,10 @@
   </ul>
   <p> Pour éviter cela, ErgoL utilise une touche morte de type
     <a href="https://qwerty-lafayette.org/">Qwerty-Lafayette</a> pour tous les
-    caractères accentués. Cela occasionne environ 2.35 % de frappes
-    supplémentaires pour un texte francophone, ce qui est négligeable comparé
-    au gain de confort que cela apporte. La touche <kbd>AltGr</kbd> peut ainsi
-    être dédiée aux seuls symboles de programmation. </p>
+    caractères accentués et ponctuations spéciales. Cela occasionne environ 4 %
+	de frappes supplémentaires pour un texte francophone, ce qui est négligeable
+	comparé au gain de confort que cela apporte. La touche <kbd>AltGr</kbd> peut
+	ainsi être dédiée aux seuls symboles de programmation. </p>
 
   <h2 id="ergomonie"> Principes d’ergonomie </h2>
 
@@ -207,7 +212,7 @@
       du tout intuitif, mais ça permet de garder tous les accents courants en accès rapide.</li>
     <li> faire shift + voyelle <b>après</b> la touche morte permet d’avoir les lettres
         accentués en majuscule. Oubliez vos alt codes !</li>
-    <li> une exception : le <code>é</code> se fait en touche morte -&gt; <code> t </code>
+    <li> une exception : le <code>é</code> se fait en touche morte -&gt; <code> s </code>
       pour garder l’enchaînement <code>ée</code> efficace.</li>
       </ul>
     </li>
@@ -216,7 +221,7 @@
         <li> tous les symboles de programmation sont en AltGr </li>
         <li> accolades, crochets et parenthèses sont sur les 6 touches les plus accessibles</li>
         <li> la disposition est optimisée pour les enchaînements fréquents en programmation :
-            <code> -&gt; =&gt; </ /> (0) [0] [''] ("") {} ~/ </code> </li>
+            <code> -&gt; =&gt; </ /> (0) [0] [''] ("") {} ~/ </code> … </li>
       </ul>
     </li>
   </ul>
@@ -230,10 +235,11 @@
   <p> Les chiffres sont en accès direct, sans <kbd>Shift</kbd>, pour faciliter
     leur enchaînement (= la saisie de nombres). Oubliez votre pavé numérique ! </p>
   <p> Les raccourcis usuels
-    <kbd>Ctrl</kbd>-{<kbd>Q</kbd>,<kbd>A</kbd>,<kbd>S</kbd>,<kbd>Z</kbd>,<kbd>X</kbd>,<kbd>C</kbd>,<kbd>V</kbd>} </li>
+    <kbd>Ctrl</kbd>-{<kbd>Q</kbd>,<kbd>A</kbd>,<kbd>S</kbd>,<kbd>Z</kbd>,<kbd>X</kbd>} </li>
     ont été conservés car le gain marginal d’ergonomie en mettant une autre
     lettre à la place n’est pas suffisant pour compenser la perte de ces
-    raccourcis — loin s’en faut. </p>
+	raccourcis — loin s’en faut (et <kbd>Ctrl</kbd>-{<kbd>C</kbd>,<kbd>V</kbd>}
+    on été modifié de sorte à géner le moins possible). </p>
   <p> Beaucoup d’attention a été portée sur les enchaînements de lettres, avec
     la plupart des enchaînements fréquents qui se font soit avec une alternance
     main gauche / main droite, soit avec un roulement intérieur (se terminant
@@ -283,6 +289,7 @@
           typographiques en <kbd>Shift</kbd> pour être enchaînés avec une espace
           insécable fine (<kbd>Shift</kbd>-<kbd>Espace</kbd>), points de
           suspension et point médian avec la touche morte, etc. </li>
+          <!-- FIXME: guillemets typographiques plus en espace depuis ergolv0.4 --> 
       </ul>
     </li>
   </ul>
