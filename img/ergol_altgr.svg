@@ -104,28 +104,28 @@
       <g transform="translate(150)">
         <rect width="52" height="52" rx="5" ry="5"/>
         <g class="key" text-anchor="middle">
-          <text x="12.8" y="20.6" class="level2">M</text>
+          <text x="12.8" y="20.6" class="level2">G</text>
           <text x="38.0" y="43.4" class="level3">[</text>
         </g>
       </g>
       <g transform="translate(210)">
         <rect width="52" height="52" rx="5" ry="5"/>
         <g class="key" text-anchor="middle">
-          <text x="12.8" y="20.6" class="level2">U</text>
+          <text x="12.8" y="20.6" class="level2">O</text>
           <text x="38.0" y="43.4" class="level3">]</text>
         </g>
       </g>
       <g transform="translate(270)">
         <rect width="52" height="52" rx="5" ry="5"/>
         <g class="key" text-anchor="middle">
-          <text x="12.8" y="20.6" class="level2">L</text>
+          <text x="12.8" y="20.6" class="level2">W</text>
           <text x="38.0" y="43.4" class="level3">$</text>
         </g>
       </g>
       <g transform="translate(330)">
         <rect width="52" height="52" rx="5" ry="5"/>
         <g class="key" text-anchor="middle">
-          <text x="12.8" y="20.6" class="level2">W</text>
+          <text x="12.8" y="20.6" class="level2">K</text>
           <text x="38.0" y="43.4" class="level3">%</text>
         </g>
       </g>
@@ -141,28 +141,29 @@
       <g transform="translate(450)">
         <rect width="52" height="52" rx="5" ry="5"/>
         <g class="key" text-anchor="middle">
-          <text x="12.8" y="20.6" class="level2">D</text>
+          <text x="12.8" y="20.6" class="level2">M</text>
           <text x="38.0" y="43.4" class="level3">&amp;</text>
         </g>
       </g>
       <g transform="translate(510)">
         <rect width="52" height="52" rx="5" ry="5"/>
         <g class="key" text-anchor="middle">
-          <text x="12.8" y="20.6" class="level2">F</text>
+          <text x="12.8" y="43.4" class="level1 deadKey">★</text>
+          <text x="12.8" y="20.6" class="level2 deadKey diacritic">¨</text>
           <text x="38.0" y="43.4" class="level3">*</text>
-        </g>
+		</g>
       </g>
       <g transform="translate(570)">
         <rect width="52" height="52" rx="5" ry="5"/>
         <g class="key" text-anchor="middle">
-          <text x="12.8" y="20.6" class="level2">P</text>
+          <text x="12.8" y="20.6" class="level2">L</text>
           <text x="38.0" y="43.4" class="level3">'</text>
         </g>
       </g>
       <g transform="translate(630)">
         <rect width="52" height="52" rx="5" ry="5"/>
         <g class="key" text-anchor="middle">
-          <text x="12.8" y="20.6" class="level2">Y</text>
+          <text x="12.8" y="20.6" class="level2">F</text>
           <text x="38.0" y="43.4" class="level3">0</text>
         </g>
       </g>
@@ -198,7 +199,7 @@
       <g transform="translate(210)">
         <rect width="52" height="52" rx="5" ry="5"/>
         <g class="key" text-anchor="middle">
-          <text x="12.8" y="20.6" class="level2">N</text>
+          <text x="12.8" y="20.6" class="level2">E</text>
           <text x="38.0" y="43.4" class="level3">)</text>
         </g>
       </g>
@@ -212,7 +213,7 @@
       <g transform="translate(330)">
         <rect width="52" height="52" rx="5" ry="5"/>
         <g class="key" text-anchor="middle">
-          <text x="12.8" y="20.6" class="level2">G</text>
+          <text x="12.8" y="20.6" class="level2">D</text>
           <text x="38.0" y="43.4" class="level3">=</text>
         </g>
       </g>
@@ -228,28 +229,28 @@
       <g transform="translate(450)">
         <rect width="52" height="52" rx="5" ry="5"/>
         <g class="key" text-anchor="middle">
-          <text x="12.8" y="20.6" class="level2">R</text>
+          <text x="12.8" y="20.6" class="level2">N</text>
           <text x="38.0" y="43.4" class="level3">-</text>
         </g>
       </g>
       <g transform="translate(510)">
         <rect width="52" height="52" rx="5" ry="5"/>
         <g class="key" text-anchor="middle">
-          <text x="12.8" y="20.6" class="level2">E</text>
+          <text x="12.8" y="20.6" class="level2">I</text>
           <text x="38.0" y="43.4" class="level3">&lt;</text>
         </g>
       </g>
       <g transform="translate(570)">
         <rect width="52" height="52" rx="5" ry="5"/>
         <g class="key" text-anchor="middle">
-          <text x="12.8" y="20.6" class="level2">O</text>
+          <text x="12.8" y="20.6" class="level2">R</text>
           <text x="38.0" y="43.4" class="level3">&gt;</text>
         </g>
       </g>
       <g transform="translate(630)">
         <rect width="52" height="52" rx="5" ry="5"/>
         <g class="key" text-anchor="middle">
-          <text x="12.8" y="20.6" class="level2">I</text>
+          <text x="12.8" y="20.6" class="level2">U</text>
           <text x="38.0" y="43.4" class="level3">"</text>
         </g>
       </g>
@@ -283,21 +284,22 @@
       <g transform="translate(210)">
         <rect width="52" height="52" rx="5" ry="5"/>
         <g class="key" text-anchor="middle">
-          <text x="12.8" y="20.6" class="level2">C</text>
+          <text x="12.8" y="43.4" class="level1">-</text>
+          <text x="12.8" y="20.6" class="level2">?</text>
           <text x="38.0" y="43.4" class="level3">|</text>
         </g>
       </g>
       <g transform="translate(270)">
         <rect width="52" height="52" rx="5" ry="5"/>
         <g class="key" text-anchor="middle">
-          <text x="12.8" y="20.6" class="level2">V</text>
+          <text x="12.8" y="20.6" class="level2">C</text>
           <text x="38.0" y="43.4" class="level3">_</text>
         </g>
       </g>
       <g transform="translate(330)">
         <rect width="52" height="52" rx="5" ry="5"/>
         <g class="key" text-anchor="middle">
-          <text x="12.8" y="20.6" class="level2">J</text>
+          <text x="12.8" y="20.6" class="level2">V</text>
           <text x="38.0" y="43.4" class="level3">/</text>
         </g>
       </g>
@@ -306,15 +308,14 @@
       <g transform="translate(390)">
         <rect width="52" height="52" rx="5" ry="5"/>
         <g class="key" text-anchor="middle">
-          <text x="12.8" y="20.6" class="level2">K</text>
+          <text x="12.8" y="20.6" class="level2">J</text>
           <text x="38.0" y="43.4" class="level3">\</text>
         </g>
       </g>
       <g transform="translate(450)">
         <rect width="52" height="52" rx="5" ry="5"/>
         <g class="key" text-anchor="middle">
-          <text x="12.8" y="43.4" class="level1 deadKey">★</text>
-          <text x="12.8" y="20.6" class="level2 deadKey diacritic">¨</text>
+          <text x="12.8" y="20.6" class="level2">P</text>
           <text x="38.0" y="43.4" class="level3">@</text>
         </g>
       </g>
@@ -337,8 +338,7 @@
       <g transform="translate(630)">
         <rect width="52" height="52" rx="5" ry="5"/>
         <g class="key" text-anchor="middle">
-          <text x="12.8" y="43.4" class="level1">-</text>
-          <text x="12.8" y="20.6" class="level2">?</text>
+          <text x="12.8" y="20.6" class="level2">Y</text>
           <text x="38.0" y="43.4" class="level3">?</text>
         </g>
       </g>
