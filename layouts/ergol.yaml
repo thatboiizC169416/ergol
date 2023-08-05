@@ -1,8 +1,8 @@
-name: Ergo-L-dev
-name8: ergoldev
+name: Ergo-L
+name8: ergol
 locale: fr
-variant: ergol_dev
-description: French (Ergo-L) (experimental)
+variant: ergol
+description: French (Ergo-L)
 url: https://github.com/Nuclear-Squid/ergol
 geometry: ERGO
 version: 0.6.0
