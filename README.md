@@ -12,7 +12,7 @@ TL;DR:
 * use a dead key for the most frequent accented characters;
 * use the AltGr layer for programming symbols. Or don’t use it at all, and keep two alt keys.
 
-This layout claims to be better than Bépo for French, better than Dvorak in
+This layout claims to be better than Bépo for French, better than Dvorak for
 English and better than Qwerty for programming. (see [here](ergol.org/stats)
 to get the stats)
 
