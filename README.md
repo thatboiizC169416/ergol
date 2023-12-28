@@ -13,8 +13,8 @@ TL;DR:
 * use the AltGr layer for programming symbols. Or don’t use it at all, and keep two alt keys.
 
 This layout claims to be better than Bépo for French, better than Dvorak for
-English and better than Qwerty for programming. (see [here](ergol.org/stats)
-to get the stats)
+English and better than Qwerty for programming. (see
+[here](https://ergol.org/stats#/ergol/iso/en+fr) to get the stats)
 
 
 Layout
@@ -61,7 +61,7 @@ Make your own
 If you wish to modify the layout, the `layouts/*.yaml` are human-readable ascii
 arts of the final layout. You can easily edit them, then run `make` (or `make
 watch`) at the root of the repo to generate the `.json` files used to benchmark
-layouts on the [stats page](ergol.org/stats).
+layouts on the [stats page](https://ergol.org/stats#/ergol/iso/en+fr).
 
-This repo contains all of the code for the [ergol website](ergol.org), so you
-can run the page locally to try your prototypes !
+This repo contains all of the code for the [ergol website](https://ergol.org),
+so you can run the page locally to try your prototypes !
