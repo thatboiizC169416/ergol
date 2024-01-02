@@ -7,6 +7,7 @@ watch:
 	@inotifywait -m layouts -e close_write | while read -r _path _action file; do \
 		case $$file in \
 			*yaml) kalamine "layouts/$$file" --out "layouts/$$(basename "$${file%.*}").json";; \
+			*toml) kalamine "layouts/$$file" --out "layouts/$$(basename "$${file%.*}").json";; \
 		esac \
 	done
 
