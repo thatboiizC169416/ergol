@@ -707,6 +707,7 @@
   <actions>
     <action id="dead_1dk">
       <when state="none" next="1dk" />
+      <when state="1dk" next="diaeresis" />
     </action>
     <action id="dead_diaeresis">
       <when state="none" next="diaeresis" />
@@ -1355,7 +1356,7 @@
   </actions>
 
   <terminators>
-    <when state="1dk"        output="*¨" />
+    <when state="1dk"        output="*" />
     <when state="grave"      output="`" />
     <when state="acute"      output="´" />
     <when state="circumflex" output="^" />
