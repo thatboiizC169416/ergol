@@ -5,7 +5,7 @@
   Project page  : https://github.com/Nuclear-Squid/ergol
   Author        : NuclearSquid
   Version       : 0.99.2
-  Last change   : 2023-12-31
+  Last change   : 2024-01-05
   License       : WTFPL - Do What The Fuck You Want Public License
   Reference     : https://developer.apple.com/library/archive/technotes/tn2056/_index.html
 
@@ -1356,7 +1356,7 @@
   </actions>
 
   <terminators>
-    <when state="1dk"        output="*" />
+    <when state="1dk"        output="’" />
     <when state="grave"      output="`" />
     <when state="acute"      output="´" />
     <when state="circumflex" output="^" />
