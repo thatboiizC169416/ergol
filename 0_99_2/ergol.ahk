@@ -1,1433 +1,1535 @@
-﻿#Requires AutoHotkey v2.0
+﻿; This is an AutoHotKey 1.1 script. PKL and EPKL still rely on AHK 1.1, too.
+; AutoHot4Key 2.0 is way too slow to emulate keyboard layouts at the moment
+; — or maybe we’ve missed the proper options to speed it up.
 
-;SetWorkingDir %A_ScriprDir%
-;#SingleInstance, force
+#NoEnv
+#Persistent
+#InstallKeybdHook
+#SingleInstance,       force
+#MaxThreadsBuffer
+#MaxThreadsPerHotKey   3
+#MaxHotkeysPerInterval 300
+#MaxThreads            20
 
-;SendMode "Input"
-SetKeyDelay 0
+; SendMode Input
+SendMode Event
+SetKeyDelay,   -1
+SetBatchLines, -1
+Process, Priority, , R
+SetWorkingDir, %A_ScriptDir%
+StringCaseSense, On
 
-; il y a trois modificateurs de base : Shift, AltGr, Shift+AltGr
-; dans le cas de base, on prend un code de touche, on regarde le ou les modificateurs actifs, et on renvoie le caractère correspondant
-; si une touche morte est pressée, on passe dans un autre état, dans lequel à chaque caractère possible dans l'état de base, tous modificateurs compris,
-; est associé un nouveau caractère ou une nouvelle touche morte qui déclenchera un autre état etc...
+; DeadKey Helpers
 
-; l'état peut donc être '' (base) ou '**', '*¨', ...
+global DeadKey := ""
 
-global State := ""
-global Active := true
-
-Alt & RAlt::
-RAlt & Alt:: {
-  global Active
-  Active := !Active
-  if Active
-    ToolTip "Ergo-L est actif"
+SetState(state) {
+  global DeadKey
+  if DeadKey == state
+    SendChar("*") ; terminator character
   else
-    ToolTip "Ergo-L est inactif"
-  SetTimer () => ToolTip(), -1500
-}
-
-SetState(new_state) {
-  global State
-  State := new_state
+    DeadKey := state
 }
 
 SendChar(char) {
-  global State
-  Send char
-  State := ""
+  global DeadKey
+  Send {%char%}
+  DeadKey := ""
 }
 
-#HotIf Active
+; Layout
+
+SC002::
+  global DeadKey
+  if (DeadKey == "")
+    Send 1
+  else if (DeadKey == "**")
+    SendChar("„")
+  else if (DeadKey == "*^")
+    SendChar("¹")
+  return
+
++SC002::
+  global DeadKey
+  if (DeadKey == "")
+    Send {U+0021} ; !
+  else if (DeadKey == "**")
+    SendChar("¡")
+  return
+
+SC003::
+  global DeadKey
+  if (DeadKey == "")
+    Send 2
+  else if (DeadKey == "**")
+    SendChar("“")
+  else if (DeadKey == "*^")
+    SendChar("²")
+  return
+
++SC003::
+  global DeadKey
+  if (DeadKey == "")
+    Send @
+  else if (DeadKey == "**")
+    SendChar("‘")
+  return
+
+SC004::
+  global DeadKey
+  if (DeadKey == "")
+    Send 3
+  else if (DeadKey == "**")
+    SendChar("”")
+  else if (DeadKey == "*^")
+    SendChar("³")
+  return
+
++SC004::Send {U+0023} ; #
+
+SC005::
+  global DeadKey
+  if (DeadKey == "")
+    Send 4
+  else if (DeadKey == "**")
+    SendChar("£")
+  else if (DeadKey == "*^")
+    SendChar("⁴")
+  return
+
++SC005::Send $
+
+SC006::
+  global DeadKey
+  if (DeadKey == "")
+    Send 5
+  else if (DeadKey == "**")
+    SendChar("€")
+  else if (DeadKey == "*^")
+    SendChar("⁵")
+  return
+
++SC006::Send `%
+
+SC007::
+  global DeadKey
+  if (DeadKey == "")
+    Send 6
+  else if (DeadKey == "**")
+    SendChar("¥")
+  else if (DeadKey == "*^")
+    SendChar("⁶")
+  return
+
++SC007::Send {U+005E} ; ^
+
+SC008::
+  global DeadKey
+  if (DeadKey == "")
+    Send 7
+  else if (DeadKey == "**")
+    SendChar("¤")
+  else if (DeadKey == "*^")
+    SendChar("⁷")
+  return
+
++SC008::Send &
+
+SC009::
+  global DeadKey
+  if (DeadKey == "")
+    Send 8
+  else if (DeadKey == "**")
+    SendChar("§")
+  else if (DeadKey == "*^")
+    SendChar("⁸")
+  return
+
++SC009::Send *
+
+SC00a::
+  global DeadKey
+  if (DeadKey == "")
+    Send 9
+  else if (DeadKey == "**")
+    SendChar("¶")
+  else if (DeadKey == "*^")
+    SendChar("⁹")
+  return
+
++SC00a::Send «
+
+SC00b::
+  global DeadKey
+  if (DeadKey == "")
+    Send 0
+  else if (DeadKey == "**")
+    SendChar("°")
+  else if (DeadKey == "*^")
+    SendChar("⁰")
+  return
+
++SC00b::Send »
+
+SC00c::
+  global DeadKey
+  if (DeadKey == "")
+    Send /
+  else if (DeadKey == "**")
+    SendChar("÷")
+  return
+
++SC00c::
+  global DeadKey
+  if (DeadKey == "")
+    Send _
+  else if (DeadKey == "**")
+    SendChar("–")
+  return
+
+SC00d::
+  global DeadKey
+  if (DeadKey == "")
+    Send `=
+  else if (DeadKey == "**")
+    SendChar("≠")
+  else if (DeadKey == "*^")
+    SendChar("⁼")
+  else if (DeadKey == "*/")
+    SendChar("≠")
+  else if (DeadKey == "*`~")
+    SendChar("≃")
+  return
+
++SC00d::
+  global DeadKey
+  if (DeadKey == "")
+    Send {U+002B} ; +
+  else if (DeadKey == "**")
+    SendChar("±")
+  else if (DeadKey == "*^")
+    SendChar("⁺")
+  return
+
+SC010::
+  global DeadKey
+  if (DeadKey == "")
+    Send q
+  else if (DeadKey == "**")
+    SendChar("â")
+  else if (DeadKey == "*µ")
+    SendChar("χ")
+  return
+
++SC010::
+  global DeadKey
+  if (DeadKey == "")
+    Send Q
+  else if (DeadKey == "**")
+    SendChar("Â")
+  else if (DeadKey == "*µ")
+    SendChar("Χ")
+  return
+
+SC011::
+  global DeadKey
+  if (DeadKey == "")
+    Send c
+  else if (DeadKey == "**")
+    SendChar("ç")
+  else if (DeadKey == "*¤")
+    SendChar("¢")
+  else if (DeadKey == "*^")
+    SendChar("ĉ")
+  else if (DeadKey == "*´")
+    SendChar("ć")
+  else if (DeadKey == "*/")
+    SendChar("ȼ")
+  else if (DeadKey == "*¸")
+    SendChar("ç")
+  return
+
++SC011::
+  global DeadKey
+  if (DeadKey == "")
+    Send C
+  else if (DeadKey == "**")
+    SendChar("Ç")
+  else if (DeadKey == "*¤")
+    SendChar("₡")
+  else if (DeadKey == "*^")
+    SendChar("Ĉ")
+  else if (DeadKey == "*´")
+    SendChar("Ć")
+  else if (DeadKey == "*/")
+    SendChar("Ȼ")
+  else if (DeadKey == "*¸")
+    SendChar("Ç")
+  return
+
+SC012::
+  global DeadKey
+  if (DeadKey == "")
+    Send o
+  else if (DeadKey == "**")
+    SendChar("œ")
+  else if (DeadKey == "*¨")
+    SendChar("ö")
+  else if (DeadKey == "*¤")
+    SendChar("௹")
+  else if (DeadKey == "*^")
+    SendChar("ô")
+  else if (DeadKey == "*µ")
+    SendChar("ο")
+  else if (DeadKey == "*´")
+    SendChar("ó")
+  else if (DeadKey == "*``")
+    SendChar("ò")
+  else if (DeadKey == "*/")
+    SendChar("ø")
+  else if (DeadKey == "*`~")
+    SendChar("õ")
+  return
+
++SC012::
+  global DeadKey
+  if (DeadKey == "")
+    Send O
+  else if (DeadKey == "**")
+    SendChar("Œ")
+  else if (DeadKey == "*¨")
+    SendChar("Ö")
+  else if (DeadKey == "*¤")
+    SendChar("૱")
+  else if (DeadKey == "*^")
+    SendChar("Ô")
+  else if (DeadKey == "*µ")
+    SendChar("Ο")
+  else if (DeadKey == "*´")
+    SendChar("Ó")
+  else if (DeadKey == "*``")
+    SendChar("Ò")
+  else if (DeadKey == "*/")
+    SendChar("Ø")
+  else if (DeadKey == "*`~")
+    SendChar("Õ")
+  return
+
+SC013::
+  global DeadKey
+  if (DeadKey == "")
+    Send p
+  else if (DeadKey == "**")
+    SendChar("ô")
+  else if (DeadKey == "*¤")
+    SendChar("₰")
+  else if (DeadKey == "*µ")
+    SendChar("π")
+  else if (DeadKey == "*´")
+    SendChar("ṕ")
+  else if (DeadKey == "*/")
+    SendChar("ᵽ")
+  return
+
++SC013::
+  global DeadKey
+  if (DeadKey == "")
+    Send P
+  else if (DeadKey == "**")
+    SendChar("Ô")
+  else if (DeadKey == "*¤")
+    SendChar("₧")
+  else if (DeadKey == "*µ")
+    SendChar("Π")
+  else if (DeadKey == "*´")
+    SendChar("Ṕ")
+  else if (DeadKey == "*/")
+    SendChar("Ᵽ")
+  return
+
+SC014::
+  global DeadKey
+  if (DeadKey == "")
+    Send w
+  else if (DeadKey == "**") {
+    Send {U+2019}w
+    DeadKey := ""
+  }
+  else if (DeadKey == "*¨")
+    SendChar("ẅ")
+  else if (DeadKey == "*¤")
+    SendChar("₩")
+  else if (DeadKey == "*^")
+    SendChar("ŵ")
+  else if (DeadKey == "*µ")
+    SendChar("ω")
+  else if (DeadKey == "*´")
+    SendChar("ẃ")
+  else if (DeadKey == "*``")
+    SendChar("ẁ")
+  return
+
++SC014::
+  global DeadKey
+  if (DeadKey == "")
+    Send W
+  else if (DeadKey == "**") {
+    Send {U+2019}W
+    DeadKey := ""
+  }
+  else if (DeadKey == "*¨")
+    SendChar("Ẅ")
+  else if (DeadKey == "*¤")
+    SendChar("₩")
+  else if (DeadKey == "*^")
+    SendChar("Ŵ")
+  else if (DeadKey == "*µ")
+    SendChar("Ω")
+  else if (DeadKey == "*´")
+    SendChar("Ẃ")
+  else if (DeadKey == "*``")
+    SendChar("Ẁ")
+  return
+
+SC015::
+  global DeadKey
+  if (DeadKey == "")
+    Send j
+  else if (DeadKey == "**") {
+    Send {U+2019}j
+    DeadKey := ""
+  }
+  else if (DeadKey == "*^")
+    SendChar("ĵ")
+  else if (DeadKey == "*µ")
+    SendChar("θ")
+  else if (DeadKey == "*/")
+    SendChar("ɉ")
+  return
+
++SC015::
+  global DeadKey
+  if (DeadKey == "")
+    Send J
+  else if (DeadKey == "**") {
+    Send {U+2019}J
+    DeadKey := ""
+  }
+  else if (DeadKey == "*^")
+    SendChar("Ĵ")
+  else if (DeadKey == "*µ")
+    SendChar("Θ")
+  else if (DeadKey == "*/")
+    SendChar("Ɉ")
+  return
+
+SC016::
+  global DeadKey
+  if (DeadKey == "")
+    Send m
+  else if (DeadKey == "**")
+    SendChar("µ")
+  else if (DeadKey == "*¤")
+    SendChar("₥")
+  else if (DeadKey == "*µ")
+    SendChar("μ")
+  else if (DeadKey == "*´")
+    SendChar("ḿ")
+  return
+
++SC016::
+  global DeadKey
+  if (DeadKey == "")
+    Send M
+  else if (DeadKey == "*¤")
+    SendChar("ℳ")
+  else if (DeadKey == "*µ")
+    SendChar("Μ")
+  else if (DeadKey == "*´")
+    SendChar("Ḿ")
+  return
+
+SC017::
+  global DeadKey
+  if (DeadKey == "")
+    Send d
+  else if (DeadKey == "**")
+    SendChar("_")
+  else if (DeadKey == "*¤")
+    SendChar("₫")
+  else if (DeadKey == "*µ")
+    SendChar("δ")
+  else if (DeadKey == "*/")
+    SendChar("đ")
+  else if (DeadKey == "*¸")
+    SendChar("ḑ")
+  return
+
++SC017::
+  global DeadKey
+  if (DeadKey == "")
+    Send D
+  else if (DeadKey == "**")
+    SendChar("_")
+  else if (DeadKey == "*¤")
+    SendChar("₯")
+  else if (DeadKey == "*µ")
+    SendChar("Δ")
+  else if (DeadKey == "*/")
+    SendChar("Đ")
+  else if (DeadKey == "*¸")
+    SendChar("Ḑ")
+  return
 
 SC018::
-+SC018:: {
-  global State
-  if (State == "")
++SC018::
+  global DeadKey
+  if (DeadKey == "")
     SetState("**")
-  else if (State == "**")
+  else if (DeadKey == "**")
     SetState("*¨")
-}
+  return
+
+SC019::
+  global DeadKey
+  if (DeadKey == "")
+    Send f
+  else if (DeadKey == "**")
+    SendChar("ŭ")
+  else if (DeadKey == "*¤")
+    SendChar("ƒ")
+  else if (DeadKey == "*µ")
+    SendChar("φ")
+  return
+
++SC019::
+  global DeadKey
+  if (DeadKey == "")
+    Send F
+  else if (DeadKey == "**")
+    SendChar("Ŭ")
+  else if (DeadKey == "*¤")
+    SendChar("₣")
+  else if (DeadKey == "*µ")
+    SendChar("Φ")
+  return
+
+SC01a::Send [
++SC01a::Send {U+007B} ; {
+
+SC01b::Send ]
++SC01b::Send {U+007D} ; }
+
+SC01e::
+  global DeadKey
+  if (DeadKey == "")
+    Send a
+  else if (DeadKey == "**")
+    SendChar("à")
+  else if (DeadKey == "*¨")
+    SendChar("ä")
+  else if (DeadKey == "*¤")
+    SendChar("؋")
+  else if (DeadKey == "*^")
+    SendChar("â")
+  else if (DeadKey == "*µ")
+    SendChar("α")
+  else if (DeadKey == "*´")
+    SendChar("á")
+  else if (DeadKey == "*``")
+    SendChar("à")
+  else if (DeadKey == "*/")
+    SendChar("ⱥ")
+  else if (DeadKey == "*`~")
+    SendChar("ã")
+  return
+
++SC01e::
+  global DeadKey
+  if (DeadKey == "")
+    Send A
+  else if (DeadKey == "**")
+    SendChar("À")
+  else if (DeadKey == "*¨")
+    SendChar("Ä")
+  else if (DeadKey == "*¤")
+    SendChar("₳")
+  else if (DeadKey == "*^")
+    SendChar("Â")
+  else if (DeadKey == "*µ")
+    SendChar("Α")
+  else if (DeadKey == "*´")
+    SendChar("Á")
+  else if (DeadKey == "*``")
+    SendChar("À")
+  else if (DeadKey == "*/")
+    SendChar("Ⱥ")
+  else if (DeadKey == "*`~")
+    SendChar("Ã")
+  return
+
+SC01f::
+  global DeadKey
+  if (DeadKey == "")
+    Send s
+  else if (DeadKey == "**")
+    SendChar("é")
+  else if (DeadKey == "*¤")
+    SendChar("₪")
+  else if (DeadKey == "*^")
+    SendChar("ŝ")
+  else if (DeadKey == "*µ")
+    SendChar("σ")
+  else if (DeadKey == "*´")
+    SendChar("ś")
+  else if (DeadKey == "*¸")
+    SendChar("ş")
+  return
+
++SC01f::
+  global DeadKey
+  if (DeadKey == "")
+    Send S
+  else if (DeadKey == "**")
+    SendChar("É")
+  else if (DeadKey == "*¤")
+    SendChar("$")
+  else if (DeadKey == "*^")
+    SendChar("Ŝ")
+  else if (DeadKey == "*µ")
+    SendChar("Σ")
+  else if (DeadKey == "*´")
+    SendChar("Ś")
+  else if (DeadKey == "*¸")
+    SendChar("Ş")
+  return
+
+SC020::
+  global DeadKey
+  if (DeadKey == "")
+    Send e
+  else if (DeadKey == "**")
+    SendChar("è")
+  else if (DeadKey == "*¨")
+    SendChar("ë")
+  else if (DeadKey == "*¤")
+    SendChar("€")
+  else if (DeadKey == "*^")
+    SendChar("ê")
+  else if (DeadKey == "*µ")
+    SendChar("ε")
+  else if (DeadKey == "*´")
+    SendChar("é")
+  else if (DeadKey == "*``")
+    SendChar("è")
+  else if (DeadKey == "*/")
+    SendChar("ɇ")
+  else if (DeadKey == "*`~")
+    SendChar("ẽ")
+  else if (DeadKey == "*¸")
+    SendChar("ȩ")
+  return
+
++SC020::
+  global DeadKey
+  if (DeadKey == "")
+    Send E
+  else if (DeadKey == "**")
+    SendChar("È")
+  else if (DeadKey == "*¨")
+    SendChar("Ë")
+  else if (DeadKey == "*¤")
+    SendChar("₠")
+  else if (DeadKey == "*^")
+    SendChar("Ê")
+  else if (DeadKey == "*µ")
+    SendChar("Ε")
+  else if (DeadKey == "*´")
+    SendChar("É")
+  else if (DeadKey == "*``")
+    SendChar("È")
+  else if (DeadKey == "*/")
+    SendChar("Ɇ")
+  else if (DeadKey == "*`~")
+    SendChar("Ẽ")
+  else if (DeadKey == "*¸")
+    SendChar("Ȩ")
+  return
+
+SC021::
+  global DeadKey
+  if (DeadKey == "")
+    Send n
+  else if (DeadKey == "**")
+    SendChar("ê")
+  else if (DeadKey == "*¤")
+    SendChar("₦")
+  else if (DeadKey == "*µ")
+    SendChar("ν")
+  else if (DeadKey == "*´")
+    SendChar("ń")
+  else if (DeadKey == "*``")
+    SendChar("ǹ")
+  else if (DeadKey == "*`~")
+    SendChar("ñ")
+  else if (DeadKey == "*¸")
+    SendChar("ņ")
+  return
+
++SC021::
+  global DeadKey
+  if (DeadKey == "")
+    Send N
+  else if (DeadKey == "**")
+    SendChar("Ê")
+  else if (DeadKey == "*¤")
+    SendChar("₦")
+  else if (DeadKey == "*µ")
+    SendChar("Ν")
+  else if (DeadKey == "*´")
+    SendChar("Ń")
+  else if (DeadKey == "*``")
+    SendChar("Ǹ")
+  else if (DeadKey == "*`~")
+    SendChar("Ñ")
+  else if (DeadKey == "*¸")
+    SendChar("Ņ")
+  return
+
+SC022::
+  global DeadKey
+  if (DeadKey == "")
+    Send `,
+  else if (DeadKey == "**")
+    SendChar("·")
+  return
+
++SC022::
+  global DeadKey
+  if (DeadKey == "")
+    Send `;
+  else if (DeadKey == "**")
+    SendChar("•")
+  return
+
+SC023::
+  global DeadKey
+  if (DeadKey == "")
+    Send l
+  else if (DeadKey == "**") {
+    Send {U+2019}l
+    DeadKey := ""
+  }
+  else if (DeadKey == "*¤")
+    SendChar("£")
+  else if (DeadKey == "*µ")
+    SendChar("λ")
+  else if (DeadKey == "*´")
+    SendChar("ĺ")
+  else if (DeadKey == "*/")
+    SendChar("ł")
+  else if (DeadKey == "*¸")
+    SendChar("ļ")
+  return
+
++SC023::
+  global DeadKey
+  if (DeadKey == "")
+    Send L
+  else if (DeadKey == "**") {
+    Send {U+2019}L
+    DeadKey := ""
+  }
+  else if (DeadKey == "*¤")
+    SendChar("₤")
+  else if (DeadKey == "*µ")
+    SendChar("Λ")
+  else if (DeadKey == "*´")
+    SendChar("Ĺ")
+  else if (DeadKey == "*/")
+    SendChar("Ł")
+  else if (DeadKey == "*¸")
+    SendChar("Ļ")
+  return
+
+SC024::
+  global DeadKey
+  if (DeadKey == "")
+    Send r
+  else if (DeadKey == "**") {
+    Send {U+2019}r
+    DeadKey := ""
+  }
+  else if (DeadKey == "*¤")
+    SendChar("₢")
+  else if (DeadKey == "*µ")
+    SendChar("ρ")
+  else if (DeadKey == "*´")
+    SendChar("ŕ")
+  else if (DeadKey == "*/")
+    SendChar("ɍ")
+  else if (DeadKey == "*¸")
+    SendChar("ŗ")
+  return
+
++SC024::
+  global DeadKey
+  if (DeadKey == "")
+    Send R
+  else if (DeadKey == "**") {
+    Send {U+2019}R
+    DeadKey := ""
+  }
+  else if (DeadKey == "*¤")
+    SendChar("₨")
+  else if (DeadKey == "*µ")
+    SendChar("Ρ")
+  else if (DeadKey == "*´")
+    SendChar("Ŕ")
+  else if (DeadKey == "*/")
+    SendChar("Ɍ")
+  else if (DeadKey == "*¸")
+    SendChar("Ŗ")
+  return
+
+SC025::
+  global DeadKey
+  if (DeadKey == "")
+    Send t
+  else if (DeadKey == "**")
+    SendChar("î")
+  else if (DeadKey == "*¨")
+    SendChar("ẗ")
+  else if (DeadKey == "*¤")
+    SendChar("৳")
+  else if (DeadKey == "*µ")
+    SendChar("τ")
+  else if (DeadKey == "*/")
+    SendChar("ŧ")
+  else if (DeadKey == "*¸")
+    SendChar("ţ")
+  return
+
++SC025::
+  global DeadKey
+  if (DeadKey == "")
+    Send T
+  else if (DeadKey == "**")
+    SendChar("Î")
+  else if (DeadKey == "*¤")
+    SendChar("₮")
+  else if (DeadKey == "*µ")
+    SendChar("Τ")
+  else if (DeadKey == "*/")
+    SendChar("Ŧ")
+  else if (DeadKey == "*¸")
+    SendChar("Ţ")
+  return
+
+SC026::
+  global DeadKey
+  if (DeadKey == "")
+    Send i
+  else if (DeadKey == "**")
+    SendChar("û")
+  else if (DeadKey == "*¨")
+    SendChar("ï")
+  else if (DeadKey == "*¤")
+    SendChar("﷼")
+  else if (DeadKey == "*^")
+    SendChar("î")
+  else if (DeadKey == "*µ")
+    SendChar("ι")
+  else if (DeadKey == "*´")
+    SendChar("í")
+  else if (DeadKey == "*``")
+    SendChar("ì")
+  else if (DeadKey == "*/")
+    SendChar("ɨ")
+  else if (DeadKey == "*`~")
+    SendChar("ĩ")
+  return
+
++SC026::
+  global DeadKey
+  if (DeadKey == "")
+    Send I
+  else if (DeadKey == "**")
+    SendChar("Û")
+  else if (DeadKey == "*¨")
+    SendChar("Ï")
+  else if (DeadKey == "*¤")
+    SendChar("៛")
+  else if (DeadKey == "*^")
+    SendChar("Î")
+  else if (DeadKey == "*µ")
+    SendChar("Ι")
+  else if (DeadKey == "*´")
+    SendChar("Í")
+  else if (DeadKey == "*``")
+    SendChar("Ì")
+  else if (DeadKey == "*/")
+    SendChar("Ɨ")
+  else if (DeadKey == "*`~")
+    SendChar("Ĩ")
+  return
+
+SC027::
+  global DeadKey
+  if (DeadKey == "")
+    Send u
+  else if (DeadKey == "**")
+    SendChar("ù")
+  else if (DeadKey == "*¨")
+    SendChar("ü")
+  else if (DeadKey == "*¤")
+    SendChar("元")
+  else if (DeadKey == "*^")
+    SendChar("û")
+  else if (DeadKey == "*µ")
+    SendChar("υ")
+  else if (DeadKey == "*´")
+    SendChar("ú")
+  else if (DeadKey == "*``")
+    SendChar("ù")
+  else if (DeadKey == "*/")
+    SendChar("ʉ")
+  else if (DeadKey == "*`~")
+    SendChar("ũ")
+  return
+
++SC027::
+  global DeadKey
+  if (DeadKey == "")
+    Send U
+  else if (DeadKey == "**")
+    SendChar("Ù")
+  else if (DeadKey == "*¨")
+    SendChar("Ü")
+  else if (DeadKey == "*¤")
+    SendChar("圓")
+  else if (DeadKey == "*^")
+    SendChar("Û")
+  else if (DeadKey == "*µ")
+    SendChar("Υ")
+  else if (DeadKey == "*´")
+    SendChar("Ú")
+  else if (DeadKey == "*``")
+    SendChar("Ù")
+  else if (DeadKey == "*/")
+    SendChar("Ʉ")
+  else if (DeadKey == "*`~")
+    SendChar("Ũ")
+  return
+
+SC028::Send `'
++SC028::Send `"
+
+SC029::Send ``
++SC029::Send `~
+
+SC02b::Send \
++SC02b::Send |
+
+SC02c::
+  global DeadKey
+  if (DeadKey == "")
+    Send z
+  else if (DeadKey == "**")
+    SendChar("æ")
+  else if (DeadKey == "*^")
+    SendChar("ẑ")
+  else if (DeadKey == "*µ")
+    SendChar("ζ")
+  else if (DeadKey == "*´")
+    SendChar("ź")
+  else if (DeadKey == "*/")
+    SendChar("ƶ")
+  return
+
++SC02c::
+  global DeadKey
+  if (DeadKey == "")
+    Send Z
+  else if (DeadKey == "**")
+    SendChar("Æ")
+  else if (DeadKey == "*^")
+    SendChar("Ẑ")
+  else if (DeadKey == "*µ")
+    SendChar("Ζ")
+  else if (DeadKey == "*´")
+    SendChar("Ź")
+  else if (DeadKey == "*/")
+    SendChar("Ƶ")
+  return
+
+SC02d::
+  global DeadKey
+  if (DeadKey == "")
+    Send x
+  else if (DeadKey == "**")
+    SendChar("ß")
+  else if (DeadKey == "*¨")
+    SendChar("ẍ")
+  else if (DeadKey == "*µ")
+    SendChar("ξ")
+  return
+
++SC02d::
+  global DeadKey
+  if (DeadKey == "")
+    Send X
+  else if (DeadKey == "**")
+    SendChar("ẞ")
+  else if (DeadKey == "*¨")
+    SendChar("Ẍ")
+  else if (DeadKey == "*µ")
+    SendChar("Ξ")
+  return
+
+SC02e::
+  global DeadKey
+  if (DeadKey == "")
+    Send -
+  else if (DeadKey == "**")
+    SendChar("—")
+  else if (DeadKey == "*^")
+    SendChar("⁻")
+  return
+
++SC02e::
+  global DeadKey
+  if (DeadKey == "")
+    Send ?
+  else if (DeadKey == "**")
+    SendChar("¿")
+  return
+
+SC02f::
+  global DeadKey
+  if (DeadKey == "")
+    Send v
+  else if (DeadKey == "**")
+    SendChar("ñ")
+  else if (DeadKey == "*`~")
+    SendChar("ṽ")
+  return
+
++SC02f::
+  global DeadKey
+  if (DeadKey == "")
+    Send V
+  else if (DeadKey == "**")
+    SendChar("Ñ")
+  else if (DeadKey == "*`~")
+    SendChar("Ṽ")
+  return
+
+SC030::
+  global DeadKey
+  if (DeadKey == "")
+    Send b
+  else if (DeadKey == "**") {
+    Send {U+2019}b
+    DeadKey := ""
+  }
+  else if (DeadKey == "*¤")
+    SendChar("฿")
+  else if (DeadKey == "*µ")
+    SendChar("β")
+  else if (DeadKey == "*/")
+    SendChar("ƀ")
+  return
+
++SC030::
+  global DeadKey
+  if (DeadKey == "")
+    Send B
+  else if (DeadKey == "**") {
+    Send {U+2019}B
+    DeadKey := ""
+  }
+  else if (DeadKey == "*¤")
+    SendChar("₱")
+  else if (DeadKey == "*µ")
+    SendChar("Β")
+  else if (DeadKey == "*/")
+    SendChar("Ƀ")
+  return
+
+SC031::
+  global DeadKey
+  if (DeadKey == "")
+    Send .
+  else if (DeadKey == "**")
+    SendChar("…")
+  return
+
++SC031::Send :
+
+SC032::
+  global DeadKey
+  if (DeadKey == "")
+    Send h
+  else if (DeadKey == "**") {
+    Send {U+2019}h
+    DeadKey := ""
+  }
+  else if (DeadKey == "*¨")
+    SendChar("ḧ")
+  else if (DeadKey == "*¤")
+    SendChar("₴")
+  else if (DeadKey == "*^")
+    SendChar("ĥ")
+  else if (DeadKey == "*µ")
+    SendChar("η")
+  else if (DeadKey == "*/")
+    SendChar("ħ")
+  else if (DeadKey == "*¸")
+    SendChar("ḩ")
+  return
+
++SC032::
+  global DeadKey
+  if (DeadKey == "")
+    Send H
+  else if (DeadKey == "**") {
+    Send {U+2019}H
+    DeadKey := ""
+  }
+  else if (DeadKey == "*¨")
+    SendChar("Ḧ")
+  else if (DeadKey == "*¤")
+    SendChar("₴")
+  else if (DeadKey == "*^")
+    SendChar("Ĥ")
+  else if (DeadKey == "*µ")
+    SendChar("Η")
+  else if (DeadKey == "*/")
+    SendChar("Ħ")
+  else if (DeadKey == "*¸")
+    SendChar("Ḩ")
+  return
+
+SC033::
+  global DeadKey
+  if (DeadKey == "")
+    Send g
+  else if (DeadKey == "**")
+    SendChar("µ")
+  else if (DeadKey == "*¤")
+    SendChar("₲")
+  else if (DeadKey == "*^")
+    SendChar("ĝ")
+  else if (DeadKey == "*µ")
+    SendChar("γ")
+  else if (DeadKey == "*´")
+    SendChar("ǵ")
+  else if (DeadKey == "*/")
+    SendChar("ǥ")
+  else if (DeadKey == "*¸")
+    SendChar("ģ")
+  return
+
++SC033::
+  global DeadKey
+  if (DeadKey == "")
+    Send G
+  else if (DeadKey == "**") {
+    Send {U+2019}G
+    DeadKey := ""
+  }
+  else if (DeadKey == "*¤")
+    SendChar("₲")
+  else if (DeadKey == "*^")
+    SendChar("Ĝ")
+  else if (DeadKey == "*µ")
+    SendChar("Γ")
+  else if (DeadKey == "*´")
+    SendChar("Ǵ")
+  else if (DeadKey == "*/")
+    SendChar("Ǥ")
+  else if (DeadKey == "*¸")
+    SendChar("Ģ")
+  return
+
+SC034::
+  global DeadKey
+  if (DeadKey == "")
+    Send y
+  else if (DeadKey == "**") {
+    Send {U+2019}y
+    DeadKey := ""
+  }
+  else if (DeadKey == "*¨")
+    SendChar("ÿ")
+  else if (DeadKey == "*¤")
+    SendChar("¥")
+  else if (DeadKey == "*^")
+    SendChar("ŷ")
+  else if (DeadKey == "*µ")
+    SendChar("ψ")
+  else if (DeadKey == "*´")
+    SendChar("ý")
+  else if (DeadKey == "*``")
+    SendChar("ỳ")
+  else if (DeadKey == "*/")
+    SendChar("ɏ")
+  else if (DeadKey == "*`~")
+    SendChar("ỹ")
+  return
+
++SC034::
+  global DeadKey
+  if (DeadKey == "")
+    Send Y
+  else if (DeadKey == "**") {
+    Send {U+2019}Y
+    DeadKey := ""
+  }
+  else if (DeadKey == "*¨")
+    SendChar("Ÿ")
+  else if (DeadKey == "*¤")
+    SendChar("円")
+  else if (DeadKey == "*^")
+    SendChar("Ŷ")
+  else if (DeadKey == "*µ")
+    SendChar("Ψ")
+  else if (DeadKey == "*´")
+    SendChar("Ý")
+  else if (DeadKey == "*``")
+    SendChar("Ỳ")
+  else if (DeadKey == "*/")
+    SendChar("Ɏ")
+  else if (DeadKey == "*`~")
+    SendChar("Ỹ")
+  return
+
+SC035::
+  global DeadKey
+  if (DeadKey == "")
+    Send k
+  else if (DeadKey == "**") {
+    Send {U+2019}k
+    DeadKey := ""
+  }
+  else if (DeadKey == "*¤")
+    SendChar("₭")
+  else if (DeadKey == "*µ")
+    SendChar("κ")
+  else if (DeadKey == "*´")
+    SendChar("ḱ")
+  else if (DeadKey == "*¸")
+    SendChar("ķ")
+  return
+
++SC035::
+  global DeadKey
+  if (DeadKey == "")
+    Send K
+  else if (DeadKey == "**") {
+    Send {U+2019}K
+    DeadKey := ""
+  }
+  else if (DeadKey == "*¤")
+    SendChar("₭")
+  else if (DeadKey == "*µ")
+    SendChar("Κ")
+  else if (DeadKey == "*´")
+    SendChar("Ḱ")
+  else if (DeadKey == "*¸")
+    SendChar("Ķ")
+  return
 
 SC039::
-+SC039:: {
-  global State
-  if (State == "")
-    Send " "
-  else if (State == "**")
-    SendChar("’")
-  else if (State == "*¨")
-    SendChar('"')
-  else if (State == "*¤")
+  global DeadKey
+  if (DeadKey == "")
+    Send {U+0020} ; space
+  else if (DeadKey == "**") {
+    Send {U+2019}
+    DeadKey := ""
+  }
+  else if (DeadKey == "*¨") {
+    Send {U+0022}
+    DeadKey := ""
+  }
+  else if (DeadKey == "*¤")
     SendChar("¤")
-  else if (State == "*^")
+  else if (DeadKey == "*^")
     SendChar("^")
-  else if (State == "*µ")
+  else if (DeadKey == "*µ")
     SendChar("µ")
-  else if (State == "*´")
+  else if (DeadKey == "*´")
     SendChar("'")
-  else if (State == "*``")
+  else if (DeadKey == "*``")
     SendChar("``")
-  else if (State == "*/")
+  else if (DeadKey == "*/")
     SendChar("/")
-  else if (State == "*`~")
+  else if (DeadKey == "*`~")
     SendChar("~")
-  else if (State == "*¸")
+  else if (DeadKey == "*¸")
     SendChar("¸")
-}
+  return
 
-+SC002:: {
-  global State
-  if (State == "")
-    SendText "!"
-  else if (State == "**")
-    SendChar("¡")
-}
-
-SC002:: {
-  global State
-  if (State == "")
-    Send "1"
-  else if (State == "**")
-    SendChar("„")
-  else if (State == "*^")
-    SendChar("¹")
-}
-
-+SC032:: {
-  global State
-  if (State == "")
-    Send "H"
-  else if (State == "*¨")
-    SendChar("Ḧ")
-  else if (State == "*¤")
-    SendChar("₴")
-  else if (State == "*^")
-    SendChar("Ĥ")
-  else if (State == "*µ")
-    SendChar("Η")
-  else if (State == "*/")
-    SendChar("Ħ")
-  else if (State == "*¸")
-    SendChar("Ḩ")
-}
-
-SC032:: {
-  global State
-  if (State == "")
-    Send "h"
-  else if (State == "*¨")
-    SendChar("ḧ")
-  else if (State == "*¤")
-    SendChar("₴")
-  else if (State == "*^")
-    SendChar("ĥ")
-  else if (State == "*µ")
-    SendChar("η")
-  else if (State == "*/")
-    SendChar("ħ")
-  else if (State == "*¸")
-    SendChar("ḩ")
-}
-
-+SC003:: {
-  global State
-  if (State == "")
-    Send "@"
-  else if (State == "**")
-    SendChar("‘")
-}
-
-SC003:: {
-  global State
-  if (State == "")
-    Send "2"
-  else if (State == "**")
-    SendChar("“")
-  else if (State == "*^")
-    SendChar("²")
-}
-
-+SC010:: {
-  global State
-  if (State == "")
-    Send "Q"
-  else if (State == "**")
-    SendChar("Â")
-  else if (State == "*µ")
-    SendChar("Χ")
-}
-
-SC010:: {
-  global State
-  if (State == "")
-    Send "q"
-  else if (State == "**")
-    SendChar("â")
-  else if (State == "*µ")
-    SendChar("χ")
-}
-
-+SC004:: {
-  global State
-  if (State == "")
-    SendText "#"
-  else if (State == "**")
-    SendChar("’")
-}
-
-SC004:: {
-  global State
-  if (State == "")
-    Send "3"
-  else if (State == "**")
-    SendChar("”")
-  else if (State == "*^")
-    SendChar("³")
-}
-
-+SC030:: {
-  global State
-  if (State == "")
-    Send "B"
-  else if (State == "*¤")
-    SendChar("₱")
-  else if (State == "*µ")
-    SendChar("Β")
-  else if (State == "*/")
-    SendChar("Ƀ")
-}
-
-SC030:: {
-  global State
-  if (State == "")
-    Send "b"
-  else if (State == "*¤")
-    SendChar("฿")
-  else if (State == "*µ")
-    SendChar("β")
-  else if (State == "*/")
-    SendChar("ƀ")
-}
-
-+SC005:: {
-  global State
-  if (State == "")
-    Send "$"
-  else if (State == "**")
-    SendChar("¢")
-}
-
-SC005:: {
-  global State
-  if (State == "")
-    Send "4"
-  else if (State == "**")
-    SendChar("£")
-  else if (State == "*^")
-    SendChar("⁴")
-}
-
-+SC013:: {
-  global State
-  if (State == "")
-    Send "P"
-  else if (State == "**")
-    SendChar("Ô")
-  else if (State == "*¤")
-    SendChar("₧")
-  else if (State == "*µ")
-    SendChar("Π")
-  else if (State == "*´")
-    SendChar("Ṕ")
-  else if (State == "*/")
-    SendChar("Ᵽ")
-}
-
-SC013:: {
-  global State
-  if (State == "")
-    Send "p"
-  else if (State == "**")
-    SendChar("ô")
-  else if (State == "*¤")
-    SendChar("₰")
-  else if (State == "*µ")
-    SendChar("π")
-  else if (State == "*´")
-    SendChar("ṕ")
-  else if (State == "*/")
-    SendChar("ᵽ")
-}
-
-+SC006:: {
-  global State
-  if (State == "")
-    Send "%"
-  else if (State == "**")
-    SendChar("‰")
-}
-
-SC006:: {
-  global State
-  if (State == "")
-    Send "5"
-  else if (State == "**")
-    SendChar("€")
-  else if (State == "*^")
-    SendChar("⁵")
-}
-
-+SC014:: {
-  global State
-  if (State == "")
-    Send "W"
-  else if (State == "*¨")
-    SendChar("Ẅ")
-  else if (State == "*¤")
-    SendChar("₩")
-  else if (State == "*^")
-    SendChar("Ŵ")
-  else if (State == "*µ")
-    SendChar("Ω")
-  else if (State == "*´")
-    SendChar("Ẃ")
-  else if (State == "*``")
-    SendChar("Ẁ")
-}
-
-SC014:: {
-  global State
-  if (State == "")
-    Send "w"
-  else if (State == "*¨")
-    SendChar("ẅ")
-  else if (State == "*¤")
-    SendChar("₩")
-  else if (State == "*^")
-    SendChar("ŵ")
-  else if (State == "*µ")
-    SendChar("ω")
-  else if (State == "*´")
-    SendChar("ẃ")
-  else if (State == "*``")
-    SendChar("ẁ")
-}
-
-SC007:: {
-  global State
-  if (State == "")
-    Send "6"
-  else if (State == "**")
-    SendChar("¥")
-  else if (State == "*^")
-    SendChar("⁶")
-}
-
-+SC007::SendText "^"
-
-SC008:: {
-  global State
-  if (State == "")
-    Send "7"
-  else if (State == "**")
++SC039::
+  global DeadKey
+  if (DeadKey == "")
+    Send {U+202F} ; narrow no-break space
+  else if (DeadKey == "**") {
+    Send {U+2019}
+    DeadKey := ""
+  }
+  else if (DeadKey == "*¨") {
+    Send {U+0022}
+    DeadKey := ""
+  }
+  else if (DeadKey == "*¤")
     SendChar("¤")
-  else if (State == "*^")
-    SendChar("⁷")
-}
-
-+SC008::Send chr(38) ; &
-
-SC009:: {
-  global State
-  if (State == "")
-    Send "8"
-  else if (State == "**")
-    SendChar("§")
-  else if (State == "*^")
-    SendChar("⁸")
-}
-
-+SC009::Send chr(42) ; *
-
-SC00a:: {
-  global State
-  if (State == "")
-    Send "9"
-  else if (State == "**")
-    SendChar("¶")
-  else if (State == "*^")
-    SendChar("⁹")
-}
-
-+SC00a::Send chr(171) ; «
-
-SC00b:: {
-  global State
-  if (State == "")
-    Send "0"
-  else if (State == "**")
-    SendChar("°")
-  else if (State == "*^")
-    SendChar("⁰")
-}
-
-+SC00b::Send chr(187) ; »
-
-+SC011:: {
-  global State
-  if (State == "")
-    Send "C"
-  else if (State == "**")
-    SendChar("Ç")
-  else if (State == "*¤")
-    SendChar("₡")
-  else if (State == "*^")
-    SendChar("Ĉ")
-  else if (State == "*´")
-    SendChar("Ć")
-  else if (State == "*/")
-    SendChar("Ȼ")
-  else if (State == "*¸")
-    SendChar("Ç")
-}
-
-SC011:: {
-  global State
-  if (State == "")
-    Send "c"
-  else if (State == "**")
-    SendChar("ç")
-  else if (State == "*¤")
-    SendChar("¢")
-  else if (State == "*^")
-    SendChar("ĉ")
-  else if (State == "*´")
-    SendChar("ć")
-  else if (State == "*/")
-    SendChar("ȼ")
-  else if (State == "*¸")
-    SendChar("ç")
-}
-
-+SC012:: {
-  global State
-  if (State == "")
-    Send "O"
-  else if (State == "**")
-    SendChar("Œ")
-  else if (State == "*¨")
-    SendChar("Ö")
-  else if (State == "*¤")
-    SendChar("૱")
-  else if (State == "*^")
-    SendChar("Ô")
-  else if (State == "*µ")
-    SendChar("Ο")
-  else if (State == "*´")
-    SendChar("Ó")
-  else if (State == "*``")
-    SendChar("Ò")
-  else if (State == "*/")
-    SendChar("Ø")
-  else if (State == "*`~")
-    SendChar("Õ")
-}
-
-SC012:: {
-  global State
-  if (State == "")
-    Send "o"
-  else if (State == "**")
-    SendChar("œ")
-  else if (State == "*¨")
-    SendChar("ö")
-  else if (State == "*¤")
-    SendChar("௹")
-  else if (State == "*^")
-    SendChar("ô")
-  else if (State == "*µ")
-    SendChar("ο")
-  else if (State == "*´")
-    SendChar("ó")
-  else if (State == "*``")
-    SendChar("ò")
-  else if (State == "*/")
-    SendChar("ø")
-  else if (State == "*`~")
-    SendChar("õ")
-}
-
-SC016:: {
-  global State
-  if (State == "")
-    Send "m"
-  else if (State == "**")
+  else if (DeadKey == "*^")
+    SendChar("^")
+  else if (DeadKey == "*µ")
     SendChar("µ")
-  else if (State == "*¤")
-    SendChar("₥")
-  else if (State == "*µ")
-    SendChar("μ")
-  else if (State == "*´")
-    SendChar("ḿ")
-}
+  else if (DeadKey == "*´")
+    SendChar("'")
+  else if (DeadKey == "*``")
+    SendChar("``")
+  else if (DeadKey == "*/")
+    SendChar("/")
+  else if (DeadKey == "*`~")
+    SendChar("~")
+  else if (DeadKey == "*¸")
+    SendChar("¸")
+  return
 
-+SC016:: {
-  global State
-  if (State == "")
-    Send "M"
-  else if (State == "*¤")
-    SendChar("ℳ")
-  else if (State == "*µ")
-    SendChar("Μ")
-  else if (State == "*´")
-    SendChar("Ḿ")
-}
-
-SC017:: {
-  global State
-  if (State == "")
-    Send "d"
-  else if (State == "**")
-    SendChar("_")
-  else if (State == "*¤")
-    SendChar("₫")
-  else if (State == "*µ")
-    SendChar("δ")
-  else if (State == "*/")
-    SendChar("đ")
-  else if (State == "*¸")
-    SendChar("ḑ")
-}
-
-+SC017:: {
-  global State
-  if (State == "")
-    Send "D"
-  else if (State == "*¤")
-    SendChar("₯")
-  else if (State == "*µ")
-    SendChar("Δ")
-  else if (State == "*/")
-    SendChar("Đ")
-  else if (State == "*¸")
-    SendChar("Ḑ")
-}
-
-+SC019:: {
-  global State
-  if (State == "")
-    Send "F"
-  else if (State == "**")
-    SendChar("Ŭ")
-  else if (State == "*¤")
-    SendChar("₣")
-  else if (State == "*µ")
-    SendChar("Φ")
-}
-
-SC019:: {
-  global State
-  if (State == "")
-    Send "f"
-  else if (State == "**")
-    SendChar("ŭ")
-  else if (State == "*¤")
-    SendChar("ƒ")
-  else if (State == "*µ")
-    SendChar("φ")
-}
-
-+SC01e:: {
-  global State
-  if (State == "")
-    Send "A"
-  else if (State == "**")
-    SendChar("À")
-  else if (State == "*¨")
-    SendChar("Ä")
-  else if (State == "*¤")
-    SendChar("₳")
-  else if (State == "*^")
-    SendChar("Â")
-  else if (State == "*µ")
-    SendChar("Α")
-  else if (State == "*´")
-    SendChar("Á")
-  else if (State == "*``")
-    SendChar("À")
-  else if (State == "*/")
-    SendChar("Ⱥ")
-  else if (State == "*`~")
-    SendChar("Ã")
-}
-
-SC01e:: {
-  global State
-  if (State == "")
-    Send "a"
-  else if (State == "**")
-    SendChar("à")
-  else if (State == "*¨")
-    SendChar("ä")
-  else if (State == "*¤")
-    SendChar("؋")
-  else if (State == "*^")
-    SendChar("â")
-  else if (State == "*µ")
-    SendChar("α")
-  else if (State == "*´")
-    SendChar("á")
-  else if (State == "*``")
-    SendChar("à")
-  else if (State == "*/")
-    SendChar("ⱥ")
-  else if (State == "*`~")
-    SendChar("ã")
-}
-
-+SC01f:: {
-  global State
-  if (State == "")
-    Send "S"
-  else if (State == "**")
-    SendChar("É")
-  else if (State == "*¤")
-    SendChar("$")
-  else if (State == "*^")
-    SendChar("Ŝ")
-  else if (State == "*µ")
-    SendChar("Σ")
-  else if (State == "*´")
-    SendChar("Ś")
-  else if (State == "*¸")
-    SendChar("Ş")
-}
-
-SC01f:: {
-  global State
-  if (State == "")
-    Send "s"
-  else if (State == "**")
-    SendChar("é")
-  else if (State == "*¤")
-    SendChar("₪")
-  else if (State == "*^")
-    SendChar("ŝ")
-  else if (State == "*µ")
-    SendChar("σ")
-  else if (State == "*´")
-    SendChar("ś")
-  else if (State == "*¸")
-    SendChar("ş")
-}
-
-+SC020:: {
-  global State
-  if (State == "")
-    Send "E"
-  else if (State == "**")
-    SendChar("È")
-  else if (State == "*¨")
-    SendChar("Ë")
-  else if (State == "*¤")
-    SendChar("₠")
-  else if (State == "*^")
-    SendChar("Ê")
-  else if (State == "*µ")
-    SendChar("Ε")
-  else if (State == "*´")
-    SendChar("É")
-  else if (State == "*``")
-    SendChar("È")
-  else if (State == "*/")
-    SendChar("Ɇ")
-  else if (State == "*`~")
-    SendChar("Ẽ")
-  else if (State == "*¸")
-    SendChar("Ȩ")
-}
-
-SC020:: {
-  global State
-  if (State == "")
-    Send "e"
-  else if (State == "**")
-    SendChar("è")
-  else if (State == "*¨")
-    SendChar("ë")
-  else if (State == "*¤")
-    SendChar("€")
-  else if (State == "*^")
-    SendChar("ê")
-  else if (State == "*µ")
-    SendChar("ε")
-  else if (State == "*´")
-    SendChar("é")
-  else if (State == "*``")
-    SendChar("è")
-  else if (State == "*/")
-    SendChar("ɇ")
-  else if (State == "*`~")
-    SendChar("ẽ")
-  else if (State == "*¸")
-    SendChar("ȩ")
-}
-
-+SC021:: {
-  global State
-  if (State == "")
-    Send "N"
-  else if (State == "**")
-    SendChar("Ê")
-  else if (State == "*¤")
-    SendChar("₦")
-  else if (State == "*µ")
-    SendChar("Ν")
-  else if (State == "*´")
-    SendChar("Ń")
-  else if (State == "*``")
-    SendChar("Ǹ")
-  else if (State == "*`~")
-    SendChar("Ñ")
-  else if (State == "*¸")
-    SendChar("Ņ")
-}
-
-SC021:: {
-  global State
-  if (State == "")
-    Send "n"
-  else if (State == "**")
-    SendChar("ê")
-  else if (State == "*¤")
-    SendChar("₦")
-  else if (State == "*µ")
-    SendChar("ν")
-  else if (State == "*´")
-    SendChar("ń")
-  else if (State == "*``")
-    SendChar("ǹ")
-  else if (State == "*`~")
-    SendChar("ñ")
-  else if (State == "*¸")
-    SendChar("ņ")
-}
-
-+SC022:: {
-  global State
-  if (State == "")
-    Send ";"
-  else if (State == "**")
-    SendChar("•")
-}
-
-SC022:: {
-  global State
-  if (State == "")
-    Send ","
-  else if (State == "**")
-    SendChar("·")
-}
-
-+SC033:: {
-  global State
-  if (State == "")
-    Send "G"
-  else if (State == "*¤")
-    SendChar("₲")
-  else if (State == "*^")
-    SendChar("Ĝ")
-  else if (State == "*µ")
-    SendChar("Γ")
-  else if (State == "*´")
-    SendChar("Ǵ")
-  else if (State == "*/")
-    SendChar("Ǥ")
-  else if (State == "*¸")
-    SendChar("Ģ")
-}
-
-SC033:: {
-  global State
-  if (State == "")
-    Send "g"
-  else if (State == "*¤")
-    SendChar("₲")
-  else if (State == "*^")
-    SendChar("ĝ")
-  else if (State == "*µ")
-    SendChar("γ")
-  else if (State == "*´")
-    SendChar("ǵ")
-  else if (State == "*/")
-    SendChar("ǥ")
-  else if (State == "*¸")
-    SendChar("ģ")
-}
-
-+SC025:: {
-  global State
-  if (State == "")
-    Send "T"
-  else if (State == "**")
-    SendChar("Î")
-  else if (State == "*¤")
-    SendChar("₮")
-  else if (State == "*µ")
-    SendChar("Τ")
-  else if (State == "*/")
-    SendChar("Ŧ")
-  else if (State == "*¸")
-    SendChar("Ţ")
-}
-
-SC025:: {
-  global State
-  if (State == "")
-    Send "t"
-  else if (State == "**")
-    SendChar("î")
-  else if (State == "*¨")
-    SendChar("ẗ")
-  else if (State == "*¤")
-    SendChar("৳")
-  else if (State == "*µ")
-    SendChar("τ")
-  else if (State == "*/")
-    SendChar("ŧ")
-  else if (State == "*¸")
-    SendChar("ţ")
-}
-
-+SC026:: {
-  global State
-  if (State == "")
-    Send "I"
-  else if (State == "**")
-    SendChar("Û")
-  else if (State == "*¨")
-    SendChar("Ï")
-  else if (State == "*¤")
-    SendChar("៛")
-  else if (State == "*^")
-    SendChar("Î")
-  else if (State == "*µ")
-    SendChar("Ι")
-  else if (State == "*´")
-    SendChar("Í")
-  else if (State == "*``")
-    SendChar("Ì")
-  else if (State == "*/")
-    SendChar("Ɨ")
-  else if (State == "*`~")
-    SendChar("Ĩ")
-}
-
-SC026:: {
-  global State
-  if (State == "")
-    Send "i"
-  else if (State == "**")
-    SendChar("û")
-  else if (State == "*¨")
-    SendChar("ï")
-  else if (State == "*¤")
-    SendChar("﷼")
-  else if (State == "*^")
-    SendChar("î")
-  else if (State == "*µ")
-    SendChar("ι")
-  else if (State == "*´")
-    SendChar("í")
-  else if (State == "*``")
-    SendChar("ì")
-  else if (State == "*/")
-    SendChar("ɨ")
-  else if (State == "*`~")
-    SendChar("ĩ")
-}
-
-+SC027:: {
-  global State
-  if (State == "")
-    Send "U"
-  else if (State == "**")
-    SendChar("Ù")
-  else if (State == "*¨")
-    SendChar("Ü")
-  else if (State == "*¤")
-    SendChar("圓")
-  else if (State == "*^")
-    SendChar("Û")
-  else if (State == "*µ")
-    SendChar("Υ")
-  else if (State == "*´")
-    SendChar("Ú")
-  else if (State == "*``")
-    SendChar("Ù")
-  else if (State == "*/")
-    SendChar("Ʉ")
-  else if (State == "*`~")
-    SendChar("Ũ")
-}
-
-SC027:: {
-  global State
-  if (State == "")
-    Send "u"
-  else if (State == "**")
-    SendChar("ù")
-  else if (State == "*¨")
-    SendChar("ü")
-  else if (State == "*¤")
-    SendChar("元")
-  else if (State == "*^")
-    SendChar("û")
-  else if (State == "*µ")
-    SendChar("υ")
-  else if (State == "*´")
-    SendChar("ú")
-  else if (State == "*``")
-    SendChar("ù")
-  else if (State == "*/")
-    SendChar("ʉ")
-  else if (State == "*`~")
-    SendChar("ũ")
-}
-
-+SC02c:: {
-  global State
-  if (State == "")
-    Send "Z"
-  else if (State == "**")
-    SendChar("Æ")
-  else if (State == "*^")
-    SendChar("Ẑ")
-  else if (State == "*µ")
-    SendChar("Ζ")
-  else if (State == "*´")
-    SendChar("Ź")
-  else if (State == "*/")
-    SendChar("Ƶ")
-}
-
-SC02c:: {
-  global State
-  if (State == "")
-    Send "z"
-  else if (State == "**")
-    SendChar("æ")
-  else if (State == "*^")
-    SendChar("ẑ")
-  else if (State == "*µ")
-    SendChar("ζ")
-  else if (State == "*´")
-    SendChar("ź")
-  else if (State == "*/")
-    SendChar("ƶ")
-}
-
-+SC02d:: {
-  global State
-  if (State == "")
-    Send "X"
-  else if (State == "**")
-    SendChar("ẞ")
-  else if (State == "*¨")
-    SendChar("Ẍ")
-  else if (State == "*µ")
-    SendChar("Ξ")
-}
-
-SC02d:: {
-  global State
-  if (State == "")
-    Send "x"
-  else if (State == "**")
-    SendChar("ß")
-  else if (State == "*¨")
-    SendChar("ẍ")
-  else if (State == "*µ")
-    SendChar("ξ")
-}
-
-+SC02e:: {
-  global State
-  if (State == "")
-    Send "?"
-  else if (State == "**")
-    SendChar("¿")
-}
-
-SC02e:: {
-  global State
-  if (State == "")
-    Send "-"
-  else if (State == "**")
-    SendChar("—")
-  else if (State == "*^")
-    SendChar("⁻")
-}
-
-+SC035:: {
-  global State
-  if (State == "")
-    Send "K"
-  else if (State == "*¤")
-    SendChar("₭")
-  else if (State == "*µ")
-    SendChar("Κ")
-  else if (State == "*´")
-    SendChar("Ḱ")
-  else if (State == "*¸")
-    SendChar("Ķ")
-}
-
-SC035:: {
-  global State
-  if (State == "")
-    Send "k"
-  else if (State == "*¤")
-    SendChar("₭")
-  else if (State == "*µ")
-    SendChar("κ")
-  else if (State == "*´")
-    SendChar("ḱ")
-  else if (State == "*¸")
-    SendChar("ķ")
-}
-
-+SC02f:: {
-  global State
-  if (State == "")
-    Send "V"
-  else if (State == "**")
-    SendChar("Ñ")
-  else if (State == "*`~")
-    SendChar("Ṽ")
-}
-
-SC02f:: {
-  global State
-  if (State == "")
-    Send "v"
-  else if (State == "**")
-    SendChar("ñ")
-  else if (State == "*`~")
-    SendChar("ṽ")
-}
-
-SC031:: {
-  global State
-  if (State == "")
-    Send "."
-  else if (State == "**")
-    SendChar("…")
-}
-
-+SC031::Send ":"
-
-+SC00c:: {
-  global State
-  if (State == "")
-    Send "_"
-  else if (State == "**")
-    SendChar("–")
-}
-
-SC00c:: {
-  global State
-  if (State == "")
-    Send "/"
-  else if (State == "**")
-    SendChar("÷")
-}
-
-+SC024:: {
-  global State
-  if (State == "")
-    Send "R"
-  else if (State == "*¤")
-    SendChar("₨")
-  else if (State == "*µ")
-    SendChar("Ρ")
-  else if (State == "*´")
-    SendChar("Ŕ")
-  else if (State == "*/")
-    SendChar("Ɍ")
-  else if (State == "*¸")
-    SendChar("Ŗ")
-}
-
-SC024:: {
-  global State
-  if (State == "")
-    Send "r"
-  else if (State == "*¤")
-    SendChar("₢")
-  else if (State == "*µ")
-    SendChar("ρ")
-  else if (State == "*´")
-    SendChar("ŕ")
-  else if (State == "*/")
-    SendChar("ɍ")
-  else if (State == "*¸")
-    SendChar("ŗ")
-}
-
-+SC00d:: {
-  global State
-  if (State == "")
-    SendText "+"
-  else if (State == "**")
-    SendChar("±")
-  else if (State == "*^")
-    SendChar("⁺")
-}
-
-SC00d:: {
-  global State
-  if (State == "")
-    Send "="
-  else if (State == "**")
-    SendChar("≠")
-  else if (State == "*^")
-    SendChar("⁼")
-  else if (State == "*/")
-    SendChar("≠")
-  else if (State == "*`~")
-    SendChar("≃")
-}
-
-+SC034:: {
-  global State
-  if (State == "")
-    Send "Y"
-  else if (State == "*¨")
-    SendChar("Ÿ")
-  else if (State == "*¤")
-    SendChar("円")
-  else if (State == "*^")
-    SendChar("Ŷ")
-  else if (State == "*µ")
-    SendChar("Ψ")
-  else if (State == "*´")
-    SendChar("Ý")
-  else if (State == "*``")
-    SendChar("Ỳ")
-  else if (State == "*/")
-    SendChar("Ɏ")
-  else if (State == "*`~")
-    SendChar("Ỹ")
-}
-
-SC034:: {
-  global State
-  if (State == "")
-    Send "y"
-  else if (State == "*¨")
-    SendChar("ÿ")
-  else if (State == "*¤")
-    SendChar("¥")
-  else if (State == "*^")
-    SendChar("ŷ")
-  else if (State == "*µ")
-    SendChar("ψ")
-  else if (State == "*´")
-    SendChar("ý")
-  else if (State == "*``")
-    SendChar("ỳ")
-  else if (State == "*/")
-    SendChar("ɏ")
-  else if (State == "*`~")
-    SendChar("ỹ")
-}
-
-+SC023:: {
-  global State
-  if (State == "")
-    Send "L"
-  else if (State == "*¤")
-    SendChar("₤")
-  else if (State == "*µ")
-    SendChar("Λ")
-  else if (State == "*´")
-    SendChar("Ĺ")
-  else if (State == "*/")
-    SendChar("Ł")
-  else if (State == "*¸")
-    SendChar("Ļ")
-}
-
-SC023:: {
-  global State
-  if (State == "")
-    Send "l"
-  else if (State == "*¤")
-    SendChar("£")
-  else if (State == "*µ")
-    SendChar("λ")
-  else if (State == "*´")
-    SendChar("ĺ")
-  else if (State == "*/")
-    SendChar("ł")
-  else if (State == "*¸")
-    SendChar("ļ")
-}
-
-+SC015:: {
-  global State
-  if (State == "")
-    Send "J"
-  else if (State == "*^")
-    SendChar("Ĵ")
-  else if (State == "*µ")
-    SendChar("Θ")
-  else if (State == "*/")
-    SendChar("Ɉ")
-}
-
-SC015:: {
-  global State
-  if (State == "")
-    Send "j"
-  else if (State == "*^")
-    SendChar("ĵ")
-  else if (State == "*µ")
-    SendChar("θ")
-  else if (State == "*/")
-    SendChar("ɉ")
-}
-
-SC056:: {
-  global State
-  if (State == "")
-    Send "<"
-  else if (State == "*/")
+SC056::
+  global DeadKey
+  if (DeadKey == "")
+    Send <
+  else if (DeadKey == "**") {
+    Send {U+2019}<
+    DeadKey := ""
+  }
+  else if (DeadKey == "*/")
     SendChar("≮")
-  else if (State == "*`~")
+  else if (DeadKey == "*`~")
     SendChar("≲")
-}
+  return
 
-+SC056:: {
-  global State
-  if (State == "")
-    Send ">"
-  else if (State == "*/")
++SC056::
+  global DeadKey
+  if (DeadKey == "")
+    Send >
+  else if (DeadKey == "**") {
+    Send {U+2019}>
+    DeadKey := ""
+  }
+  else if (DeadKey == "*/")
     SendChar("≯")
-  else if (State == "*`~")
+  else if (DeadKey == "*`~")
     SendChar("≳")
-}
-
-SC01a::Send chr(91) ; [
-+SC01a::Send "`{" ; {
-
-SC01b::Send chr(93) ; ]
-+SC01b::Send "`}" ; }
-
-SC028::Send "`'"
-+SC028::Send "`""
-
-SC029::Send "``"
-+SC029::Send "`~"
-
-SC02b::Send chr(92) ; \
-+SC02b::Send chr(124) ; |
+  return
 
 ; Shortcuts
 
-^SC010::Send "^q"
-^+SC010::Send "^+q"
+^SC010::Send ^q
+^+SC010::Send ^+q
 
-^SC011::Send "^c"
-^+SC011::Send "^+c"
+^SC011::Send ^c
+^+SC011::Send ^+c
 
-^SC012::Send "^o"
-^+SC012::Send "^+o"
+^SC012::Send ^o
+^+SC012::Send ^+o
 
-^SC013::Send "^p"
-^+SC013::Send "^+p"
+^SC013::Send ^p
+^+SC013::Send ^+p
 
-^SC014::Send "^w"
-^+SC014::Send "^+w"
+^SC014::Send ^w
+^+SC014::Send ^+w
 
-^SC015::Send "^j"
-^+SC015::Send "^+j"
+^SC015::Send ^j
+^+SC015::Send ^+j
 
-^SC016::Send "^m"
-^+SC016::Send "^+m"
+^SC016::Send ^m
+^+SC016::Send ^+m
 
-^SC017::Send "^d"
-^+SC017::Send "^+d"
+^SC017::Send ^d
+^+SC017::Send ^+d
 
-^SC019::Send "^f"
-^+SC019::Send "^+f"
+^SC019::Send ^f
+^+SC019::Send ^+f
 
-^SC01e::Send "^a"
-^+SC01e::Send "^+a"
+^SC01e::Send ^a
+^+SC01e::Send ^+a
 
-^SC01f::Send "^s"
-^+SC01f::Send "^+s"
+^SC01f::Send ^s
+^+SC01f::Send ^+s
 
-^SC020::Send "^e"
-^+SC020::Send "^+e"
+^SC020::Send ^e
+^+SC020::Send ^+e
 
-^SC021::Send "^n"
-^+SC021::Send "^+n"
+^SC021::Send ^n
+^+SC021::Send ^+n
 
-^SC023::Send "^l"
-^+SC023::Send "^+l"
+^SC023::Send ^l
+^+SC023::Send ^+l
 
-^SC024::Send "^r"
-^+SC024::Send "^+r"
+^SC024::Send ^r
+^+SC024::Send ^+r
 
-^SC025::Send "^t"
-^+SC025::Send "^+t"
+^SC025::Send ^t
+^+SC025::Send ^+t
 
-^SC026::Send "^i"
-^+SC026::Send "^+i"
+^SC026::Send ^i
+^+SC026::Send ^+i
 
-^SC027::Send "^u"
-^+SC027::Send "^+u"
+^SC027::Send ^u
+^+SC027::Send ^+u
 
-^SC02c::Send "^z"
-^+SC02c::Send "^+z"
+^SC02c::Send ^z
+^+SC02c::Send ^+z
 
-^SC02d::Send "^x"
-^+SC02d::Send "^+x"
+^SC02d::Send ^x
+^+SC02d::Send ^+x
 
-^SC02f::Send "^v"
-^+SC02f::Send "^+v"
+^SC02e::Send ^c
+^+SC02e::Send ^+c
 
-^SC030::Send "^b"
-^+SC030::Send "^+b"
+^SC02f::Send ^v
+^+SC02f::Send ^+v
 
-^SC032::Send "^h"
-^+SC032::Send "^+h"
+^SC030::Send ^b
+^+SC030::Send ^+b
 
-^SC033::Send "^g"
-^+SC033::Send "^+g"
+^SC032::Send ^h
+^+SC032::Send ^+h
 
-^SC034::Send "^y"
-^+SC034::Send "^+y"
+^SC033::Send ^g
+^+SC033::Send ^+g
 
-^SC035::Send "^k"
-^+SC035::Send "^+k"
+^SC034::Send ^y
+^+SC034::Send ^+y
+
+^SC035::Send ^k
+^+SC035::Send ^+k
 
 ; Symbols
 
-<^>!SC002::Send "₁"
-<^>!+SC002::Send "¹"
+<^>!SC002::Send ₁
+<^>!+SC002::Send ¹
 
-<^>!SC003::Send "₂"
-<^>!+SC003::Send "²"
+<^>!SC003::Send ₂
+<^>!+SC003::Send ²
 
-<^>!SC004::Send "₃"
-<^>!+SC004::Send "³"
+<^>!SC004::Send ₃
+<^>!+SC004::Send ³
 
-<^>!SC005::Send "₄"
-<^>!+SC005::Send "⁴"
+<^>!SC005::Send ₄
+<^>!+SC005::Send ⁴
 
-<^>!SC006::Send "₅"
-<^>!+SC006::Send "⁵"
+<^>!SC006::Send ₅
+<^>!+SC006::Send ⁵
 
-<^>!SC007::Send "₆"
-<^>!+SC007::Send "⁶"
+<^>!SC007::Send ₆
+<^>!+SC007::Send ⁶
 
-<^>!SC008::Send "₇"
-<^>!+SC008::Send "⁷"
+<^>!SC008::Send ₇
+<^>!+SC008::Send ⁷
 
-<^>!SC009::Send "₈"
-<^>!+SC009::Send "⁸"
+<^>!SC009::Send ₈
+<^>!+SC009::Send ⁸
 
-<^>!SC00a::Send "₉"
-<^>!+SC00a::Send "⁹"
+<^>!SC00a::Send ₉
+<^>!+SC00a::Send ⁹
 
-<^>!SC00b::Send "₀"
-<^>!+SC00b::Send "⁰"
+<^>!SC00b::Send ₀
+<^>!+SC00b::Send ⁰
 
-<^>!SC010::Send "@"
+<^>!SC010::Send @
 
-<^>!SC011::Send "<"
-<^>!+SC011::Send "≤"
+<^>!SC011::Send <
+<^>!+SC011::Send ≤
 
-<^>!SC012::Send ">"
-<^>!+SC012::Send "≥"
+<^>!SC012::Send >
+<^>!+SC012::Send ≥
 
-<^>!SC013::Send "$"
-<^>!+SC013::SetState("*¤")
+<^>!SC013::Send $
 
-<^>!SC014::Send "%"
-<^>!+SC014::Send "‰"
+<^>!SC014::Send `%
+<^>!+SC014::Send ‰
 
-<^>!SC015::SendText "^"
+<^>!SC015::Send {U+005E} ; ^
 <^>!+SC015::SetState("*^")
 
-<^>!SC016::Send "&"
+<^>!SC016::Send &
 <^>!+SC016::SetState("*µ")
 
-<^>!SC017::Send "*"
-<^>!+SC017::Send "×"
+<^>!SC017::Send *
+<^>!+SC017::Send ×
 
-<^>!SC018::Send "'"
+<^>!SC018::Send '
 <^>!+SC018::SetState("*´")
 
-<^>!SC019::Send "``"
+<^>!SC019::Send ``
 <^>!+SC019::SetState("*``")
 
-<^>!SC01e::SendText "{"
+<^>!SC01e::Send {U+007B} ; {
 
-<^>!SC01f::Send "("
-<^>!+SC01f::Send "⁽"
+<^>!SC01f::Send (
+<^>!+SC01f::Send ⁽
 
-<^>!SC020::Send ")"
-<^>!+SC020::Send "⁾"
+<^>!SC020::Send )
+<^>!+SC020::Send ⁾
 
-<^>!SC021::SendText "}"
+<^>!SC021::Send {U+007D} ; }
 
-<^>!SC022::Send "="
-<^>!+SC022::Send "≠"
+<^>!SC022::Send `=
+<^>!+SC022::Send ≠
 
-<^>!SC023::Send "\"
-<^>!+SC023::SetState("*/")
+<^>!SC023::Send \
 
-<^>!SC024::SendText "+"
-<^>!+SC024::Send "±"
+<^>!SC024::Send {U+002B} ; +
+<^>!+SC024::Send ±
 
-<^>!SC025::Send "-"
-<^>!+SC025::Send "—"
+<^>!SC025::Send -
+<^>!+SC025::Send —
 
-<^>!SC026::Send "/"
-<^>!+SC026::Send "÷"
+<^>!SC026::Send {U+002F} ; /
+<^>!+SC026::Send ÷
 
-<^>!SC027::Send '"'
+<^>!SC027::Send "
 <^>!+SC027::SetState("*¨")
 
-<^>!SC02c::Send "~"
+<^>!SC02c::Send ~
 <^>!+SC02c::SetState("*~")
 
-<^>!SC02d::Send "["
+<^>!SC02d::Send [
 
-<^>!SC02e::Send "]"
+<^>!SC02e::Send ]
 
-<^>!SC02f::Send "_"
-<^>!+SC02f::Send "–"
+<^>!SC02f::Send _
+<^>!+SC02f::Send –
 
-<^>!SC030::SendText "#"
+<^>!SC030::Send {U+0023} ; #
 
-<^>!SC031::Send "|"
-<^>!+SC031::Send "¦"
+<^>!SC031::Send |
+<^>!+SC031::Send ¦
 
-<^>!SC032::SendText "!"
-<^>!+SC032::Send "¬"
+<^>!SC032::Send {U+0021} ; !
+<^>!+SC032::Send ¬
 
-<^>!SC033::Send ";"
-<^>!+SC033::SetState("*¸")
+<^>!SC033::Send `;
 
-<^>!SC034::Send ":"
+<^>!SC034::Send :
 
-<^>!SC035::Send "?"
+<^>!SC035::Send ?
 
-<^>!SC039::Send " "
-<^>!+SC039::Send " "
+<^>!SC039::Send {U+0020} ; space
+<^>!+SC039::Send {U+00A0} ; no-break space
+
+; Special Keys
+$<^>!Esc::       Send {SC01}
+$<^>!End::       Send {SC4f}
+$<^>!Home::      Send {SC47}
+$<^>!Enter::     Send {SC1c}
+$<^>!Delete::    Send {SC53}
+$<^>!Backspace:: Send {SC0e}
