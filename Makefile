@@ -1,4 +1,7 @@
 all:
+	@for file in layouts/*.toml; do \
+		kalamine $$file --out "layouts/$$(basename $${file%.*}).json"; \
+	done
 	@for file in layouts/*.yaml; do \
 		kalamine $$file --out "layouts/$$(basename $${file%.*}).json"; \
 	done
