@@ -18,13 +18,9 @@
 
     .deadKey {
       fill: red;
-      transform: translateY(-3px);
-      opacity: 0.6;
-    }
-    .diacritic {
+      opacity: 0.8;
       font-size: 24px;
       font-weight: bolder;
-      transform: translateY(8px);
     }
 
     #row_AD { transform: translate(64px,  64px); }
@@ -34,14 +30,14 @@
     .left   { transform: translate(-15px, 0); }
     .right  { transform: translate(+15px, 0); }
 
-    .layer  { font-size: 14px; }
-    .level3 { fill: green; opacity: 0; }
+    .layer  { opacity: 0.7; font-size: 14px; }
+    .level3 { opacity: 0.0; fill: green; }
 
     @media (prefers-color-scheme: dark) {
-      text      { fill: #888; }
-      rect      { fill: #444; }
-      .level3   { fill: #6b6; }
-      .deadKey  { fill: #f44; }
+      rect, path { fill: #444; }
+      text       { fill: #bbb; }
+      .deadKey   { fill: #f44; }
+      .level3    { fill: #6b6; }
     }
   </style>
 
@@ -91,7 +87,7 @@
       </g>
       <g transform="translate(570)">
         <rect width="52" height="52" rx="5" ry="5" style="fill: rgba(127, 127, 255, 0.048);"/>
-        <text style="opacity: 0.8" x="15" y="15" class="level1 deadKey diacritic">★</text>
+        <text x="15" y="24" class="deadKey">★</text>
       </g>
       <g transform="translate(630)">
         <rect width="52" height="52" rx="5" ry="5" style="fill: rgba(127, 127, 255, 0.134);"/>
