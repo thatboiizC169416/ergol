@@ -21,13 +21,13 @@ English and better than Qwerty for programming. [Check the stats !][1]
 Layout
 --------------------------------------------------------------------------------
 
-![base layout](img/heatmap_ergol_fr.png)
+![base layout](img/ergol_fr.svg)
 
 The dead <kbd>★</kbd> key gives access to all acute accents, grave accents, cedillas, digraphs and quote signs you’ll need to write in proper French:
 
 ![dead key layout](img/ergol_1dk.svg)
 
-… which leaves the AltGr layer fully available for any customization you have in mind.
+… and the AltGr layer is fully dedicated to programming symbols.
 
 ![altgr layout](img/ergol_altgr.svg)
 
@@ -60,13 +60,13 @@ and you should be good to go !
 [3]: https://github.com/fabi1cazenave/kalamine#installing-distributable-layouts
 
 
-Make your own
+Make Your Own !
 --------------------------------------------------------------------------------
 
-If you wish to modify the layout, the `layouts/*.yaml` / `layouts/*.toml` are
-human-readable ASCII arts of the final layout. You can easily edit them, then
-run `make` (or `make watch`) at the root of the repo to generate the `.json`
-files used to benchmark layouts on the [stats page][1].
+If you wish to modify the layout, the `layouts/*.{toml,yaml}` are human-readable
+ASCII arts of the final layout. You can easily edit them, then run `make` (or
+`make watch`) at the root of the repo to generate the `.json` files used to
+benchmark layouts on the [stats page][1].
 
 This repo contains all of the code for the [Ergo‑L website](https://ergol.org),
 so you can run the page locally to try your prototypes !
