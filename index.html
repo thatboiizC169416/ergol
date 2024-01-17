@@ -2,8 +2,8 @@
 <html lang="fr" xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="utf-8" />
-  <meta name="description" content="a Colemak-style keyboard layout for French-speaking users" />
-  <title> Ergo-L </title>
+  <meta name="description" content="Une disposition de clavier francophone de type Colemak, optimisée pour le français, l’anglais et la programmation" />
+  <title> Ergo‑L </title>
   <link type="text/css" rel="stylesheet" href="css/layout.css" />
   <link type="text/css" rel="stylesheet" href="css/demo.css" />
   <link type="image/svg+xml" rel="icon" href="favicon.svg" sizes="any" />
@@ -12,13 +12,13 @@
 </head>
 <body>
 
-  <h1> Ergo-L </h1>
-  <p> Une disposition de clavier optimisée pour les développeurs francophones et
-    les typographes exigeants. </p>
+  <h1> Ergo‑L </h1>
+  <p> Une disposition de clavier ergonomique optimisée pour le français,
+  l’anglais et la programmation. </p>
 
   <div id="demo">
     <div>
-      <input spellcheck="false" placeholder="zone de saisie Ergo-L">
+      <input spellcheck="false" placeholder="zone de saisie Ergo‑L">
       <x-keyboard src="layouts/ergol.json"></x-keyboard>
       <p>
         <span> powered by
@@ -66,20 +66,27 @@
     <li> la gestion des caractères accentués — accès direct, <kbd>AltGr</kbd>,
       touche morte ? </li>
   </ul>
-  <p> <abbr title="trop long ; pas lu :">TL;PL:</abbr> Ergo-L est une disposition
+  <p> <abbr title="trop long ; pas lu :">TL;PL:</abbr> Ergo‑L est une disposition
     optimisée façon <a href="https://colemak.com/">Colemak</a> /
     <a href="https://workmanlayout.org/">Workman</a>, utilisant une touche morte
     de type <a href="https://qwerty-lafayette.org/">Lafayette</a> pour les
     caractères accentués. </p>
 
-    <p> Ergo-L est meilleur que Bépo pour le Français, meilleur que Dvorak pour
+    <p> Ergo‑L est meilleur que Bépo pour le Français, meilleur que Dvorak pour
       l’Anglais et meilleur que Qwerty pour la programmation ! </p>
 
-  <div style="text-align: center">
-    <a href="stats#/ergol/iso/fr"><img src="img/heatmap_ergol_fr.png"
-        alt="heatmap de la disposition Ergo-L sur un corpus francophone"></a>
-    <caption> <small> (cliquer sur l’image pour plus d’infos) </small> </caption>
-  </div>
+  <p style="text-align: center">
+    <a href="stats#/ergol/iso/fr"><img src="img/ergol_fr.svg"
+        alt="heatmap de la disposition Ergo‑L sur un corpus francophone">
+      <br />fréquence des touches en français
+    </a>
+  </p>
+  <p style="text-align: center">
+    <a href="stats#/ergol/iso/en"><img src="img/ergol_en.svg"
+        alt="heatmap de la disposition Ergo‑L sur un corpus anglo-saxon">
+      <br />fréquence des touches en anglais
+    </a>
+  </p>
 
   <h3> Placement des lettres </h3>
   <p>Il y a eu plusieurs projets anglo-saxons d’optimisation du clavier, tous
@@ -109,7 +116,7 @@
       doigts. Là encore, les raccourcis sont préservés — sauf
       <kbd>Ctrl</kbd>-<kbd>C</kbd>,<kbd>V</kbd>, décalés d’une colonne. </li>
   </ul>
-  <p> Ergo-L reprend les principes de Colemak et Workman et concerve la plupart
+  <p> Ergo‑L reprend les principes de Colemak et Workman et concerve la plupart
     des raccourcis usuels. <kbd>Ctrl</kbd>-<kbd>C</kbd> est déplacé mais reste
     accessible d’une main. Nous pensons que le gain en ergonomie justifie ce
     décalage. </p>
@@ -164,7 +171,7 @@
       <td>6.71 %</td>
     </tr>
   </table>
-  <p> Ergo-L place donc ces lettres aux emplacements les plus confortables
+  <p> Ergo‑L place donc ces lettres aux emplacements les plus confortables
     (suivant les principes de Workman) et fait en sorte qu’aucun enchaînement
     fréquent en français ou en anglais ne soit rédhibitoire. On obtient donc une
     efficacité supérieure à Bépo ou Dvorak-fr, sans sacrifier la programmation
@@ -194,7 +201,7 @@
       <kbd>M</kbd><kbd>Z</kbd><kbd>W</kbd><kbd>Ç</kbd><kbd>Ê</kbd> pour Bépo.
     </li>
   </ul>
-  <p> Pour éviter cela, Ergo-L utilise une touche morte de type
+  <p> Pour éviter cela, Ergo‑L utilise une touche morte de type
     <a href="https://qwerty-lafayette.org/">Qwerty-Lafayette</a> pour tous les
     caractères accentués et ponctuations spéciales. Cela occasionne environ 4 %
     de frappes supplémentaires pour un texte francophone, ce qui est négligeable
@@ -234,7 +241,7 @@
   </ul>
 
   <p> La touche morte et la couche AltGr rendent la disposition <strong>compatible avec les
-    claviers ultra compacts</strong> (34 touches minimum). </p>
+    claviers ultra compacts</strong> (33 touches minimum). </p>
 
   <p> <img src="img/ergol_1dk.svg" alt="La touche morte de la disposition."> </p>
   <p> <img src="img/ergol_altgr.svg" alt="La couche AltGr de la disposition."> </p>
@@ -256,15 +263,15 @@
     privilégie le confort sur la vitesse</strong> : il est possible de taper
     vite avec n’importe quelle disposition de clavier. </p>
 
-  <h3> Ergo-L vs Bépo </h3>
-  <p> Ergo-L poursuit les mêmes objectifs que <a href="https://bepo.fr">Bépo</a>
+  <h3> Ergo‑L vs Bépo </h3>
+  <p> Ergo‑L poursuit les mêmes objectifs que <a href="https://bepo.fr">Bépo</a>
     pour le français, mais d’une façon différente. </p>
   <ul>
     <li> <i lang="en">Heatmap</i> :
       <ul>
         <li> Bépo est typé « Dvorak », i.e. les touches fréquentes sont étalées
           sur toute la <i lang="en">home row</i> ; </li>
-        <li> Ergo-L est typé « Workman », i.e. on évite les deux colonnes du
+        <li> Ergo‑L est typé « Workman », i.e. on évite les deux colonnes du
           centre pour limiter les extensions de l’index. </li>
       </ul>
     </li>
@@ -272,7 +279,7 @@
       <ul>
         <li> Bépo charge surtout les index et les auriculaires (notamment
           l’auriculaire droit) ; </li>
-        <li> Ergo-L répartit la charge sur tous les doigts, en mettant plus de
+        <li> Ergo‑L répartit la charge sur tous les doigts, en mettant plus de
           charge sur les doigts forts (index, majeur) et en allégeant les
           auriculaires — surtout l’auriculaire droit, déjà très sollicité par
           <kbd>Shift</kbd> / <kbd>Entrée</kbd> / <kbd>Backspace</kbd>. </li>
@@ -284,7 +291,7 @@
           le clavier, quitte à requérir des extensions de doigts
           (<kbd>M</kbd><kbd>Z</kbd><kbd>W</kbd><kbd>Ç</kbd><kbd>Ê</kbd>) ou
           l’utilisation de <kbd>AltGr</kbd> (Ù, tréma, ponctuation…) ; </li>
-        <li> Ergo-L privilégie la fluidité et ne place aucune lettre hors de la
+        <li> Ergo‑L privilégie la fluidité et ne place aucune lettre hors de la
           zone principale de 3×10 touches ou dans la couche <kbd>AltGr</kbd>. </li>
       </ul>
     </li>
@@ -292,7 +299,7 @@
       <ul>
         <li> Bépo permet une typographie soignée à condition de s’en donner la
           peine (beaucoup de symboles en <kbd>AltGr</kbd>) ; </li>
-        <li> Ergo-L hérite du Qwerty-Lafayette la facilité de soigner la typo —
+        <li> Ergo‑L hérite du Qwerty-Lafayette la facilité de soigner la typo —
           les ponctuations spéciales sont toutes derrière la touche morte, comme
           l’apostrophe typographique en touche morte + espace, le point médian en
           touche morte + virgule, le point de suspension en  touche morte + point, etc.
@@ -306,19 +313,19 @@
           se trouvent sur l’auriculaire gauche, trop pour un doigt aussi faible.
           De plus, une grande partie des touches doublées se trouvent sur
           l’auriculaire droit (et souvent en extension !) </li>
-        <li> Ergo-L n’a que 1.36% de SFU en Français, et aucun doigt ne fait trop
+        <li> Ergo‑L n’a que 1.36% de SFU en Français, et aucun doigt ne fait trop
           d’effort. Les auriculaires n’ont pratiquement pas de touches doublées. </li>
       </ul>
     </li>
   </ul>
   <table>
     <caption style="caption-side: bottom;">
-      Comparaison des charges des doigts entre Ergo-L et Bépo<br>
+      Comparaison des charges des doigts entre Ergo‑L et Bépo<br>
       <small> (cliquer sur l’image pour plus d’infos) </small> </p>
     </caption>
     <tr>
       <th> </th>
-      <th> Ergo-L </th>
+      <th> Ergo‑L </th>
       <th> Bépo </th>
     </tr>
     <tr>
