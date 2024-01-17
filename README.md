@@ -1,25 +1,20 @@
-Ergo‑L
-================================================================================
+# Ergo‑L
 
 A Colemak-style layout for French-speaking users.
 
+## TL;DR:
 
-TL;DR:
---------------------------------------------------------------------------------
-
-* a Colemak-style keyboard layout optimized for French and English;
-* most common keyboard shortcuts are preserved (like in Colemak);
-* use a dead key for the most frequent accented characters;
-* use the AltGr layer for programming symbols.
+- a Colemak-style keyboard layout optimized for French and English;
+- most common keyboard shortcuts are preserved (like in Colemak);
+- use a dead key for the most frequent accented characters;
+- use the AltGr layer for programming symbols.
 
 This layout claims to be better than Bépo for French, better than Dvorak for
 English and better than Qwerty for programming. [Check the stats !][1]
 
 [1]: https://ergol.org/stats#/ergol/iso/en+fr
 
-
-Layout
---------------------------------------------------------------------------------
+## Layout
 
 ![base layout](img/ergol_fr.svg)
 
@@ -35,9 +30,7 @@ The default layout allows to write in English, French, German and Esperanto easi
 
 [More information on the website](https://ergol.org) (in French).
 
-
-Install
---------------------------------------------------------------------------------
+## Install
 
 You’ll need the latest version of [Kalamine][2] to build your own layout:
 
@@ -58,11 +51,9 @@ and you should be good to go !
 
 [2]: https://github.com/fabi1cazenave/kalamine
 [3]: https://github.com/fabi1cazenave/kalamine#installing-distributable-layouts
-[4]: https://raw.githubusercontent.com/Nuclear-Squid/ergol/master/layouts/ergol.yaml
+[4]: https://github.com/Nuclear-Squid/ergol/blob/master/layouts/ergol.toml
 
-
-Make Your Own !
---------------------------------------------------------------------------------
+## Make Your Own !
 
 If you wish to modify the layout, the `layouts/*.{toml,yaml}` are human-readable
 ASCII arts of the final layout. You can easily edit them, then run `make` (or
