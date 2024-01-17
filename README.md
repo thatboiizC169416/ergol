@@ -45,7 +45,7 @@ You’ll need the latest version of [Kalamine][2] to build your own layout:
 pip install kalamine
 ```
 
-Download the `layouts/ergol.toml` file in this repo and build the layout :
+Download the [layouts/ergol.toml][4] file in this repo and build the layout :
 
 ```bash
 kalamine ergol.toml
@@ -58,6 +58,7 @@ and you should be good to go !
 
 [2]: https://github.com/fabi1cazenave/kalamine
 [3]: https://github.com/fabi1cazenave/kalamine#installing-distributable-layouts
+[4]: https://raw.githubusercontent.com/Nuclear-Squid/ergol/master/layouts/ergol.yaml
 
 
 Make Your Own !
