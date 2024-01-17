@@ -58,7 +58,8 @@ and you should be good to go !
 
 [2]: https://github.com/fabi1cazenave/kalamine
 [3]: https://github.com/fabi1cazenave/kalamine#installing-distributable-layouts
-[4]: https://raw.githubusercontent.com/Nuclear-Squid/ergol/master/layouts/ergol.yaml
+[4]: https://github.com/Nuclear-Squid/ergol/blob/master/layouts/ergol.toml
+
 
 
 Make Your Own !
