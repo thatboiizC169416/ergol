@@ -61,6 +61,36 @@ and you should be good to go !
 [4]: https://github.com/Nuclear-Squid/ergol/blob/master/layouts/ergol.toml
 
 
+Install ErgoL under Arch Linux X.Org
+--------------------------------------------------------------------------------
+
+### Create [pyenv](https://wiki.archlinux.org/title/Python/Virtual_environment)
+
+```bash
+python -m venv /path/to/pyenv      # Create a pyenv if you don't already have one
+cd /path/to/pyenv/bin
+sudo su                            
+./python -m pip install kalamine --break-system-packages  # Install kalamine in the acutal pyenv
+exit                               # Get out of admin mode
+
+cd ~/.local/bin                    
+ln -s /path/to/pyenv/bin/kalamine  # Create a link to kalamine
+ln -s /path/to/pyenv/bin/xkalamine # Create a link to xkalamine
+```
+
+
+### Install the layout
+
+```bash
+kalamine ergol.toml                # Build the layout
+sudo xkalamine install ergol.toml  # Install the layout
+```
+
+### Set the layout
+
+```bash
+setxkbmap fr -variant ergol        # Set the layout
+```
 
 Make Your Own !
 --------------------------------------------------------------------------------
