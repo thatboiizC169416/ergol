@@ -70,7 +70,7 @@ Install ErgoL under Arch Linux X.Org
 python -m venv /path/to/pyenv      # Create a pyenv if you don't already have one
 cd /path/to/pyenv/bin
 sudo su                            
-./python -m pip install kalamine --break-system-packages  # Install kalamine in the acutal pyenv
+./python -m pip install kalamine --break-system-packages  # Install kalamine in the actual pyenv
 exit                               # Get out of admin mode
 
 cd ~/.local/bin                    
@@ -78,6 +78,8 @@ ln -s /path/to/pyenv/bin/kalamine  # Create a link to kalamine
 ln -s /path/to/pyenv/bin/xkalamine # Create a link to xkalamine
 ```
 
+**At your own risk**: there is also an AUR (Arch User Repository) installer that
+exists: https://aur.archlinux.org/packages/kalamine-git
 
 ### Install the layout
 
