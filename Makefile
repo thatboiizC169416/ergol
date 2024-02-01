@@ -1,16 +1,16 @@
 all:
 	@for file in layouts/*.toml; do \
-		kalamine $$file --out "layouts/$$(basename $${file%.*}).json"; \
+		kalamine make $$file --out "layouts/$$(basename $${file%.*}).json"; \
 	done
 	@for file in layouts/*.yaml; do \
-		kalamine $$file --out "layouts/$$(basename $${file%.*}).json"; \
+		kalamine make $$file --out "layouts/$$(basename $${file%.*}).json"; \
 	done
 
 watch:
 	@inotifywait -m layouts -e close_write | while read -r _path _action file; do \
 		case $$file in \
-			*yaml) kalamine "layouts/$$file" --out "layouts/$$(basename "$${file%.*}").json";; \
-			*toml) kalamine "layouts/$$file" --out "layouts/$$(basename "$${file%.*}").json";; \
+			*yaml) kalamine make "layouts/$$file" --out "layouts/$$(basename "$${file%.*}").json";; \
+			*toml) kalamine make "layouts/$$file" --out "layouts/$$(basename "$${file%.*}").json";; \
 		esac \
 	done
 
