@@ -3,7 +3,7 @@
 // Project page  : https://github.com/Nuclear-Squid/ergol
 // Author        : NuclearSquid
 // Version       : 0.7.0 LTS
-// Last change   : 2024-01-28
+// Last change   : 2024-02-05
 // License       : WTFPL - Do What The Fuck You Want Public License
 //
 // French (Ergo-L)
@@ -22,7 +22,7 @@ xkb_keymap {
   // ┆ ~   ┃ ! ¡ │ @ « │ # » │ $ ¢ │ % ‰ ┃ ^   │ &   │ *   │ (   │ )   ┃ _ – ┆ + ± ┆
   // ┆ `   ┃ 1 „ │ 2 “ │ 3 ” │ 4 £ │ 5 € ┃ 6 ¥ │ 7 ¤ │ 8 § │ 9 ¶ │ 0 ° ┃ / ÷ ┆ = ≠ ┆
   // ╰╌╌╌╌╌╂─────┼─────┼─────┼─────┼─────╂─────┼─────┼─────┼─────┼─────╂╌╌╌╌╌┼╌╌╌╌╌┤
-  //       ┃ Q   │ C   │ O   │ P   │ W   ┃ J   │ M   │ D _ │**   │ F   ┃ {   ┆ }   ┆
+  //       ┃ Q   │ C   │ O   │ P   │ W   ┃ J   │ M   │ D _ │***¨ │ F   ┃ {   ┆ }   ┆
   //       ┃   â │   ç │   œ │   ô │   – ┃     │   µ │   _ │***¨ │   û ┃ [   ┆ ]   ┆
   //       ┠─────┼─────┼─────┼─────┼─────╂─────┼─────┼─────┼─────┼─────╂╌╌╌╌╌┼╌╌╌╌╌┤
   //       ┃ A   │ S   │ E   │ N   │ ; • ┃ L   │ R   │ T   │ I   │ U   ┃ "   ┆ |   ┆
@@ -87,7 +87,7 @@ xkb_keymap {
     key <AD06> {[ j               , J               , VoidSymbol      , VoidSymbol      ],[ asciicircum     , dead_circumflex ]}; // j J     ^ ^
     key <AD07> {[ m               , M               , mu              , VoidSymbol      ],[ ampersand       , VoidSymbol      ]}; // m M µ   &
     key <AD08> {[ d               , D               , underscore      , underscore      ],[ asterisk        , multiply        ]}; // d D _ _ * ×
-    key <AD09> {[ ISO_Level3_Latch, ISO_Level3_Latch, dead_diaeresis  , VoidSymbol      ],[ apostrophe      , dead_acute      ]}; // *¨ *¨ ¨   ' ´
+    key <AD09> {[ ISO_Level3_Latch, ISO_Level3_Latch, dead_diaeresis  , dead_diaeresis  ],[ apostrophe      , dead_acute      ]}; // *¨ *¨ ¨ ¨ ' ´
     key <AD10> {[ f               , F               , ucircumflex     , Ucircumflex     ],[ grave           , dead_grave      ]}; // f F û Û ` `
 
     // Letters, second row
