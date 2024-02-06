@@ -315,6 +315,10 @@
     /* Translate level5 upward if mixed */
     .mixed .level5 {transform: translate(0px, -22.8px);}
 
+    /* Adding Base class option to display Alpha + dk layers */
+    .base .level3, .base .level4 { display: none;}
+    .base .level5  { opacity: 0.5; display: block;}
+
     @media (prefers-color-scheme: dark) {
       rect, path { stroke: #777; fill: #444; }
       .specialKey, .specialKey rect, .specialKey path { fill: #333; }
@@ -627,8 +631,8 @@
           <text class="level2 deadKey diacritic" width="22" height="22" x="12.8" y="20.6">★</text>
           <text class="level3" width="22" height="22" x="38" y="43.4">'</text>
           <text class="level4 deadKey diacritic" width="22" height="22" x="38" y="20.6">´</text>
-          <text class="level5 dk" width="22" height="22" x="38" y="43.4">*¨</text>
-          <text class="level6 dk" width="22" height="22" x="38" y="20.6">*¨</text>
+          <text class="level5 dk deadKey diacritic" width="22" height="22" x="38" y="43.4">¨</text>
+          <text class="level6 dk deadKey diacritic" width="22" height="22" x="38" y="20.6">¨</text>
         </g>
       </g>
       <g class="letterKey" finger="r5" id="KeyP" transform="translate(630, 0)">
@@ -927,7 +931,7 @@
           <text class="level2" width="22" height="22" x="12.8" y="20.6">G</text>
           <text class="level3" width="22" height="22" x="38" y="43.4">;</text>
           <text class="level4 deadKey diacritic" width="22" height="22" x="38" y="20.6">¸</text>
-          <text class="level5 dk" width="22" height="22" x="38" y="43.4">*µ</text>
+          <text class="level5 dk deadKey diacritic" width="22" height="22" x="38" y="43.4">µ</text>
           <text class="level6 dk" width="22" height="22" x="38" y="20.6"/>
         </g>
       </g>
