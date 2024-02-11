@@ -39,10 +39,12 @@ The default layout allows to write in English, French, German and Esperanto easi
 Install
 --------------------------------------------------------------------------------
 
-You’ll need the latest version of [Kalamine][2] to build your own layout:
+You’ll need the latest version of [Kalamine][2] to build your own layout. We
+*highly* recommend using [pipx][5], once you have it installed (by following
+their guide), you can just run the following command:
 
 ```bash
-pip install kalamine
+pipx install kalamine
 ```
 
 Download the [layouts/ergol.toml][4] file in this repo and build the layout :
@@ -59,39 +61,23 @@ and you should be good to go !
 [2]: https://github.com/fabi1cazenave/kalamine
 [3]: https://github.com/fabi1cazenave/kalamine#installing-distributable-layouts
 [4]: https://github.com/Nuclear-Squid/ergol/blob/master/layouts/ergol.toml
+[5]: https://github.com/pypa/pipx?tab=readme-ov-file#install-pipx
 
 
-Install ErgoL under Arch Linux X.Org
---------------------------------------------------------------------------------
+### Install (Linux only)
 
-### Create [pyenv](https://wiki.archlinux.org/title/Python/Virtual_environment)
-
-```bash
-python -m venv /path/to/pyenv      # Create a pyenv if you don't already have one
-cd /path/to/pyenv/bin
-sudo su                            
-./python -m pip install kalamine --break-system-packages  # Install kalamine in the actual pyenv
-exit                               # Get out of admin mode
-
-cd ~/.local/bin                    
-ln -s /path/to/pyenv/bin/kalamine  # Create a link to kalamine
-ln -s /path/to/pyenv/bin/xkalamine # Create a link to xkalamine
-```
-
-**At your own risk**: there is also an AUR (Arch User Repository) installer that
-exists: https://aur.archlinux.org/packages/kalamine-git
-
-### Install the layout
+`xkalamine` is a linux‑specific tool (shipped with `kalamine`) to easily
+install keyboard layouts on Linux. You can drop `sudo` if you use wayland, but
+it’s required on Xorg.
 
 ```bash
-kalamine ergol.toml                # Build the layout
 sudo xkalamine install ergol.toml  # Install the layout
 ```
 
-### Set the layout
+Then switch to Ergo‑L using the following command:
 
 ```bash
-setxkbmap fr -variant ergol        # Set the layout
+setxkbmap fr -variant ergol  # Switch your keyboard layout to ergol
 ```
 
 Make Your Own !
