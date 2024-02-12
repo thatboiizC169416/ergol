@@ -1,29 +1,45 @@
 window.addEventListener('DOMContentLoaded', () => {
   'use strict'; // eslint-disable-line
 
-  const keyboard = document.querySelector('x-keyboard');
-  const button = document.querySelector('button');
-  const input = document.querySelector('input');
-  const geometry = document.querySelector('select');
+  const dialog   = document.querySelector('dialog');
+  const keyboard = document.querySelector('dialog x-keyboard');
+  const input    = document.querySelector('dialog input');
+  const geometry = document.querySelector('.keyboard select');
+  const button   = document.querySelector('.keyboard button');
 
   if (!keyboard.layout) {
     console.warn('web components are not supported');
     return; // the web component has not been loaded
   }
 
+  const getGeometry = () => geometry.value.split(' ')[1];
+
   fetch(keyboard.getAttribute('src'))
     .then(response => response.json())
     .then(data => {
-      const shape = data.geometry.replace('ergo', 'ol60').toLowerCase();
-      keyboard.setKeyboardLayout(data.keymap, data.deadkeys, shape);
+      const shape = geometry.value.split(' ')[1];
+      keyboard.setKeyboardLayout(data.keymap, data.deadkeys, getGeometry());
       geometry.value = shape;
       button.hidden = false;
       button.focus();
     });
 
-  geometry.onchange = event => {
-    keyboard.geometry = event.target.value;
-  };
+  geometry.addEventListener('change', event => {
+    keyboard.geometry = getGeometry();
+  });
+
+  /**
+   * Open/Close modal
+   */
+  button.onclick = () => {
+    dialog.showModal();
+    input.value = '';
+    input.focus();
+  }
+  input.onblur = () => {
+    keyboard.clearStyle()
+    dialog.close();
+  }
 
   /**
    * Keyboard highlighting & layout emulation
@@ -37,11 +53,10 @@ window.addEventListener('DOMContentLoaded', () => {
     pressedKeys[event.code] = true;
     const value = keyboard.keyDown(event);
 
-    if (event.code === 'Enter') {
-      // clear text input on <Enter>
-      event.target.value = '';
-    } else if (value) {
+    if (value) {
       event.target.value += value;
+    } else if (event.code === 'Enter') { // clear text input on <Enter>
+      event.target.value = '';
     } else {
       return true; // don't intercept special keys or key shortcuts
     }
