@@ -455,7 +455,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const setProp = (key, value) => {
     if (key === 'layout') {
       if (value) {
-        fetch(`layouts/${value}.json`)
+        fetch(`data/layouts/${value}.json`)
           .then(response => response.json())
           .then(data => {
             inputField.placeholder = `Zone de saisie ${value}`;
@@ -479,7 +479,7 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     } else if (key === 'corpus') {
       if (value && value !== corpusName) {
-        fetch(`corpus/${value}.json`)
+        fetch(`data/corpus/${value}.json`)
           .then(response => response.json())
           .then(data => {
             corpus = data.symbols;

@@ -1,4 +1,6 @@
-const g30Keys = [
+const STARTING_LEVEL = 4;
+const MIN_WORD_WOUNT = 42;
+const ALL_30_KEYS = [
   'KeyF', 'KeyJ',
   'KeyD', 'KeyK',
   'KeyS', 'KeyL',
@@ -30,39 +32,57 @@ window.addEventListener('DOMContentLoaded', () => {
   const gInput    = document;
 
   let gKeyLayout = undefined;
-  let gDictionary = undefined;
+  let gDictionary = {
+    words:    undefined,
+    trigrams: undefined,
+    bigrams:  undefined,
+  };
 
-  let gLessonLevel = 12;
-  let gLessonWords = [];
-  let gLessonCurrent = undefined;
+  let gLessonLevel     = STARTING_LEVEL;
+  let gLessonWords     = [];
+  let gLessonCurrent   = undefined;
   let gLessonStartTime = undefined;
-  let gPendingError = false;
+  let gPendingError    = false;
 
-  const setLayout = () => {
-    fetch(`layouts/${gLayout.value}.json`)
+  // fetch a kalamine corpus: symbols, bigrams, trigrams
+  const fetchNgrams = () => {
+    const ngrams = gDict.value.split(',')[0];
+    return fetch(`data/corpus/${ngrams}.json`)
+      .then(response => response.json())
+      .then(data => {
+        gDictionary.trigrams = Object.keys(data.trigrams);
+        gDictionary.bigrams = Object.keys(data.digrams);
+      });
+  };
+
+  // fetch MonkeyType words
+  const fetchWords = () => {
+    const words = gDict.value.split(',')[1];
+    return fetch(`data/dicts/${words}.json`)
+      .then(response => response.json())
+      .then(data => {
+        gDictionary.words = data.words;
+      });
+  };
+
+  // fetch a kalamine keyboard layout
+  const fetchLayout = () => {
+    return fetch(`data/layouts/${gLayout.value}.json`)
       .then(response => response.json())
       .then(layout => {
         gKeyboard.setKeyboardLayout(layout.keymap, layout.deadkeys, gGeometry.value);
         gKeyboard.theme = 'hints';
         gKeyLayout = layout;
-        setLessonLevel();
       });
   };
 
-  const setDict = () => {
-    fetch(`dicts/${gDict.value}.json`)
-      .then(response => response.json())
-      .then(data => {
-        gDictionary = data.words;
-        setLessonLevel();
-      });
-  };
+  gLayout.addEventListener('change', () => {
+    fetchLayout().then(setLessonLevel);
+  });
 
-  gLayout.addEventListener('change', setLayout);
-  setLayout();
-
-  gDict.addEventListener('change', setDict);
-  setDict();
+  gDict.addEventListener('change', () => {
+    Promise.all([fetchNgrams(), fetchWords()]).then(setLessonLevel);
+  });
 
   gGeometry.addEventListener('change', event => {
     gKeyboard.geometry = gGeometry.value;
@@ -70,17 +90,15 @@ window.addEventListener('DOMContentLoaded', () => {
 
   gKeyList.addEventListener('click', event => {
     if (event.target.nodeName.toLowerCase() == 'kbd') {
-      setLessonLevel(event.target.dataset.level);
+      gLessonLevel = event.target.dataset.level;
+      setLessonLevel();
     }
   });
 
-  const setLessonLevel = (level = gLessonLevel) => {
-    if (!gKeyLayout || !gDictionary) {
-      return;
-    }
-
-    const keys = g30Keys.slice(0, level);
-    const rawLetters = keys.flatMap(key => gKeyLayout.keymap[key]);
+  const setLessonLevel = () => {
+    const keys = ALL_30_KEYS.slice(0, gLessonLevel);
+    // const rawLetters = keys.flatMap(key => gKeyLayout.keymap[key]);
+    const rawLetters = keys.map(key => gKeyLayout.keymap[key][0]);
 
     const odk = gKeyLayout.deadkeys['**'];
     const has1dk = keys.some(key => gKeyLayout.keymap[key].indexOf('**') >= 0);
@@ -88,11 +106,22 @@ window.addEventListener('DOMContentLoaded', () => {
       rawLetters
         .filter(letter => letter in odk)
         .map(letter => odk[letter]);
-    const lessonLetters = rawLetters.concat(deadkeyLetters);
 
-    gLessonLevel = level;
-    gLessonWords = gDictionary.filter(word =>
-      Array.from(word).every(letter => lessonLetters.indexOf(letter) >= 0));
+    const lessonLetters = rawLetters.concat(deadkeyLetters);
+    const lessonFilter = word =>
+      Array.from(word).every(letter => lessonLetters.indexOf(letter) >= 0);
+
+    // gLessonLevel = level;
+    gLessonWords = gDictionary.words.filter(lessonFilter);
+    if (gLessonWords.length < MIN_WORD_WOUNT) {
+      gLessonWords = gLessonWords.concat(gDictionary.trigrams.filter(lessonFilter));
+    }
+    if (gLessonWords.length < MIN_WORD_WOUNT) {
+      gLessonWords = gLessonWords.concat(gDictionary.bigrams.filter(lessonFilter));
+    }
+    if (gLessonWords.length < MIN_WORD_WOUNT) {
+      gLessonWords = gLessonWords.concat(rawLetters);
+    }
 
     showLesson();
     showKeys();
@@ -105,7 +134,7 @@ window.addEventListener('DOMContentLoaded', () => {
       const state = idx < gLessonLevel ? '' : 'inactive';
       return `<kbd data-level="${idx + 1}" class="${state}">${char}</kbd>`;
     };
-    gKeyList.innerHTML = g30Keys.map(serializeKey).join('');
+    gKeyList.innerHTML = ALL_30_KEYS.map(serializeKey).join('');
   };
 
   const showLesson = () => {
@@ -167,6 +196,11 @@ window.addEventListener('DOMContentLoaded', () => {
       gLessonCurrent.id = 'current';
     }
   };
+
+  // startup
+  Promise.all([fetchNgrams(), fetchWords(), fetchLayout()])
+    .then(setLessonLevel);
+
 
   /**
    * Keyboard highlighting & layout emulation
