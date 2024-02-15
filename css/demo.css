@@ -66,8 +66,8 @@ dialog::backdrop {
   text-wrap: break;
 }
 
-.keyboard #lesson { color: #444; }
-.keyboard .done   { color: gray; }
+.keyboard #lesson { color: #333; }
+.keyboard .done   { color: #999; }
 .keyboard .error  { color: red; }
 .keyboard .space  { display: inline-block; }
 .keyboard .space::before { content: "·"; }
