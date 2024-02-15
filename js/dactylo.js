@@ -84,39 +84,28 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const odk = gKeyLayout.deadkeys['**'];
     const has1dk = keys.some(key => gKeyLayout.keymap[key].indexOf('**') >= 0);
-    const lessonLetters = rawLetters.concat(!has1dk ? [] :
-      rawLetters.flatMap(letter => (letter in odk ? [odk[letter]] : [])));
+    const deadkeyLetters = !has1dk ? [] :
+      rawLetters
+        .filter(letter => letter in odk)
+        .map(letter => odk[letter]);
+    const lessonLetters = rawLetters.concat(deadkeyLetters);
 
-    // XXX we **definitely** need a progress bar here
     gLessonLevel = level;
-    gLessonWords = gDictionary.filter(word => {
-      for (const letter of word) {
-        if (lessonLetters.indexOf(letter) < 0) {
-          return false;
-        }
-      }
-      return true;
-    });
+    gLessonWords = gDictionary.filter(word =>
+      Array.from(word).every(letter => lessonLetters.indexOf(letter) >= 0));
 
     showLesson();
     showKeys();
   };
 
   const showKeys = () => {
-    gKeyList.innerHTML = '';
-    let level = 0;
-    for (let char of g30Keys.map(key => gKeyLayout.keymap[key][0])) {
-      if (char.length > 1) {
-        if (char = "**") {
-          char = "★";
-        } else {
-          char = char.slice(1);
-        }
-      }
-      const className = gKeyList.children.length < gLessonLevel ? '' : 'inactive';
-      gKeyList.innerHTML +=
-        `<kbd class='${className}' data-level="${++level}">${char}</kbd>`;
-    }
+    const serializeKey = (key, idx) => {
+      const action = gKeyLayout.keymap[key][0];
+      const char = action === '**' ? '★' : action.slice(-1);
+      const state = idx < gLessonLevel ? '' : 'inactive';
+      return `<kbd data-level="${idx + 1}" class="${state}">${char}</kbd>`;
+    };
+    gKeyList.innerHTML = g30Keys.map(serializeKey).join('');
   };
 
   const showLesson = () => {
@@ -126,15 +115,17 @@ window.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    let lesson_text = '';
-    while(lesson_text.length < 120) {
-      lesson_text += gLessonWords[gLessonWords.length * Math.random() | 0] + ' ';
+    let lessonText = '';
+    while(lessonText.length < 120) {
+      lessonText += gLessonWords[gLessonWords.length * Math.random() | 0] + ' ';
     }
-    for (const char of lesson_text.slice(0, -1)) {
-      gLesson.innerHTML += (char == ' ') ?
-        '<span class="space"></span>' : `<span>${char}</span>`;
-    }
+    gLesson.innerHTML = Array.from(lessonText.slice(0, -1))
+      .map(char => char == ' ' ? '<span class="space"></span>'
+                               : `<span>${char}</span>`)
+      .join('');
+
     gLessonCurrent = gLesson.firstElementChild;
+    gLessonCurrent.id = 'current';
     gPendingError = false;
   };
 
@@ -145,10 +136,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
     if ((gLessonCurrent.innerText === value) ||
         (gLessonCurrent.innerText === '' && value === ' ')) {
-      gLessonCurrent.className += gPendingError ? ' error' : ' done';
+      gLessonCurrent.classList.add(gPendingError ? 'fixed' : 'done');
+      gLessonCurrent.id = '';
       gLessonCurrent = gLessonCurrent.nextSibling;
       gPendingError = false;
     } else {
+      gLessonCurrent.classList.add('error');
       gPendingError = true;
     }
 
@@ -170,6 +163,8 @@ window.addEventListener('DOMContentLoaded', () => {
       gStatus.innerText = `${wpm} wpm, ${cpm} cpm, ${100 - err} %`;
       gLessonStartTime = undefined;
       setTimeout(showLesson, 500);
+    } else {
+      gLessonCurrent.id = 'current';
     }
   };
 
