@@ -1,16 +1,16 @@
 all:
-	@for file in layouts/*.toml; do \
-		kalamine make $$file --out "layouts/$$(basename $${file%.*}).json"; \
+	@for file in data/layouts/*.toml; do \
+		kalamine make $$file --out "data/layouts/$$(basename $${file%.*}).json"; \
 	done
-	@for file in layouts/*.yaml; do \
-		kalamine make $$file --out "layouts/$$(basename $${file%.*}).json"; \
+	@for file in data/layouts/*.yaml; do \
+		kalamine make $$file --out "data/layouts/$$(basename $${file%.*}).json"; \
 	done
 
 watch:
-	@inotifywait -m layouts -e close_write | while read -r _path _action file; do \
+	@inotifywait -m data/layouts -e close_write | while read -r _path _action file; do \
 		case $$file in \
-			*yaml) kalamine make "layouts/$$file" --out "layouts/$$(basename "$${file%.*}").json";; \
-			*toml) kalamine make "layouts/$$file" --out "layouts/$$(basename "$${file%.*}").json";; \
+			*yaml) kalamine make "data/layouts/$$file" --out "data/layouts/$$(basename "$${file%.*}").json";; \
+			*toml) kalamine make "data/layouts/$$file" --out "data/layouts/$$(basename "$${file%.*}").json";; \
 		esac \
 	done
 
@@ -25,7 +25,7 @@ clean:
 install:
 	@echo "Installer script for XKB (GNU/Linux). Requires super-user privileges."
 	@echo
-	xkalamine install layouts/ergol.yaml
+	xkalamine install data/layouts/ergol.yaml
 
 uninstall:
 	@echo "Unistaller script for XKB (GNU/Linux). Requires super-user privileges."
