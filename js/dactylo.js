@@ -111,16 +111,12 @@ window.addEventListener('DOMContentLoaded', () => {
     const lessonFilter = word =>
       Array.from(word).every(letter => lessonLetters.indexOf(letter) >= 0);
 
-    // gLessonLevel = level;
-    gLessonWords = gDictionary.words.filter(lessonFilter);
-    if (gLessonWords.length < MIN_WORD_COUNT) {
-      gLessonWords = gLessonWords.concat(gDictionary.trigrams.filter(lessonFilter));
-    }
-    if (gLessonWords.length < MIN_WORD_COUNT) {
-      gLessonWords = gLessonWords.concat(gDictionary.bigrams.filter(lessonFilter));
-    }
-    if (gLessonWords.length < MIN_WORD_COUNT) {
-      gLessonWords = gLessonWords.concat(rawLetters);
+    gLessonWords = [];
+    for (dict of [gDictionary.words, gDictionary.trigrams, gDictionary.bigrams, rawLetters]) {
+      gLessonWords = gLessonWords.concat(dict.filter(lessonFilter));
+      if (gLessonWords.length > MIN_WORD_COUNT) {
+        break;
+      }
     }
 
     showLesson();
