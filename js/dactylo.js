@@ -1,5 +1,5 @@
 const STARTING_LEVEL = 4;
-const MIN_WORD_WOUNT = 42;
+const MIN_WORD_COUNT = 42;
 const ALL_30_KEYS = [
   'KeyF', 'KeyJ',
   'KeyD', 'KeyK',
@@ -113,13 +113,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // gLessonLevel = level;
     gLessonWords = gDictionary.words.filter(lessonFilter);
-    if (gLessonWords.length < MIN_WORD_WOUNT) {
+    if (gLessonWords.length < MIN_WORD_COUNT) {
       gLessonWords = gLessonWords.concat(gDictionary.trigrams.filter(lessonFilter));
     }
-    if (gLessonWords.length < MIN_WORD_WOUNT) {
+    if (gLessonWords.length < MIN_WORD_COUNT) {
       gLessonWords = gLessonWords.concat(gDictionary.bigrams.filter(lessonFilter));
     }
-    if (gLessonWords.length < MIN_WORD_WOUNT) {
+    if (gLessonWords.length < MIN_WORD_COUNT) {
       gLessonWords = gLessonWords.concat(rawLetters);
     }
 
