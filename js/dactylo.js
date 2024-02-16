@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const QUACK = new Audio('quack.mp3');
+const QUACK = new Audio('quack.wav');
 const MIN_PRECISION  = 98;  // percentage of correct keys
 const MIN_CPM_SPEED  = 100; // characters per minute
 const MIN_WIN_STREAK = 5;
@@ -231,7 +231,6 @@ window.addEventListener('DOMContentLoaded', () => {
       gLessonCurrent.id = 'current';
     } else { // last char, compute stats
       showLessonStatus(performance.now());
-      showQuackStatus();
       gLessonStartTime = undefined;
     }
   };
@@ -247,25 +246,41 @@ window.addEventListener('DOMContentLoaded', () => {
     gStatus.innerText = `${wpm} wpm, ${cpm} cpm, ${prc} %`;
 
     if (cpm >= MIN_CPM_SPEED && prc >= MIN_PRECISION) {
-      QUACK.play();
-      gQuackCount++;
+      moreQuacks();
     } else {
-      gQuackCount = Math.max(1, gQuackCount -1);
+      lessQuacks();
     }
+  };
+
+  const moreQuacks = () => {
+    QUACK.play();
+    gQuackCount++;
+    showQuackStatus();
 
     if (gQuackCount >= MIN_WIN_STREAK) {
-      gQuackCount = 1;
       gLessonLevel = 2 * (Math.floor(gLessonLevel / 2) + 1); // next even number
+      gQuacks.parentNode.classList.add('active');
+      gQuackCount = 1;
       setTimeout(setLessonLevel, 500);
     } else {
       setTimeout(showLesson, 500);
     }
   };
 
+  const lessQuacks = () => {
+    gQuackCount = Math.max(1, gQuackCount -1);
+    showQuackStatus();
+    setTimeout(showLesson, 500);
+  };
+
   const showQuackStatus = () => {
     localStorage.setItem('quacks', gQuackCount);
+    gQuacks.parentNode.classList.remove('active');
     gQuacks.innerText = Array(gQuackCount).fill('🦆').join('');
   };
+
+  gQuacks.addEventListener('transitionend', showQuackStatus);
+  gQuacks.addEventListener('dblclick', moreQuacks); // cheat code!
 
   // startup
   Promise.all([fetchNgrams(), fetchWords(), fetchLayout()])
