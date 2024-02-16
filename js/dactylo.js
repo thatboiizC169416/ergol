@@ -1,5 +1,30 @@
-const STARTING_LEVEL = 4;
-const MIN_WORD_COUNT = 42;
+/**
+ * WebTypist v3 (preview) a.k.a. DuckTypist.
+ * https://github.com/OneDeadKey/webtypist
+ *
+ * Copyleft (C) 2010-2024, Fabien & Léo Cazenave.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+const QUACK = new Audio('quack.mp3');
+const MIN_PRECISION  = 98;  // percentage of correct keys
+const MIN_CPM_SPEED  = 100; // characters per minute
+const MIN_WIN_STREAK = 5;
+
+const STARTING_LEVEL = 4;   // number of keys to begin with
+const MIN_WORD_COUNT = 42;  // nim number or words/ngrams we want for a lesson
 const ALL_30_KEYS = [
   'KeyF', 'KeyJ',
   'KeyD', 'KeyK',
@@ -28,6 +53,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const gKeyList  = document.querySelector('header .key_list');
   const gStatus   = document.querySelector('header .status');
+  const gQuacks   = document.querySelector('header .quacks');
   const gLesson   = document.querySelector('#lesson');
   const gInput    = document;
 
@@ -38,11 +64,18 @@ window.addEventListener('DOMContentLoaded', () => {
     bigrams:  undefined,
   };
 
-  let gLessonLevel     = STARTING_LEVEL;
   let gLessonWords     = [];
   let gLessonCurrent   = undefined;
   let gLessonStartTime = undefined;
+  let gLessonLevel     = Number(localStorage.getItem('level')) || STARTING_LEVEL;
+  let gQuackCount      = Number(localStorage.getItem('quacks')) || 4;
   let gPendingError    = false;
+
+  ['layout', 'dict', 'geometry']
+    .filter(id => localStorage.getItem(id))
+    .forEach(id => {
+      document.getElementById(id).value = localStorage.getItem(id);
+    });
 
   // fetch a kalamine corpus: symbols, bigrams, trigrams
   const fetchNgrams = () => {
@@ -77,14 +110,17 @@ window.addEventListener('DOMContentLoaded', () => {
   };
 
   gLayout.addEventListener('change', () => {
+    localStorage.setItem('layout', gLayout.value);
     fetchLayout().then(setLessonLevel);
   });
 
   gDict.addEventListener('change', () => {
+    localStorage.setItem('dict', gDict.value);
     Promise.all([fetchNgrams(), fetchWords()]).then(setLessonLevel);
   });
 
   gGeometry.addEventListener('change', event => {
+    localStorage.setItem('geometry', gGeometry.value);
     gKeyboard.geometry = gGeometry.value;
   });
 
@@ -96,9 +132,11 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 
   const setLessonLevel = () => {
+    localStorage.setItem('level', gLessonLevel);
+
     const keys = ALL_30_KEYS.slice(0, gLessonLevel);
-    // const rawLetters = keys.flatMap(key => gKeyLayout.keymap[key]);
     const rawLetters = keys.map(key => gKeyLayout.keymap[key][0]);
+    const altLetters = keys.flatMap(key => gKeyLayout.keymap[key]);
 
     const odk = gKeyLayout.deadkeys['**'];
     const has1dk = keys.some(key => gKeyLayout.keymap[key].indexOf('**') >= 0);
@@ -121,18 +159,25 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    showQuackStatus();
     showLesson();
     showKeys();
   };
 
   const showKeys = () => {
+    const isActive = idx => idx >= 0 && idx < gLessonLevel;
+
     const serializeKey = (key, idx) => {
       const action = gKeyLayout.keymap[key][0];
       const char = action === '**' ? '★' : action.slice(-1);
-      const state = idx < gLessonLevel ? '' : 'inactive';
+      const state = isActive(idx) ? '' : 'inactive';
       return `<kbd data-level="${idx + 1}" class="${state}">${char}</kbd>`;
     };
     gKeyList.innerHTML = ALL_30_KEYS.map(serializeKey).join('');
+
+    gKeyboard.keys.forEach(key => {
+      key.style.opacity = isActive(ALL_30_KEYS.indexOf(key.id)) ? 1.0 : 0.5;
+    });
   };
 
   const showLesson = () => {
@@ -161,8 +206,14 @@ window.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    if ((gLessonCurrent.innerText === value) ||
-        (gLessonCurrent.innerText === '' && value === ' ')) {
+    const correctChar = gLessonCurrent.innerText === value ||
+      (value === ' ' && gLessonCurrent.innerText === '');
+
+    if (!correctChar && !gLessonStartTime) {
+      return; // ignore errors on first char
+    }
+
+    if (correctChar) {
       gLessonCurrent.classList.add(gPendingError ? 'fixed' : 'done');
       gLessonCurrent.id = '';
       gLessonCurrent = gLessonCurrent.nextSibling;
@@ -172,27 +223,48 @@ window.addEventListener('DOMContentLoaded', () => {
       gPendingError = true;
     }
 
-    // first char?
-    if (!gLessonStartTime) {
+    if (!gLessonStartTime) { // first char?
       gLessonStartTime = performance.now()
-      gStatus.innerText = '🦆';
+      gStatus.innerText = '…';
+    }
+    if (gLessonCurrent) { // next char
+      gLessonCurrent.id = 'current';
+    } else { // last char, compute stats
+      showLessonStatus(performance.now());
+      showQuackStatus();
+      gLessonStartTime = undefined;
+    }
+  };
+
+  const showLessonStatus = (now) => {
+    const elapsed = (now - gLessonStartTime) / 60000;
+    const errors = gLesson.querySelectorAll('.error').length;
+    const words = gLesson.querySelectorAll('.space').length + 1;
+    const chars = gLesson.children.length;
+    const cpm = Math.round(chars / elapsed);
+    const wpm = Math.round(words / elapsed);
+    const prc = 100 - Math.round(1000 * errors / chars) / 10;
+    gStatus.innerText = `${wpm} wpm, ${cpm} cpm, ${prc} %`;
+
+    if (cpm >= MIN_CPM_SPEED && prc >= MIN_PRECISION) {
+      QUACK.play();
+      gQuackCount++;
+    } else {
+      gQuackCount = Math.max(1, gQuackCount -1);
     }
 
-    // last char?
-    if (!gLessonCurrent) {
-      const elapsed = (performance.now() - gLessonStartTime) / 60000;
-      const errors = gLesson.querySelectorAll('.error').length;
-      const words = gLesson.querySelectorAll('.space').length + 1;
-      const chars = gLesson.children.length;
-      const cpm = Math.round(chars / elapsed);
-      const wpm = Math.round(words / elapsed);
-      const err = Math.round(1000 * errors / chars) / 10;
-      gStatus.innerText = `${wpm} wpm, ${cpm} cpm, ${100 - err} %`;
-      gLessonStartTime = undefined;
-      setTimeout(showLesson, 500);
+    if (gQuackCount >= MIN_WIN_STREAK) {
+      gQuackCount = 1;
+      gLessonLevel = 2 * (Math.floor(gLessonLevel / 2) + 1); // next even number
+      setTimeout(setLessonLevel, 500);
     } else {
-      gLessonCurrent.id = 'current';
+      setTimeout(showLesson, 500);
     }
+  };
+
+  const showQuackStatus = () => {
+    localStorage.setItem('quacks', gQuackCount);
+    gQuacks.innerText = Array(gQuackCount).fill('🦆').join('');
   };
 
   // startup
