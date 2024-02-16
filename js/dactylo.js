@@ -68,7 +68,7 @@ window.addEventListener('DOMContentLoaded', () => {
   let gLessonCurrent   = undefined;
   let gLessonStartTime = undefined;
   let gLessonLevel     = Number(localStorage.getItem('level')) || STARTING_LEVEL;
-  let gQuackCount      = Number(localStorage.getItem('quacks')) || 4;
+  let gQuackCount      = Number(localStorage.getItem('quacks')) || 1;
   let gPendingError    = false;
 
   ['layout', 'dict', 'geometry']
