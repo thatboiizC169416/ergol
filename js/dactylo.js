@@ -112,7 +112,9 @@ window.addEventListener('DOMContentLoaded', () => {
       Array.from(word).every(letter => lessonLetters.indexOf(letter) >= 0);
 
     gLessonWords = [];
-    for (dict of [gDictionary.words, gDictionary.trigrams, gDictionary.bigrams, rawLetters]) {
+    for (const dict of [
+      gDictionary.words, gDictionary.trigrams, gDictionary.bigrams, rawLetters
+    ]) {
       gLessonWords = gLessonWords.concat(dict.filter(lessonFilter));
       if (gLessonWords.length > MIN_WORD_COUNT) {
         break;
