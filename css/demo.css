@@ -57,6 +57,13 @@ dialog::backdrop {
 
 h1 .quacks {
   float: right;
+  transition: transform 1s;
+  user-select: none;
+  cursor: grab;
+}
+
+h1.active .quacks {
+  transform: translateX(-1000%);
 }
 
 .keyboard #lesson {
