@@ -1,5 +1,23 @@
-Ergo‑L
+[Ergo‑L](https://ergol.org/)
 ================================================================================
+
+[**(in English hereinafter)**](#English)
+
+Une disposition de clavier ergonomique optimisée pour le français, l’anglais et
+la programmation.
+
+- Disposition **optimisée pour le français _et_ l’anglais**;
+- Couche AltGr optionnelle, optimisée pour l’enchaînement des symboles de
+  programmation;
+- **Conservation des raccourcis usuels** : <kbd>Ctrl-{Q,A,S,Z,X,V}</kbd>
+  (<kbd>Ctrl-C</kbd> est décalé, mais reste faisable d’une main);
+- Support de tous les caractères spéciaux utilisés en français (diacritiques,
+  majuscules accentuées, lettres entrelacées, symboles de ponctuation…);
+- **Chiffres en accès direct**.
+
+
+English
+--------------------------------------------------------------------------------
 
 A Colemak-style layout for French-speaking users.
 
