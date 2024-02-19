@@ -2,8 +2,8 @@ window.addEventListener('DOMContentLoaded', () => {
   'use strict'; // eslint-disable-line
 
   const dialog   = document.querySelector('dialog');
-  const keyboard = document.querySelector('dialog x-keyboard');
-  const input    = document.querySelector('dialog input');
+  const keyboard = document.querySelector('x-keyboard');
+  const input    = document.querySelector('input');
   const geometry = document.querySelector('.keyboard select');
   const button   = document.querySelector('.keyboard button');
 
@@ -15,13 +15,12 @@ window.addEventListener('DOMContentLoaded', () => {
   const getGeometry = () => geometry.value.split(' ')[1];
 
   fetch(keyboard.getAttribute('src'))
-    .then(response => response.json())
+    .then(response => response.json() )
     .then(data => {
-      const shape = geometry.value.split(' ')[1];
-      keyboard.setKeyboardLayout(data.keymap, data.deadkeys, getGeometry());
+      const shape = getGeometry();
+      keyboard.setKeyboardLayout(data.keymap, data.deadkeys, shape);
       geometry.value = shape;
-      button.hidden = false;
-      button.focus();
+      if (button) button.hidden = false;
     });
 
   geometry.addEventListener('change', event => {
@@ -31,14 +30,14 @@ window.addEventListener('DOMContentLoaded', () => {
   /**
    * Open/Close modal
    */
-  button.onclick = () => {
-    dialog.showModal();
+  if (button) button.onclick = () => {
+    dialog?.showModal();
     input.value = '';
     input.focus();
   }
   input.onblur = () => {
     keyboard.clearStyle()
-    dialog.close();
+    dialog?.close();
   }
 
   /**
@@ -53,10 +52,10 @@ window.addEventListener('DOMContentLoaded', () => {
     pressedKeys[event.code] = true;
     const value = keyboard.keyDown(event);
 
-    if (value) {
-      event.target.value += value;
-    } else if (event.code === 'Enter') { // clear text input on <Enter>
+    if (event.code === 'Enter') {
       event.target.value = '';
+    } else if (value) { // clear text input on <Enter>
+      event.target.value += value;
     } else {
       return true; // don't intercept special keys or key shortcuts
     }

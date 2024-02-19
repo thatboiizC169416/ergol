@@ -12,8 +12,8 @@
     <link type="text/css" rel="stylesheet" href="css/heatmap.css" />
     <link type="image/svg+xml" rel="icon" href="favicon.svg" sizes="any" />
     <script src="js/x-keyboard.js" type="module"></script>
-    <script src="js/demo.js"></script>
     <script src="js/heatmap.js" type="text/javascript"></script>
+    <script defer src="js/demo.js"></script>
     <script defer src="js/collapsable-table.js" type="text/javascript"></script>
   </head>
   <body>
@@ -30,7 +30,7 @@
       <x-keyboard id="keyboard"></x-keyboard>
     </div>
 
-    <div style="align-items: center; position: sticky; top: 0; z-index: 999">
+    <div id="sticky-select" class="keyboard">
       <form>
         <select id="layout">
           <option disabled>  [en]</option>

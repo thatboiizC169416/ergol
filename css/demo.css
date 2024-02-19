@@ -29,6 +29,14 @@
   display: none;
 }
 
+#sticky-select {
+  align-items: center;
+  position: sticky;
+  margin-bottom: 0;
+  top: 0;
+  z-index: 999;
+}
+
 dialog::backdrop {
   backdrop-filter: blur(5px);
 }
