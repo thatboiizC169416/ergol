@@ -67,15 +67,9 @@ window.addEventListener('DOMContentLoaded', () => {
   let gLessonWords     = [];
   let gLessonCurrent   = undefined;
   let gLessonStartTime = undefined;
-  let gLessonLevel     = Number(localStorage.getItem('level')) || STARTING_LEVEL;
-  let gQuackCount      = Number(localStorage.getItem('quacks')) || 1;
+  let gLessonLevel     = undefined;
+  let gQuackCount      = undefined
   let gPendingError    = false;
-
-  ['layout', 'dict', 'geometry']
-    .filter(id => localStorage.getItem(id))
-    .forEach(id => {
-      document.getElementById(id).value = localStorage.getItem(id);
-    });
 
   // fetch a kalamine corpus: symbols, bigrams, trigrams
   const fetchNgrams = () => {
@@ -109,30 +103,8 @@ window.addEventListener('DOMContentLoaded', () => {
       });
   };
 
-  gLayout.addEventListener('change', () => {
-    localStorage.setItem('layout', gLayout.value);
-    fetchLayout().then(setLessonLevel);
-  });
-
-  gDict.addEventListener('change', () => {
-    localStorage.setItem('dict', gDict.value);
-    Promise.all([fetchNgrams(), fetchWords()]).then(setLessonLevel);
-  });
-
-  gGeometry.addEventListener('change', event => {
-    localStorage.setItem('geometry', gGeometry.value);
-    gKeyboard.geometry = gGeometry.value;
-  });
-
-  gKeyList.addEventListener('click', event => {
-    if (event.target.nodeName.toLowerCase() == 'kbd') {
-      gLessonLevel = event.target.dataset.level;
-      setLessonLevel();
-    }
-  });
-
   const setLessonLevel = () => {
-    localStorage.setItem('level', gLessonLevel);
+    localStorage.setItem(`${gLayout.value}.level`, gLessonLevel);
 
     const keys = ALL_30_KEYS.slice(0, gLessonLevel);
     const rawLetters = keys.map(key => gKeyLayout.keymap[key][0]);
@@ -259,12 +231,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
     if (gQuackCount >= MIN_WIN_STREAK) {
       gLessonLevel = 2 * (Math.floor(gLessonLevel / 2) + 1); // next even number
-      gQuacks.parentNode.classList.add('active');
       gQuackCount = 1;
+      gQuacks.parentNode.classList.add('active');
       setTimeout(setLessonLevel, 500);
     } else {
       setTimeout(showLesson, 500);
     }
+
   };
 
   const lessQuacks = () => {
@@ -274,7 +247,7 @@ window.addEventListener('DOMContentLoaded', () => {
   };
 
   const showQuackStatus = () => {
-    localStorage.setItem('quacks', gQuackCount);
+    localStorage.setItem(`${gLayout.value}.quacks`, gQuackCount);
     gQuacks.parentNode.classList.remove('active');
     gQuacks.innerText = Array(gQuackCount).fill('🦆').join('');
   };
@@ -283,9 +256,44 @@ window.addEventListener('DOMContentLoaded', () => {
   gQuacks.addEventListener('dblclick', moreQuacks); // cheat code!
 
   // startup
-  Promise.all([fetchNgrams(), fetchWords(), fetchLayout()])
-    .then(setLessonLevel);
+  const loadLayout = () => {
+    gLayout.value = window.location.hash.slice(1);
 
+    const dict     = localStorage.getItem('dict');
+    const geometry = localStorage.getItem('geometry');
+    const level    = localStorage.getItem(`${gLayout.value}.level`);
+    const quacks   = localStorage.getItem(`${gLayout.value}.quacks`);
+
+    if (dict) gDict.value = dict;
+    if (geometry) gGeometry.value = geometry;
+    gLessonLevel = level  ? Number(level)  : STARTING_LEVEL;
+    gQuackCount  = quacks ? Number(quacks) : 1;
+
+    Promise.all([fetchNgrams(), fetchWords(), fetchLayout()])
+      .then(setLessonLevel);
+  };
+
+  window.addEventListener('hashchange', loadLayout);
+  gLayout.addEventListener('change', loadLayout);
+
+  gDict.addEventListener('change', () => {
+    localStorage.setItem('dict', gDict.value);
+    Promise.all([fetchNgrams(), fetchWords()]).then(setLessonLevel);
+  });
+
+  gGeometry.addEventListener('change', event => {
+    localStorage.setItem('geometry', gGeometry.value);
+    gKeyboard.geometry = gGeometry.value;
+  });
+
+  gKeyList.addEventListener('click', event => {
+    if (event.target.nodeName.toLowerCase() == 'kbd') {
+      gLessonLevel = event.target.dataset.level;
+      setLessonLevel();
+    }
+  });
+
+  loadLayout();
 
   /**
    * Keyboard highlighting & layout emulation
@@ -340,5 +348,4 @@ window.addEventListener('DOMContentLoaded', () => {
       event.target.value = event.target.value.slice(0, -event.data.length);
     }
   });
-
 });
