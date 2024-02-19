@@ -148,10 +148,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
       if (['Backquote', 'Minus'].some(kc => kc == keyCode)) return 4;
       if (['BracketLeft', 'BracketRight'].some(kc => kc == keyCode)) return 3;
-      if (['Semicolon', 'Quote'].some(kc => kc == keyCode)) return 2;
-      if (['Comma', 'Period', 'Slash'].some(kc => kc == keyCode)) return 1;
+      if (['Semicolon', 'Quote', 'Backslash'].some(kc => kc == keyCode)) return 2;
+      if (['Comma', 'Period', 'Slash', 'IntlBackslash'].some(kc => kc == keyCode)) return 1;
 
-      console.log(keyCode);
+      console.error(`Unknown Key Row: ${keyCode}`);
       return 0;
     };
 
@@ -503,10 +503,8 @@ window.addEventListener('DOMContentLoaded', () => {
   const state = {};
   const updateHashState = (key, value) => {
     state[key] = value;
-    window.location.hash = IDs.reduce(
-      (hash, prop) => `${hash}/${state[prop]}`,
-      '',
-    ).replace(/\/+$/, '');
+    window.location.hash = '/' +
+      IDs.map(prop => state[prop]).join('/').replace(/\/+$/, '');
   };
   const applyHashState = () => {
     const hashState = window.location.hash.split('/').slice(1);
