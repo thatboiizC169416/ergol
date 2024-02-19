@@ -257,14 +257,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // startup
   const loadLayout = () => {
-    gLayout.value = window.location.hash.slice(1);
-
+    const layout   = window.location.hash.slice(1);
     const dict     = localStorage.getItem('dict');
     const geometry = localStorage.getItem('geometry');
     const level    = localStorage.getItem(`${gLayout.value}.level`);
     const quacks   = localStorage.getItem(`${gLayout.value}.quacks`);
 
-    if (dict) gDict.value = dict;
+    if (layout)   gLayout.value   = layout;
+    if (dict)     gDict.value     = dict;
     if (geometry) gGeometry.value = geometry;
     gLessonLevel = level  ? Number(level)  : STARTING_LEVEL;
     gQuackCount  = quacks ? Number(quacks) : 1;
