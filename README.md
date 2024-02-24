@@ -165,7 +165,7 @@ as well.
 
 You can thus use it to run your local instance of the Ergo‑L website:
 ```
-python3 -m http.server --bind 127.0.0.1 9000
+python3 -m http.server --bind localhost 9000
 ```
 
 And you can now access the stat page at
