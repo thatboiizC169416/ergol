@@ -108,3 +108,71 @@ benchmark layouts on the [stats page][1].
 
 This repo contains all of the code for the [Ergo‑L website](https://ergol.org),
 so you can run the page locally to try your prototypes !
+
+### Edit Corpora
+
+The different corpora can be found in [`data/corpus/`](data/corpus/), mainly
+`fr.txt` and `en.txt` which can be edited to change the type of text used (for
+instance if you don’t write like translaters of Miguel de Cervantes, or if you
+want to test with your own emails).
+
+If you have multiple source files, you can thus merge them using the
+[`merge.py`](data/corpus/merge.py) script, for instance:
+
+```bash
+python3 merge.py file-fr‑1.txt … file-fr-n.txt > fr.txt
+```
+
+Once this is done, the statistics file can be generated using the
+[`chardict.py`](data/corpus/chardict.py) script.
+Note that for this step, you don’t want to have parasitic `.txt` files in the
+`data/corpus` directory, or their stats will be generated as well.
+
+```bash
+python3 chardict.py
+```
+
+For the sake of completeness, we add that specifying a **single file** after the
+command generates the `json` stat file for this specific corpus.
+
+### Run a Local Server
+
+Now, for the pages to be generated correctly and the javascript to be found at
+the right place, this git repository has to be served at the root of your
+domain.
+
+You can do it with a full-fledged web engine, such as
+[nginx](https://nginx.org/):
+
+```ngnix
+server {
+  listen       9000;
+  server_name  localhost;
+
+  location / {
+    root       <PATH_TO_REPOSITORY>;
+    index      stats.html stats.htm;
+  }
+}
+```
+
+But you may not want to do that if you don’t already have a web engine installed
+in your machine.
+
+Fortunately, if you followed us so far, you have `python` installed, and
+probably [`http.server`](https://docs.python.org/3.12/library/http.server.html)
+as well.
+
+You can thus use it to run your local instance of the Ergo‑L website:
+```
+python3 -m http.server --bind localhost 9000
+```
+
+And you can now access the stat page at
+<http://localhost:9000/stats.html#/ergol/ol60/fr>!
+
+You can now run `make watch` to have your edits on `toml` files live-updated… or
+almost.
+This solution doesn’t include live-reload.
+You thus have to refresh the stat page after each change, but it’s quite usable
+as is.
