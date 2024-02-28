@@ -1,0 +1,14 @@
+# baseURL = "https://ergol.org"
+relativeURLs = true
+languageCode = "fr"
+title = "Ergo‑L"
+
+[params]
+subtitle = "Ergonomie optimisée pour le français, l’anglais, le code."
+description = "Une disposition de clavier ergonomique de type Colemak, optimisée pour le français, l’anglais et le code."
+
+[security.exec]
+allow = ["pandoc"]
+
+[markup]
+defaultMarkdownHandler = "pandoc"

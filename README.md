@@ -4,7 +4,7 @@
 [**(in English hereinafter)**](#English)
 
 Une disposition de clavier ergonomique optimisée pour le français, l’anglais et
-la programmation.
+le code.
 
 - Disposition **optimisée pour le français _et_ l’anglais**;
 - Couche AltGr optionnelle, optimisée pour l’enchaînement des symboles de
@@ -68,7 +68,7 @@ pipx install kalamine
 Download the [layouts/ergol.toml][4] file in this repo and build the layout :
 
 ```bash
-kalamine ergol.toml
+kalamine build ergol.toml
 ```
 
 You’ll get a `dist` folder containing all of the drivers.
@@ -76,8 +76,8 @@ You’ll get a `dist` folder containing all of the drivers.
 Then, to install Ergo‑L, follow the [install section of Kalamine’s repo][3],
 and you should be good to go !
 
-[2]: https://github.com/fabi1cazenave/kalamine
-[3]: https://github.com/fabi1cazenave/kalamine#installing-distributable-layouts
+[2]: https://github.com/OneDeadKey/kalamine
+[3]: https://github.com/OneDeadKey/kalamine#installing-distributable-layouts
 [4]: https://github.com/Nuclear-Squid/ergol/blob/master/layouts/ergol.toml
 [5]: https://github.com/pypa/pipx?tab=readme-ov-file#install-pipx
 
@@ -97,6 +97,7 @@ Then switch to Ergo‑L using the following command:
 ```bash
 setxkbmap fr -variant ergol  # Switch your keyboard layout to ergol
 ```
+
 
 Make Your Own !
 --------------------------------------------------------------------------------

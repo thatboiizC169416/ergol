@@ -1,0 +1,120 @@
++++
+title = "Duck Typist"
+
+[params]
+cssSheets = ["/css/keyboard.css"]
+jsModules = ["/js/x-keyboard.js"]
+jsScripts = ["/js/duck-typist.js"]
+
+footer = """
+  powered by [x-keyboard](https://onedeadkey.github.io/x-keyboard),
+  inspired by [keyzen](https://github.com/wwwtyro/keyzen)
+  and [keybr](https://github.com/aradzie/keybr.com),
+  fuelled by [MonkeyType](https://github.com/monkeytypegame/monkeytype)
+"""
++++
+
+<style>
+  /* compact view: let the flex magic handle the vertical margins */
+  body { padding: 0 20px; }
+  header h1, #banner { display: none; }
+  header nav { border: none; }
+  .keyboard { margin-bottom: 0; }
+  h2, footer { margin-top: 0; }
+
+  h1 .quacks,
+  h2 .quacks {
+    float: right;
+    transition: transform 1s;
+    user-select: none;
+    cursor: grab;
+  }
+
+  h1.active .quacks,
+  h2.active .quacks {
+    transform: translateX(-1000%);
+  }
+
+  h2 {
+    font-size: 2em;
+  }
+
+  .keyboard #lesson {
+    text-align: left;
+    font-family: monospace;
+    font-size: 2.5em;
+    height: 4em;
+    line-height: 1.2em;
+    margin: 0;
+    padding: 0;
+    text-wrap: break;
+  }
+
+  .keyboard #current {
+    border-bottom: 2px solid;
+  }
+
+  .keyboard span {
+    box-sizing: border-box;
+  }
+
+  .keyboard #lesson { color: #333; }
+  .keyboard .done   { color: #999; }
+  .keyboard .error  { color: red; }
+  .keyboard .fixed  { color: green; }
+  .keyboard .space::before {
+    content: "·";
+    word-break: break-all;
+  }
+
+  .key_list kbd {
+    font-family: monospace;
+    text-transform: uppercase;
+    display: inline-block;
+    margin: 0 2px;
+    cursor: pointer;
+  }
+
+  .key_list kbd.inactive {
+    color: gray;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .keyboard #lesson { color: white; }
+    .keyboard .error  { color: #f44; }
+    .keyboard .fixed  { color: #9e1; }
+  }
+</style>
+
+<h2><span class="key_list"></span><span class="quacks">🦆</span></h2>
+<p class="status">·</p>
+
+<div class="keyboard">
+  <input hidden spellcheck="false" />
+  <p id="lesson"></p>
+  <x-keyboard></x-keyboard>
+  <p style="text-align: right;">
+    <span style="float: left;">
+      <select id="layout">
+        <option value="ergol" selected>Ergo‑L</option>
+        <option value="erglace">Erglace</option>
+        <option value="bepo">Bépo</option>
+        <option value="azerty">Azerty</option>
+        <option value="lafayette">Lafayette</option>
+      </select>
+      <select id="dict">
+        <option value="fr,french_1k">Français 1k</option>
+        <option value="fr,french_10k" selected>Français 10k</option>
+        <option value="en,english_1k">English 1k</option>
+        <option value="en,english_10k">English 10k</option>
+      </select>
+    </span>
+    <select id="geometry">
+      <option value="iso" selected>ISO</option>
+      <option value="ansi">ANSI</option>
+      <option value="ol60">TMx</option>
+      <option value="ol50">4×6</option>
+      <option value="ol40">3×6</option>
+    </select>
+  </p>
+</div>
