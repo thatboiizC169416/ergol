@@ -118,7 +118,7 @@
       <g transform="translate(210)">
         <rect width="52" height="52" rx="5" ry="5"/>
         <text x="12.8" y="20.6" class="level2">E</text>
-        <text x="38.0" y="43.4" class="level3">ë</text>
+        <text x="38.0" y="43.4" class="level3"> </text>
       </g>
       <g transform="translate(270)">
         <rect width="52" height="52" rx="5" ry="5"/>
@@ -151,7 +151,7 @@
       <g transform="translate(570)">
         <rect width="52" height="52" rx="5" ry="5"/>
         <text x="12.8" y="20.6" class="level2">I</text>
-        <text x="38.0" y="43.4" class="level3">ï</text>
+        <text x="38.0" y="43.4" class="level3"> </text>
       </g>
       <g transform="translate(630)">
         <rect width="52" height="52" rx="5" ry="5"/>
@@ -177,7 +177,7 @@
         <rect width="52" height="52" rx="5" ry="5"/>
         <text x="12.8" y="43.4" class="level1">-</text>
         <text x="12.8" y="20.6" class="level2">?</text>
-        <text x="38.0" y="43.4" class="level3">‑</text>
+        <text x="38.0" y="43.4" class="level3"> </text>
       </g>
       <g transform="translate(270)">
         <rect width="52" height="52" rx="5" ry="5"/>
@@ -187,7 +187,7 @@
       <g transform="translate(330)">
         <rect width="52" height="52" rx="5" ry="5"/>
         <text x="12.8" y="20.6" class="level2">B</text>
-        <text x="38.0" y="43.4" class="level3">—</text>
+        <text x="38.0" y="43.4" class="level3"> </text>
       </g>
     </g>
     <g class="right">

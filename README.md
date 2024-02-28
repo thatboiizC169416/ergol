@@ -33,21 +33,21 @@ TL;DR:
 This layout claims to be better than Bépo for French, better than Dvorak for
 English and better than Qwerty for programming. [Check the stats !][1]
 
-[1]: https://ergol.org/stats#/ergol/iso/en+fr
+[1]: https://ergol.org/stats/#/ergol/iso/en+fr
 
 
 Layout
 --------------------------------------------------------------------------------
 
-![base layout](img/ergol_fr.svg)
+![base layout](www/static/img/ergol_fr.svg)
 
 The dead <kbd>★</kbd> key gives access to all acute accents, grave accents, cedillas, digraphs and quote signs you’ll need to write in proper French:
 
-![dead key layout](img/ergol_1dk.svg)
+![dead key layout](www/static/img/ergol_1dk.svg)
 
 … and the AltGr layer is fully dedicated to programming symbols.
 
-![altgr layout](img/ergol_altgr.svg)
+![altgr layout](www/static/img/ergol_altgr.svg)
 
 The default layout allows to write in English, French, German and Esperanto easily.
 
@@ -112,22 +112,22 @@ so you can run the page locally to try your prototypes !
 
 ### Edit Corpora
 
-The different corpora can be found in [`data/corpus/`](data/corpus/), mainly
-`fr.txt` and `en.txt` which can be edited to change the type of text used (for
-instance if you don’t write like translaters of Miguel de Cervantes, or if you
-want to test with your own emails).
+The different corpora can be found in [`corpus/`](corpus/), mainly `fr.txt` and
+`en.txt` which can be edited to change the type of text used (for instance if
+you don’t write like translaters of Miguel de Cervantes, or if you want to test
+with your own emails).
 
 If you have multiple source files, you can thus merge them using the
-[`merge.py`](data/corpus/merge.py) script, for instance:
+[`merge.py`](corpus/merge.py) script, for instance:
 
 ```bash
 python3 merge.py file-fr‑1.txt … file-fr-n.txt > fr.txt
 ```
 
 Once this is done, the statistics file can be generated using the
-[`chardict.py`](data/corpus/chardict.py) script.
-Note that for this step, you don’t want to have parasitic `.txt` files in the
-`data/corpus` directory, or their stats will be generated as well.
+[`chardict.py`](corpus/chardict.py) script. Note that for this step, you don’t
+want to have parasitic `.txt` files in the `corpus` directory, or their stats
+will be generated as well.
 
 ```bash
 python3 chardict.py
@@ -170,7 +170,7 @@ python3 -m http.server --bind localhost 9000
 ```
 
 And you can now access the stat page at
-<http://localhost:9000/stats.html#/ergol/ol60/fr>!
+<http://localhost:9000/stats.html/#/ergol/ol60/fr>!
 
 You can now run `make watch` to have your edits on `toml` files live-updated… or
 almost.
