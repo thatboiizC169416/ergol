@@ -17,7 +17,7 @@ QWERTY-Lafayette
 {{< x-keyboard
     name="QWERTY-Lafayette"
     download="https://qwerty-lafayette.org"
-    src="/layouts/lafayette.json"
+    src="lafayette"
     image="/img/ergol.svg" >}}
 
 La disposition de clavier par laquelle tout a commencé !

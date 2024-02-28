@@ -10,7 +10,7 @@ jsScripts = ["/js/demo.js", "/js/svg.js"]
 {{< x-keyboard
     name="Bépo"
     download="https://bepo.fr"
-    src="/layouts/bepo.json"
+    src="bepo"
     image="/img/bepo.svg" >}}
 
 :::{.highlight style="max-width: 32em;"}

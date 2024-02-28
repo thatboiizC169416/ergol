@@ -10,7 +10,7 @@ jsScripts = ["/js/demo.js", "/js/svg.js"]
 {{< x-keyboard
     name="Erglace"
     download="https://github.com/Lysquid/Erglace"
-    src="/layouts/erglace.json"
+    src="erglace"
     image="/img/erglace.svg" >}}
 
 

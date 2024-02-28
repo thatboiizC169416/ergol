@@ -8,7 +8,7 @@ jsScripts = ["/js/demo.js", "/js/svg.js"]
 {{< x-keyboard
     name="Ergo‑L"
     download="/lts"
-    src="/layouts/ergol.json"
+    src="ergol"
     image="/img/ergol.svg" >}}
 
 :::{.highlight}
