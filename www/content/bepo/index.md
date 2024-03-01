@@ -186,7 +186,7 @@ et [Workman][] :
     - les roulements permettent de faire moins d’erreurs de saisie à haute
       vitesse, tout en restant très confortables ;
 - on évite les colonnes centrales qui requièrent une extension de l’index ;
-- faute de pouvoir utiliser les positions de repos on privilégie les touches :
+- faute de pouvoir utiliser les positions de repos, on privilégie les touches :
     - de la rangée supérieure pour l’annulaire et le majeur ;
     - de la rangée inférieure pour l’index ;
 - on fait le choix de conserver les raccourcis clavier positionnels se justifie,
@@ -211,7 +211,7 @@ même doigt :
 |    -:|:--------------------------------:|:------------------------------:|:-------------------------------:|:--------------------------------:|:--------------------------------:|
 |**fr**| [7.97 %](/stats/#/azerty/iso/fr) | [2.55 %](/stats/#/bepo/iso/fr) | [1.23 %](/stats/#/ergol/iso/fr) | [3.31 %](/stats/#/dvorak/iso/fr) | [7.16 %](/stats/#/qwerty/iso/fr) |
 |**en**| [6.31 %](/stats/#/azerty/iso/en) | [3.01 %](/stats/#/bepo/iso/en) | [1.40 %](/stats/#/ergol/iso/en) | [2.62 %](/stats/#/dvorak/iso/en) | [5.76 %](/stats/#/qwerty/iso/en) |
-: Taux de digrammes de même doigts en français et anglais.
+: Taux de digrammes de même doigt en français et anglais.
 :::
 
 **De notre point de vue** : l’optimisation de Bépo est faite au détriment de
@@ -284,8 +284,8 @@ touches répétées sous les auriculaires.
 ![La couche Symboles d’Ergo‑L.](/img/ergol_altgr.svg)
 
 La touche [AltGr]{.kbd} reste facultative, les symboles étant également
-disponibles aux emplacements du QWERTY ANSI, qui est perçu comme efficace pour
-cet usage.
+disponibles [aux emplacements du QWERTY ANSI](/#héritage-qwerty-us), une
+disposition de clavier perçue comme efficace pour cet usage.
 
 
 Variantes de Bépo
