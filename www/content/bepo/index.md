@@ -31,8 +31,8 @@ Ergonomie
 ### Bépo
 
 Conservant l’approche AZERTY d’avoir certaines lettres accentuées en direct
-(`É`, `È`, `À`, `Ç`), Bépo a manqué de place pour placer toutes les lettres et a
-choisi d’occuper les colonnes excentrées pour des lettres jugées moins
+(`É`, `È`, `À`, `Ç`), [Bépo][] a manqué de place pour placer toutes les lettres
+et a choisi d’occuper les colonnes excentrées pour des lettres jugées moins
 fréquentes (`M`, `Z`, `W`, `Ç`). Il en résulte une incompatibilité avec la
 plupart des claviers ergonomiques du marché, qui ne proposent que 6 colonnes de
 touches par main pour respecter le principe [1DFH](#dfh-1u-distance-from-home).
@@ -156,7 +156,7 @@ Optimisation
 
 ### Bépo
 
-Bépo applique une optimisation de type [Dvorak][] au français :
+[Bépo][] applique une optimisation de type [Dvorak][] au français :
 
 - maximiser l’alternance des mains lors de la frappe ;
 - répartir les touches de façon équitable sur les deux mains ;
@@ -170,6 +170,7 @@ mesurons à 2.6 % en français contre 8.0 % pour l’AZERTY. C’est un scor
 proche de celui obtenu par Dvorak en anglais, là où QWERTY est à 7.2 %.
 
 Cette optimisation est faite au détriment de l’anglais :
+
 - la charge de l’auriculaire droit grimpe à 13.7 % ;
 - certains digrammes, notamment `WH`, sont rédhibitoires.
 
@@ -194,7 +195,7 @@ et [Workman][] :
 
 Malgré ces compromis et le fait qu’il soit optimisé pour les **deux** langues,
 français **et** anglais, Ergo‑L affiche de meilleures métriques d’optimisation,
-tant sur la charge des doigts (voir ci-dessus) que sur le taux de digrammes de
+tant sur la charge des doigts (voir § précédent) que sur le taux de digrammes de
 même doigt :
 
 <style>
@@ -224,7 +225,7 @@ Typographie
 
 ### Bépo
 
-Bépo gère les caractères accentués de façon similaire à AZERTY :
+[Bépo][] gère les caractères accentués de façon similaire à AZERTY :
 
 - certaines lettres comme [ÉÈÀÇ]{.kbd} sont accessibles directement ;
 - l’accent circonflexe et le tréma sont faits avec une touche morte (le tréma
@@ -245,10 +246,10 @@ prix d’une certaine complexité des pilotes de clavier :
 
 ### Ergo‑L
 
-À l’inverse, Ergo‑L utilise une touche morte de type [QWERTY-Lafayette][3] pour
-tous les caractères accentués et ponctuations spéciales : la fluditié des
-enchaînements est préservée, et la touche [AltGr]{.kbd} peut être dédiée aux
-seuls symboles de programmation.
+À l’inverse, Ergo‑L utilise une touche morte de type [Lafayette][] pour tous les
+caractères accentués et ponctuations spéciales : la fluditié des enchaînements
+est préservée, et la touche [AltGr]{.kbd} peut être dédiée aux seuls symboles de
+programmation.
 
 Cette touche morte occasionne des frappes supplémentaires sur un texte francophone :
 
@@ -291,8 +292,9 @@ disposition de clavier perçue comme efficace pour cet usage.
 Variantes de Bépo
 --------------------------------------------------------------------------------
 
-De par son ancienneté, Bépo a vu naître beaucoup de variantes qui ont toutes
-repris la philosophie initiale :
+De par son ancienneté, [Bépo][] a vu naître [de nombreuses variantes
+libres](https://bepo.fr/wiki/Variantes_du_b%C3%A9po) qui ont repris la
+philosophie initiale :
 
 - toutes les voyelles à gauche (approche Dvorak) ;
 - les lettres sont étalées sur toutes les colonnes du clavier ;
@@ -304,17 +306,22 @@ Et très logiquement, ces variantes présentent les mêmes défauts d’ergonomi
 - surcharge importante de l’auriculaire droit ;
 - perte des raccourcis claviers positionnels.
 
-Optimot est une variante non-libre de Bépo qui l’optimise très nettement : le
-taux de digrammes de même doigt est divisé par deux en anglais et par trois en
-français ! Mais les défauts d’ergonomie restent les mêmes, ou ne sont atténués
-que très marginalement :
+[Optimot][] est une variante non-libre de Bépo qui l’optimise très nettement :
+le taux de digrammes de même doigt est divisé par deux en anglais et par trois
+en français ! Mais les défauts d’ergonomie restent les mêmes, ou ne sont
+atténués que très marginalement :
 
 - les lettres excentrées posent toujours le même problème de compatibilité avec
   les claviers ergonomiques ;
 - la charge de l’auriculaire droit est diminuée en anglais mais reste
-  strictement identique pour le français littéraire, et s’accroît dès que l’on
-  utilise des symboles de programmation (dont l’accès recommandé par l’auteur se
-  fait via la touche morte circonflexe, placée sous l’auriculaire en extension).
+  strictement identique pour le français littéraire (11.2 %) et s’accroît dès
+  que l’on utilise des symboles de programmation, dont l’accès recommandé par
+  l’auteur se fait via une touche morte placée sous l’auriculaire en extension.
+
+*[EDIT] :* l’auteur d’Optimot précise qu’il mesure 10.3 % de charge sur
+l’auriculaire droit et non 11.2 % comme vu par notre analyseur, mais fait valoir
+son droit au secret concernant le corpus et la méthode utilisés. Cela reste
+beaucoup trop élevé à notre avis — à comparer aux 6.9 % pour Ergo‑L. *[/EDIT]*
 
 **De notre point de vue**, les deux dispositions portent bien leur nom :
 
@@ -324,7 +331,9 @@ que très marginalement :
   personnes qui ont des difficultés avec Bépo.
 
 
-[bépo]:    https://bepo.fr
-[dvorak]:  https://fr.wikipedia.org/wiki/Disposition_Dvorak
-[workman]: https://workmanlayout.org
-[colemak]: https://colemak.com
+[bépo]:      https://bepo.fr
+[dvorak]:    https://fr.wikipedia.org/wiki/Disposition_Dvorak
+[workman]:   https://workmanlayout.org
+[colemak]:   https://colemak.com
+[optimot]:   https://optimot.fr
+[lafayette]: https://qwerty-lafayette.org
