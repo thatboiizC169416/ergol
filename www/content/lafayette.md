@@ -58,9 +58,13 @@ Bepolar
 --------------------------------------------------------------------------------
 
 {{< x-keyboard
-    name="QWERTY-Lafayette"
-    download="https://qwerty-lafayette.org"
-    src="/layouts/lafayette.json"
-    image="/img/ergol.svg" >}}
+    name="Bépolar"
+    download="https://github.com/Ced-C/Bepolar"
+    src="/layouts/bepolar.json"
+    image="/img/bepolar_Default.svg" >}}
 
-Une adaptation de Bépo aux claviers compacts.
+Dérivé de BÉPO, Bépolar s’adapete aux claviers compacts. C’est une disposition s’appuyant sur des mécanismes modernes (1DFH, touche typographique) afin d’améliorer le confort de frappe.
+
+La disposition est _plus confortable_ que BÉPO en Français, et _meilleure_ que BÉPO pour l’anglais et la programmation avec sa couche AltGr commune à Ergo-L.
+
+C’est un bon moyen, pour un bépoète, de tester l’approche 1DFH avec un temps d’apprentissage record.
