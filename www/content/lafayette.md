@@ -37,15 +37,21 @@ Colemak French Touch
 --------------------------------------------------------------------------------
 
 {{< x-keyboard
-    name="QWERTY-Lafayette"
-    download="https://qwerty-lafayette.org"
-    src="/layouts/lafayette.json"
-    image="/img/ergol.svg" >}}
+    name="Colemak French Touch" layout="colemakft"
+    href="https://github.com/cedricr/colemak-french-touch">}}
 
-Une adaptation du Colemak au français :
+Inspiré de QWERTY-Lafayette, Colemak French Touch applique le même principe d’adaptation au français grâce à une touche morte. On obtient ainsi très facilement l’intégralité des caractères accentués et typographiques nécessaires à l’écriture d’un français soigné.
 
-- inversion O/U
-- touche Typo pour les diacritiques francophones
+Par ailleurs, le Colemak original est assez mal adapté à l’écriture en français à cause de l’empilement des voyelles E et U sur la même colonne. En français, et contrairement à l’anglais, ces deux voyelles se suivent très fréquemment, et leur usage sur le même doigt rend la frappe désagréable.
+
+Par ailleurs, le Y a été déplacé d’une colonne pour libérer une touche confortable comme touche morte. 
+
+Le reste des modifications sont des déplacements mineurs de symboles et signes de ponctuation, pour optimiser les statistiques de la disposition.
+
+Dans le monde Colemak, la disposition qui est sans doute la plus populaire actuellement est la variante “DH” qui permet de limiter les extensions des index vers la colonne intérieure.
+Colemak French Touch a fait le choix de déplacer le H, mais de ne pas déplacer le D, afin de préserver le raccourci Ctrl-V. Il s’agit donc d’une “variante HUY”. 
+
+Au final, on obtient une distribution avec d’excellentes statistiques, parfaite pour les personnes qui tapent actuellement en Colemak mais qui on un besoin régulier d’écrire en français. Comme toutes les autres dispositions de la famille, on conserve également la couche facultative AltGr, parfait pour la programmation.
 
 
 Bepolar
