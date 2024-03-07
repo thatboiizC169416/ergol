@@ -1,28 +1,24 @@
 {{ $name := .Get "name" }}
 <div class="keyboard">
-  {{ with .Get "layout" }}
-    <div style="width: 100%; padding-top: 34%; position: relative;">
-      <object data="/img/{{ . }}.svg" type="image/svg+xml"
-        style="position: absolute; top: 0; left: 0; width: 100%;">></object>
-    </div>
-    <p>
-      <span>powered by <a
-          href="https://onedeadkey.github.io/x-keyboard/">x-keyboard</a>
-      </span>
-      <small>géométrie :</small>
-      <select>
-        <option value="dk iso intlBackslash am">       ISO-A </option>
-        <option value="dk iso intlBackslash" selected> ISO   </option>
-        <option value="dk ansi">                       ANSI  </option>
-        <option value="dk ol60 ergo">                  TMx   </option>
-        <option value="dk ol50 ergo">                  4×6   </option>
-        <option value="dk ol40 ergo">                  3×6   </option>
-      </select>
-    </p>
-  {{ end }}
+  <div style="width: 100%; padding-top: 34%; position: relative;">
+    <object type="image/svg+xml"
+            {{ with .Get "class" }} class="{{ . }}" {{ end }}
+            {{ with .Get "data" }} data="/img/{{ . }}.svg" {{ end }}
+      style="position: absolute; top: 0; left: 0; width: 100%;"></object>
+  </div>
+  <p>
+    <span>powered by <a
+        href="https://onedeadkey.github.io/x-keyboard/">x-keyboard</a>
+    </span>
+    <small>géométrie :</small>
+    <select>
+      <option>ISO</option>  <!-- filled when loaded -->
+    </select>
+  </p>
+
   {{ if $name }}
-    {{ with .Get "layout" }}
-    <dialog id="demo">
+    {{ with .Get "data" }}
+    <dialog>
       <input spellcheck="false" placeholder="zone de saisie {{ $name }}" />
       <x-keyboard src="/layouts/{{ . }}.json"></x-keyboard>
     </dialog>
@@ -31,7 +27,7 @@
       {{ with .Get "href" }}
         <a href="{{ . }}"><span>⇣</span> Installer</a>
       {{ end }}
-      {{ with .Get "layout" }}
+      {{ with .Get "data" }}
         <button disabled>⇪ Tester</button>
         <a href="/stats/#/{{ . }}//en+fr"><span>𝚺</span> Stats</a>
         <a href="/dactylo/#{{ . }}"><span>⌨</span> Apprendre</a>
