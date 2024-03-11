@@ -6,15 +6,40 @@
             {{ with .Get "data" }} data="/img/{{ . }}.svg" {{ end }}
       style="position: absolute; top: 0; left: 0; width: 100%;"></object>
   </div>
-  <p>
+
+  <form>
+    <fieldset class="layers" hidden>
+      <input type="radio" name="layers" label="typo"  value="odk" checked
+        title="caractères obtenus par la touche « Typo » (vue simplifiée)">
+      <input type="radio" name="layers" label="mix"   value="mixed"
+        title="caractères obtenus par les touches « Typo » et « Symboles »">
+      <input type="radio" name="layers" label="altgr" value="altgr"
+        title="caractères obtenus par la touche « Symboles »">
+    </fieldset>
+    <span></span>
+    <fieldset class="geometry">
+      <input type="radio" name="geometry" label="3×6"   value="3×6"
+        title="géométrie 40 % type OLKB Planck">
+      <input type="radio" name="geometry" label="4×6"   value="4×6"
+        title="géométrie 50 % type OLKB Preonic">
+      <input type="radio" name="geometry" label="TMx"   value="TMx"
+        title="géométrie 60 % type TypeMatrix">
+      <input type="radio" name="geometry" label="ANSI"  value="ANSI"
+        title="géométrie américaine">
+      <input type="radio" name="geometry" label="ISO"   value="ISO" checked
+        title="géométrie européenne">
+      <input type="radio" name="geometry" label="ISO-A" value="ISO-A"
+        title="géométrie européenne avec variante en « A »">
+    </fieldset>
+  </form>
+
+  <!-- <p>
     <span>powered by <a
         href="https://onedeadkey.github.io/x-keyboard/">x-keyboard</a>
     </span>
     <small>géométrie :</small>
-    <select>
-      <option>ISO</option>  <!-- filled when loaded -->
-    </select>
-  </p>
+    <select><option>ISO</option></select>
+  </p> -->
 
   {{ if $name }}
     {{ with .Get "data" }}
@@ -30,7 +55,7 @@
       {{ with .Get "data" }}
         <button disabled>⇪ Tester</button>
         <a href="/stats/#/{{ . }}//en+fr"><span>𝚺</span> Stats</a>
-        <a href="/dactylo/#{{ . }}"><span>⌨</span> Apprendre</a>
+        <a href="/dactylo/#{{ . }}"><span>⌨</span> Apprendre</a><!-- 🎓 -->
       {{ end }}
     </nav>
   {{ end }}
