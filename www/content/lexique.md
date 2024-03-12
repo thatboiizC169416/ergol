@@ -14,46 +14,58 @@ title = "Lexique"
 Ergonomie & Optimisation
 --------------------------------------------------------------------------------
 
-SFU (“Same Finger Usage”), SFB (“Same Finger Bigram”)
-
-: ou « digramme de même doigt ». Quand deux lettres s’enchaînent avec un même
-doigt, ce qui est source d’inconfort ou d’erreurs, notamment à haute vitesse.
+<dl>
+  <dt>SFU “Same Finger Usage”</dt>
+  <dt>SFB “Same Finger Bigram”</dt>
+  <dd>
+  ou « digramme de même doigt ». Quand deux lettres s’enchaînent avec un même
+  doigt, ce qui est source d’inconfort ou d’erreurs, notamment à haute vitesse.
+  </dd>
  
-SKU (“Same Key Usage”), SKB (“Same Key Bigram”)
+  <dt>SKU “Same Key Usage”</dt>
+  <dt>SKB “Same Key Bigram”</dt>
+  <dd>
+  une répétition de même touche, e.g. pour produire `nn` avec n’importe quelle
+  disposition de clavier, ou `és` en Ergo‑L.
+  </dd>
 
-: une répétition de même touche, e.g. pour produire `nn` avec n’importe quelle
-disposition de clavier, ou `és` en Ergo‑L.
+  <dt>Extension</dt>
+  <dd>
+  quand un doigt doit atteindre une touche qui est soit sur une autre colonne
+  que la position de repos, soit à une distance supérieure à une touche.
+  </dd>
 
-Extension
+  <dt>Ciseau</dt>
+  <dd>
+  quand un bigramme nécessite un changement de rangée inconfortable
+  </dd>
 
-: quand un doigt doit atteindre une touche qui est soit sur une autre colonne
-que la position de repos, soit à une distance supérieure à une touche.
+  <dt>Roulement intérieur</dt>
+  <dd>
+  deux touches ou plus enchaînées sur une même main, dans le sens de
+  l’auriculaire vers l’index. C’est considéré comme l’enchaînement le plus
+  confortable qui soit.
+  </dd>
 
-Ciseau
+  <dt>Roulement extérieur</dt>
+  <dd>
+  deux touches ou plus enchaînées sur une même main, dans le sens de l’index
+  vers l’auriculaire.
+  </dd>
 
-: quand un bigramme nécessite un changement de rangée inconfortable
+  <dt>Redirection<dt>
+  <dd>
+  trois touches enchaînées sur une même main avec un changement de direction,
+  e.g. [D]{.kbd}[S]{.kbd}[F]{.kbd} ou [K]{.kbd}[J]{.kbd}[L]{.kbd} en Azerty ou
+  Qwerty.
+  </dd>
 
-Roulement intérieur
-
-: deux touches ou plus enchaînées sur une même main, dans le sens de
-l’auriculaire vers l’index. C’est considéré comme l’enchaînement le plus
-confortable qui soit.
-
-Roulement extérieur
-
-: deux touches ou plus enchaînées sur une même main, dans le sens de l’index
-vers l’auriculaire.
-
-Redirection
-
-: trois touches enchaînées sur une même main avec un changement de direction,
-e.g. [D]{.kbd}[S]{.kbd}[F]{.kbd} ou [K]{.kbd}[J]{.kbd}[L]{.kbd} en Azerty ou
-Qwerty.
-
-Mauvaise redirection
-
-: une redirection où l’index n’intervient pas. L’un des pires enchaînements
-faisables sur un clavier, sinon le pire.
+  <dt>Mauvaise redirection</dt>
+  <dd>
+  une redirection où l’index n’intervient pas. L’un des pires enchaînements
+  faisables sur un clavier, sinon le pire.
+  </dd>
+</dl>
 
 
 Support logiciel
