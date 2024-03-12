@@ -3,9 +3,13 @@ title = "Lexique"
 +++
 
 <style>
-  dt { font-weight: bold; }
-  dd p { margin: 0.2em 0; }
+  dt + dd:has(+ dd), dd + dd { display: list-item; list-style-type: "-  "; }
+  dd p { margin: 0.7em 0; }
   code { font-family: monospace; }
+  /* match the <body> 1.4em line-height */
+  sup { vertical-align: super; line-height: 0.4em; }
+  .footnotes { font-size: smaller; }
+  .footnotes li p { margin: 0.2em 0; }
 </style>
 
 **🚧 en construction**
@@ -58,8 +62,12 @@ faisables sur un clavier, sinon le pire.
 
 Support logiciel
 --------------------------------------------------------------------------------
+<!-- Nota : la distinction keycode/scancode échappe à beaucoup de personnes, y
+compris à des développeurs qui travaillent sur la question — comme ça a été le
+cas au sein de la talentueuse équipe de KMonad sur ce ticket Github :
+https://github.com/kmonad/kmonad/issues/111 -->
 
-<a name="scan-code-def">Scan code</a>
+[Scan code]{.a name="scan-code-def"}
 
 : Données envoyées par un clavier physique à un ordinateur lorsque l’on appuie
 ou relâche une touche. Suite aux évolutions technologiques (PS/2, USB, etc.),
@@ -70,22 +78,22 @@ particulier avec les scan codes « XT » ou « ensemble 1 ». Il permet alor
 d’identifier la touche qui a été pressée dans un périphérique de saisie, au plus
 bas niveau de l’OS.
 
-<a name="key-code-def">Key code</a>
+[Key code]{.a name="key-code-def"}
 
 : Code identifiant une touche sur un clavier. Ce code est propre à chaque
 système d’exploitation. Ce dernier se charge de convertir les différentes
 conventions de _scan codes_ en _key code_, permettant ainsi de faire abstraction
 de la technologie du clavier pour développer des dispositions de clavier.
 
-<a name="point-de-code-def">Point de code</a> (<i lan="en">Code point</i>)
+[Point de code]{.a name="point-de-code-def"} (<i lan="en">Code point</i>)
 
 : TODO (cf. [point de code](https://fr.wikipedia.org/wiki/Point_de_code) sur Wikipedia)
 
-<a name="modificateur-def">Modificateur</a>
+[Modificateur]{.a name="modificateur-def"}
 
 : TODO
 
-<a name="couche-def">Couche</a> (<i lang="en">layer</i>)
+[Couche]{.a name="couche-def"} (<i lang="en">layer</i>)
 
 : TODO
 
@@ -144,6 +152,7 @@ Karabiner
 [couche]: #couche-def
 [groupe]: #group-xkb-def
 
+
 #### Environnement
 
 [X11]
@@ -151,13 +160,9 @@ Karabiner
 : X est un protocole de système de fenêtrage. [X11] en est la onzième version
 majeure.
 
-[X11]: https://fr.wikipedia.org/wiki/X_Window_System
-
 [X.Org]
 
 : Le principal [serveur X][X11] utilisé sur Linux.
-
-[X.Org]: https://fr.wikipedia.org/wiki/X.Org
 
 Wayland
 
@@ -165,8 +170,6 @@ Wayland
 maintenu. Bien qu’en développement depuis 2008, son implémentation dans les
 environnements de bureau majeurs n’a commencé à être suffisante que dans les
 années 2020.
-
-[Wayland]: https://fr.wikipedia.org/wiki/Wayland
 
 XKB (_X_ <em>K</em>eyboard <em>E</em>xtension)
 
@@ -179,18 +182,17 @@ des dispositions clavier.
 : Par abus de langage c'est aussi la __base de données__ des configurations clavier,
 [`xkeyboard-config`][xkeyboard-config].
 
-[XKB protocol]: https://www.x.org/releases/current/doc/kbproto/xkbproto.html
-[XKB text format]: https://xkbcommon.org/doc/current/keymap-text-format-v1.html
-[xkeyboard-config]: https://gitlab.freedesktop.org/xkeyboard-config/xkeyboard-config
-
-<a name="compose-def">Compose</a>
+[Compose]{.a name="compose-def"}
 
 : Une __méthode de saisie__ (<i lang="en">input method</i> ou IM). C’est notamment
 ce qui permet aux touches mortes système (autres que `1dk`) de fonctionner.
 Elle porte ce nom car elle _compose_ – entendre : combine – plusieurs [keysyms]
-en un[^composed-keysym] nouvel keysym.
-Exemples : la séquence `◌́e` est transformée en `é`, `n~` en `ñ`, `+-` en `±` et
-`<3` en `♥`.
+en un[^composed-keysym] nouveau keysym.
+
+    <!-- XXX le diacritique combinant est mal supporté avec certaines polices,
+    dont DejaVu Sans Mono : `◌́e` est affiché « é » et non «  ◌́e` ». -->
+    Exemples : la séquence `◌́e` est transformée en `é`, `n~` en `ñ`, `+-` en `±`
+    et `<3` en `♥`.
 
 : Une __[touche][touche Compose]__ qui active la _méthode de saisie_ Compose pour
 les touches pressées à la suite. Cette touche n’est pas présente sur les claviers
@@ -198,16 +200,6 @@ physiques modernes, mais elle est peut être configurée dans l’OS avec les op
 de clavier.
 
 : La __[keysym]__ `<Multi_key>`, qui est placée sur la _touche_ Compose.
-
-[keysym]: #keysym-def
-[keysyms]: #keysym-def
-[touche Compose]: https://fr.wikipedia.org/wiki/Touche_de_composition
-[^composed-keysym]: Le cas le plus fréquent est _un_ keysym, mais il est possible
-d’en produire plusieurs. C’est indispensable pour certains caractères qui
-nécessitent plusieurs [points de code], comme « ė̄ » (`U+0117 + U+0304`), mais aussi
-👩🏿‍🚀👩🏾‍🚀👩🏽‍🚀👩🏼‍🚀👩🏻‍🚀👩‍🚀, qui requiert au moins deux [points de code] pour chaque emoji.
-
-[points de code]: #point-de-code-def
 
 XCompose
 
@@ -219,64 +211,84 @@ implémentations.
 : Un __format__ pour configuer la méthode de saisie XCompose.
 
 : Les __fichiers__ de configuration correspondants. En particulier :
-  - `/usr/share/X11/locale/**/Compose` : les fichiers système, organisés par
-    locale.
-  - `~/.XCompose` : le fichier utilisateur par défaut.
 
-[XCompose]: https://linux.die.net/man/3/xcompose
+    - `/usr/share/X11/locale/**/Compose` : les fichiers système, organisés par
+      locale.
+    - `~/.XCompose` : le fichier utilisateur par défaut.
+
+[X11]:              https://fr.wikipedia.org/wiki/X_Window_System
+[X.Org]:            https://fr.wikipedia.org/wiki/X.Org
+[Wayland]:          https://fr.wikipedia.org/wiki/Wayland
+[XKB protocol]:     https://www.x.org/releases/current/doc/kbproto/xkbproto.html
+[XKB text format]:  https://xkbcommon.org/doc/current/keymap-text-format-v1.html
+[xkeyboard-config]: https://gitlab.freedesktop.org/xkeyboard-config/xkeyboard-config
+[touche Compose]:   https://fr.wikipedia.org/wiki/Touche_de_composition
+[XCompose]:         https://linux.die.net/man/3/xcompose
+
+[keysym]:           #keysym-def
+[keysyms]:          #keysym-def
+[points de code]:   #point-de-code-def
+
+<!-- notes de bas de page -->
+[^composed-keysym]: Le cas le plus fréquent est _un_ keysym, mais il est
+    possible d’en produire plusieurs. C’est indispensable pour certains
+    caractères qui nécessitent plusieurs [points de code], comme « ė̄ » (`U+0117
+    + U+0304`), mais aussi
+    👩🏿‍🚀👩🏾‍🚀👩🏽‍🚀👩🏼‍🚀👩🏻‍🚀👩‍🚀, qui
+    requiert au moins deux [points de code] pour chaque emoji.
+
 
 #### XKB
 
-<a name="keycode-xkb-def">Keycode</a>
+[Keycode]{.a name="keycode-xkb-def"}
 
 : Code identifiant une touche physique sur un clavier. Le code _brut_ (raw
 keycode) est le code numérique issu du traitement bas niveau par le noyau, alors
 que le code _symbolique_ est le nom donné dans les fichiers XKB pour faciliter
 la configuration haut-niveau du clavier. On distinguera le code brut du _noyau_
-de celui de XKB, ce dernier étant obtenu en ajoutant 8 au premier.<br/>
-Exemple : sur un clavier QWERTY, le code brut noyau de la touche `Q` est
-`16`[^code-brut-noyau], le code brut sur XKB est `16 + 8 = 24` et son code
-symbolique est `AD01`[^code-symbolique-iso-9995].<br/>
-Noter qu’un clavier QWERTY et un clavier AZERTY produisent habituellement des
-keycodes identiques pour les touches situées au même emplacement : ainsi la
-touche imprimée `Q` sur le clavier QWERTY produira le même keycode que la touche
-imprimée `A` sur un clavier imprimé AZERTY. En effet, c’est la configuration du
-clavier dans XKB et non le clavier lui-même qui définit la correspondance touche/
-[keysym].
+de celui de XKB, ce dernier étant obtenu en ajoutant 8 au premier.
 
-[ISO/IEC 9995-2]: https://en.wikipedia.org/wiki/ISO/IEC_9995#ISO/IEC_9995-2
-[input-event-codes.h]: https://github.com/torvalds/linux/blob/90d35da658da8cff0d4ecbb5113f5fac9d00eb72/include/uapi/linux/input-event-codes.h#L91
-[^code-brut-noyau]: Correspond à `KEY_Q` dans le fichier d’en-tête [`input-event-code.h`][input-event-codes.h].
-[^code-symbolique-iso-9995]: Les codes symboliques sont suivent la norme [ISO/IEC 9995-2] pour les touches alpha-numériques.
+    Exemple : sur un clavier QWERTY, le code brut noyau de la touche `Q` est
+    `16`[^code-brut-noyau], le code brut sur XKB est `16 + 8 = 24` et son code
+    symbolique est `AD01`[^code-symbolique-iso-9995].
 
-<a name="keysym-def">Keysym</a>
+    Noter qu’un clavier QWERTY et un clavier AZERTY produisent habituellement
+    des keycodes identiques pour les touches situées au même emplacement : ainsi
+    la touche imprimée `Q` sur le clavier QWERTY produira le même keycode que la
+    touche imprimée `A` sur un clavier imprimé AZERTY. En effet, c’est la
+    configuration du clavier dans XKB et non le clavier lui-même qui définit la
+    correspondance touche / [keysym].
+
+[Keysym]{.a name="keysym-def"}
 
 : Code numérique identifiant un symbole sur le _capuchon_ d’une touche. Ce mot
 vient de l’anglais « <i lang="en">key symbol</i> ». Les keysyms sont également
 associées à des noms anglais pour faciliter leur utilisation. Exemples : `a`,
-`agrave` pour « à », `Shift_L` pour la touche majuscule à gauche, etc.<br/>
-À la différence des keycodes, les keysyms ne sont pas utilisés pour _identifier_
-les touches physiques mais pour configurer le _résultat_ obtenu en pressant une
-touche. Ainsi, la _touche_ `<Q>` d’un clavier imprimé QWERTY peut être configurée
-pour produire le[^keysym-genre] keysym `q` ou `a` sur la couche de base, et les
-keysyms `Q` ou `A` sur la couche masjcule, etc.
+`agrave` pour « à », `Shift_L` pour la touche majuscule à gauche, etc.
+
+    À la différence des keycodes, les keysyms ne sont pas utilisés pour
+    _identifier_ les touches physiques mais pour configurer le _résultat_ obtenu
+    en pressant une touche. Ainsi, la _touche_ [Q]{.kbd} d’un clavier imprimé
+    QWERTY peut être configurée pour produire le[^keysym-genre] keysym `q` ou
+    `a` sur la couche de base, et les keysyms `Q` ou `A` sur la couche masjcule,
+    etc.
 
 : Il existe différents types de keysyms :
-  - _caractère :_ `a` et `A` pour les scripts latins, `gamma` « γ » et `GAMMA`
-    « Γ » pour le grec, etc.
-  - _touche morte :_ `dead_grave` et `dead_diaeresis`, qui correspondent respectivement
-    à l’accent grave et au tréma. Une touche morte est une touche spéciale car elle ne
-    génère pas de caractère, mais modifie le caractère de la touche qui est utilisée
-    directement après elle. Ce comportement nécessite la fonctionnalité « Compose ».
-  - _modificateur :_ une touche qui modifie l’effet des autres touches : par exemple
-    `Shift_L`, `Control_R`, `Caps_Lock`. Les modificateurs utilisent un mécanisme
-    différent des touches mortes et servent à accéder aux différentes couches d’une
-    disposition, ainsi qu’à définir des raccourcis clavier.
-  - _système :_ actions spéciales non comprises ci-dessus : flèche `Left`,
-    `Pause`, `Escape`, `F1`, etc.
 
-[^keysym-genre]: On devrait dire _un_ keysym car c’est un _symbole_ de touche,
-mais _une_ keysym sonne peut-être mieux.
+    - _caractère :_ `a` et `A` pour les scripts latins, `gamma` « γ » et `GAMMA`
+      « Γ » pour le grec, etc.
+    - _touche morte :_ `dead_grave` et `dead_diaeresis`, qui correspondent
+      respectivement à l’accent grave et au tréma. Une touche morte est une
+      touche spéciale car elle ne génère pas de caractère, mais modifie le
+      caractère de la touche qui est utilisée directement après elle. Ce
+      comportement nécessite la fonctionnalité « Compose ».
+    - _modificateur :_ une touche qui modifie l’effet des autres touches : par
+      exemple `Shift_L`, `Control_R`, `Caps_Lock`. Les modificateurs utilisent
+      un mécanisme différent des touches mortes et servent à accéder aux
+      différentes couches d’une disposition, ainsi qu’à définir des raccourcis
+      clavier.
+    - _système :_ actions spéciales non comprises ci-dessus : flèche `Left`,
+      `Pause`, `Escape`, `F1`, etc.
 
 Key type
 
@@ -286,7 +298,7 @@ Key Action
 
 : TODO
 
-<a name="group-xkb-def">Groupe</a>
+[Groupe]{.a name="group-xkb-def"}
 
 : TODO
 
@@ -296,3 +308,14 @@ TODO: développer.
 Keymap
 
 : TODO
+
+[ISO/IEC 9995-2]: https://en.wikipedia.org/wiki/ISO/IEC_9995#ISO/IEC_9995-2
+[input-event-codes.h]: https://github.com/torvalds/linux/blob/90d35da658da8cff0d4ecbb5113f5fac9d00eb72/include/uapi/linux/input-event-codes.h#L91
+
+<!-- notes de bas de page -->
+[^code-brut-noyau]: Correspond à `KEY_Q` dans le fichier d’en-tête
+    [`input-event-code.h`][input-event-codes.h].
+[^code-symbolique-iso-9995]: Les codes symboliques sont suivent la norme
+    [ISO/IEC 9995-2] pour les touches alpha-numériques.
+[^keysym-genre]: On devrait dire _un_ keysym car c’est un _symbole_ de touche,
+    mais _une_ keysym sonne peut-être mieux.
