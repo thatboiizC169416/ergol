@@ -55,6 +55,11 @@
  * ╰───────────────────────────────────────────────────────────────╯
 **/
 
+:root {
+  --main-padding: 12px;
+  --list-indent: 1.5em;
+}
+
 html {
   height: 100%;
   width:  100%;
@@ -76,6 +81,10 @@ body {
   box-shadow: 0px 1px 10px var(--bg-main-shadow);
   background-color: var(--bg-main);
   color: var(--fg-main);
+}
+
+main {
+  padding: 0 var(--main-padding);
 }
 
 h2 {
@@ -111,12 +120,28 @@ figure {
   text-align: center;
 }
 
+sup { /* match the <body> 1.4em line-height */
+  vertical-align: super;
+  line-height: 0.4em;
+}
+
+ol, ul {
+  padding-left: var(--list-indent);
+  margin-left: 0;
+}
+
+dd {
+  margin-left: var(--list-indent);
+  padding-left: 0;
+}
+
 dd,
 dt {
   margin-bottom: 0.5em;
 }
 
-li {
+li,
+dd p {
   margin: 0.2em 0;
 }
 
@@ -137,10 +162,6 @@ figure {
   margin: 2em auto;
 }
 
-ul {
-  padding-left: 1.5em;
-}
-
 a[href] {
   color: var(--fg-accent);
   text-decoration: none;
@@ -158,12 +179,12 @@ a[href]:hover {
 **/
 
 #banner {
-  padding: .5em 0 0.5em 64px;
   min-height: 50px;
   box-sizing: border-box;
-  background: left 6px center no-repeat url(../favicon.svg);
+  background: left var(--main-padding) center no-repeat url(../favicon.svg);
   background-size: 50px;
   background-color: var(--bg-banner);
+  padding: .5em 0 0.5em calc(var(--main-padding) + 64px);
 }
 
 #banner p.title {
@@ -184,6 +205,8 @@ footer {
 
 header nav,
 footer {
+  padding-left:  var(--main-padding);
+  padding-right: var(--main-padding);
   border-top: 1px solid var(--fg-banner-border);
   text-align: right;
 }
@@ -195,7 +218,8 @@ header h1 {
 }
 
 footer {
-  padding: 0.2rem 0 0.5rem;
+  padding-top: 0.2rem;
+  padding-bottom: 0.5rem;
 }
 
 footer small {
@@ -233,15 +257,9 @@ code { /* character, digrams, trigrams */
 **/
 
 @media only screen and (min-width: 768px) {
-  header nav,
-  footer nav,
-  footer small,
-  main {
-    padding: 0 40px;
-  }
-  #banner {
-    padding-left: calc(40px + 64px);
-    background-position: left 40px center;
+  :root {
+    --main-padding: 40px;
+    --list-indent: 2.5em;
   }
   .highlight {
     border-radius: 6px;

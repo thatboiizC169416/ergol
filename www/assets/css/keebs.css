@@ -32,6 +32,7 @@
   --bg-home:          hsl(230, 30%, 30%);
 }}
 
+
 /**
  * ╭───────────────────────────────────────────────────────────────╮
  * │                  Theme & Geometry Selection                   │
@@ -40,27 +41,35 @@
 
 .keyboard form {
   display: flex;
+  justify-content: right;
   margin: 2px;
 }
 
 .keyboard fieldset {
   border: none;
-  padding: 1px;
+  padding: 0 1px;
   margin: 0;
+  text-wrap: balance;
 }
 
-.keyboard form span {
-  flex: max-content;
+.keyboard fieldset:first-child {
+  display: none;
+}
+
+.keyboard fieldset:last-child {
+  text-align: right;
 }
 
 .keyboard form input {
+  box-sizing: border-box;
   width: auto;
-  height: 100%;
-  font-size: 1em;
+  height: 1.8em;
+  line-height: 1.8em;
+  font-size: 0.8em;
   appearance: none;
   outline: none;
-  padding: 2px 8px;
-  margin: 0;
+  padding: 0 8px;
+  margin: 2px 0;
   background-color: var(--bg-special);
   color: var(--fg-special);
   border: 1px solid #6668;
@@ -82,8 +91,11 @@
   content: attr(label);
   display: inline-block;
   text-align: center;
-  font-size: small;
-  width: 100%;
+}
+
+@media only screen and (min-width: 480px) {
+  .keyboard fieldset:first-child { display: inline-block; }
+  .keyboard form { justify-content: space-between; }
 }
 
 
@@ -94,25 +106,20 @@
 **/
 
 .keyboard nav {
+  display: none;
   text-align: center;
+  text-wrap: balance;
   margin: 0.7em auto;
 }
 
 .keyboard nav a,
 .keyboard nav button {
-  display: inline-block;
+  display: none;
   box-sizing: border-box;
-  margin: 1px;
+  margin: 2px 1px;
   padding: 0 6px;
-  font-size: 1em;
-  height: 2.3em;
-  line-height: 2.3em;
   font-family: sans-serif;
-
-  background-image: linear-gradient(180deg, var(--bg-normal), var(--bg-special));
-  background-color: var(--bg-special);
-  border: 1px outset #6668;
-  border-radius: 5px;
+  font-size: 1em;
 }
 
 .keyboard nav button {
@@ -121,14 +128,31 @@
   color: var(--fg-main);
 }
 
-.keyboard nav a:hover,
-.keyboard nav button:hover {
-  background-color: var(--bg-accent);
-}
-
 .keyboard [disabled] {
   pointer-events: none;
   opacity: 0.3;
+}
+
+@media only screen and (min-width: 480px) {
+  .keyboard nav   { display: block;  }
+  .keyboard nav a { display: inline; }
+}
+
+@media only screen and (min-width: 768px) {
+  .keyboard nav a,
+  .keyboard nav button {
+    display: inline-block;
+    height: 2.3em;
+    line-height: 2.3em;
+    background-image: linear-gradient(180deg, var(--bg-normal), var(--bg-special));
+    background-color: var(--bg-special);
+    border: 1px outset #6668;
+    border-radius: 5px;
+  }
+  .keyboard nav a:hover,
+  .keyboard nav button:hover {
+    background-color: var(--bg-accent);
+  }
 }
 
 
@@ -179,4 +203,3 @@
   float: left;
   font-size: smaller;
 }
-
