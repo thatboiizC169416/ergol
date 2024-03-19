@@ -9,10 +9,11 @@ Vous avez atteri sur la bonne planète !
 :::{.highlight}
 Consultez nos ressources :
 
-[DuckTypist](/dactylo)
+Cartographie des dispositions clavier
 
-: Pour **apprendre** à votre rythme nos dispositions, avec un outil interactif
-sur mesure !
+: Notre constellation : [Ergo‑L](/), [Erglace](/erglace), [QWERTY-Lafayette](/lafayette)
+
+: Une planète de pionniers : [Bépo](/bepo)
 
 [Lexique](/aide/lexique)
 
@@ -22,6 +23,11 @@ sur mesure !
 
 : Accédez à toute la sagesse des Ergonautes avec les réponses aux **questions
 fréquentes**
+
+[DuckTypist](/dactylo)
+
+: Pour **apprendre** à votre rythme nos dispositions, avec un outil interactif
+sur mesure !
 
 [Dépôts de code sur Github](https://github.com/Nuclear-Squid/ErgoL)
 
