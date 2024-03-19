@@ -70,17 +70,21 @@ author = "authors"
         pageRef = "/stats"
         weight  = 3
     [[menus.main]]
-        name    = "Glossaire"
-        pageRef = "/glossaire"
-        weight  = 4
-    [[menus.main]]
-        name    = "FAQ"
-        pageRef = "/faq"
-        weight  = 4
-    [[menus.main]]
         name    = "Apprendre"
         pageRef = "/dactylo"
+        weight  = 4
+    [[menus.main]]
+        name    = "Aide"
+        pageRef = "/aide"
         weight  = 5
+    [[menus.main]]
+        name    = "FAQ"
+        pageRef = "/aide/faq"
+        parent  = "Aide"
+    [[menus.main]]
+        name    = "Glossaire"
+        pageRef = "/glossaire"
+        parent  = "Aide"
     # [[menus.main]]
     #     name    = "Articles"
     #     pageRef = "/articles"
