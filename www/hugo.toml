@@ -13,6 +13,11 @@ allow = ["pandoc"]
 [markup]
 defaultMarkdownHandler = "pandoc"
 
+[taxonomies]
+tag = "tags"
+author = "authors"
+# category = "categories"
+
 [module]
     [[module.mounts]]
         source = "../code"
@@ -35,13 +40,18 @@ defaultMarkdownHandler = "pandoc"
         name    = "Ergo‑L"
         pageRef = "/"
         weight  = 1
-    # [[menus.main]]
-    #     name    = "Installer"
-    #     pageRef = "/lts"
-    #     parent  = "Ergo‑L"
+    [[menus.main]]
+        name    = "Présentation"
+        pageRef = "/presentation"
+        parent  = "Ergo‑L"
+        weight  = 1
+    [[menus.main]]
+        name    = "Installation"
+        pageRef = "/lts"
+        parent  = "Ergo‑L"
     [[menus.main]]
         name    = "Alternatives"
-        pageRef = "/comparatif"
+        pageRef = "/alternatives"
         weight  = 2
     [[menus.main]]
         name    = "Bépo ?"
@@ -67,3 +77,13 @@ defaultMarkdownHandler = "pandoc"
         name    = "Apprendre"
         pageRef = "/dactylo"
         weight  = 5
+    # [[menus.main]]
+    #     name    = "Articles"
+    #     pageRef = "/articles"
+    #     weight  = 6
+
+[outputs]
+    home     = ['html']
+    section  = ['html', 'rss']
+    taxonomy = ['html']
+    term     = ['html']

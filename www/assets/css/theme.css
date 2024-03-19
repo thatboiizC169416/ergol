@@ -112,6 +112,17 @@ h2, h3, footer {
   margin-top: 2em;
 }
 
+article time {
+  display: block;
+  font-size: smaller;
+  text-align: right;
+  margin-top: -1.5em;
+}
+
+article .more {
+  /* font-size: smaller; */
+}
+
 dialog::backdrop {
   backdrop-filter: blur(5px);
 }
@@ -228,6 +239,12 @@ h1 {
   font-size: 2em;
   line-height: 1em;
   margin: 1.8em auto 1.2em;
+}
+
+h1 + time {
+  display: block;
+  text-align: right;
+  margin: -1.5em auto 0;
 }
 
 h1 + p {
