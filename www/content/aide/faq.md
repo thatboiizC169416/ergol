@@ -20,7 +20,7 @@ typographie. Notre [lexique] permet d’y voir plus clair.
 
 #### D’où vient le nom « Ergo‑L » ?
 
-TODO
+Ergo‑L signifie « **Ergo**nomic **L**afayette », le projet ayant démarré comme un fork de [QWERTY-Lafayette] visant à lui apporter une optimisation de type Colemak/Workman. Il se prononce « ergol », comme le nom générique des carburants de moteurs-fusées.
 
 #### Pourquoi tous ces 🦆 ?
 
