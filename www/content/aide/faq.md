@@ -5,8 +5,8 @@ title = "Foire aux questions"
 **🚧 En construction 🚧**
 
 Cette page apporte des réponses aux questions les plus fréquentes. N’hésitez pas
-à nous rejoindre sur [notre serveur Discord](https://discord.gg/5xR5K3nAFX) pour
-en savoir davantage !
+à nous rejoindre sur [le serveur Discord Ergo‑L](https://discord.gg/5xR5K3nAFX)
+pour en savoir davantage !
 
 
 Projet et site web

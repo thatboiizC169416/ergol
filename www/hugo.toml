@@ -75,7 +75,7 @@ author = "authors"
         weight  = 4
     [[menus.main]]
         name    = "Aide"
-        pageRef = "/aide/"
+        pageRef = "/aide"
         weight  = 5
     [[menus.main]]
         name    = "FAQ"
