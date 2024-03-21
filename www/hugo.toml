@@ -74,17 +74,17 @@ author = "authors"
         pageRef = "/dactylo"
         weight  = 4
     [[menus.main]]
-        name    = "Aide"
-        pageRef = "/aide"
+        name    = "FAQ / Ressources"
+        pageRef = "/ressources"
         weight  = 5
     [[menus.main]]
         name    = "FAQ"
         pageRef = "/faq"
-        parent  = "Aide"
+        parent  = "FAQ / Ressources"
     [[menus.main]]
         name    = "Glossaire"
         pageRef = "/glossaire"
-        parent  = "Aide"
+        parent  = "FAQ / Ressources"
     # [[menus.main]]
     #     name    = "Articles"
     #     pageRef = "/articles"

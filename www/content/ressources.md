@@ -1,5 +1,5 @@
 +++
-title = "Aide"
+title = "Ressources"
 +++
 
 Perdu·e dans la galaxie des dispositions clavier ?<br>
@@ -36,7 +36,7 @@ clavier
 
 Un bug à signaler, une amélioration à proposer ?
 
-: Les questions liées aux **pilotes** sont à formuler sur le
+: Les questions liées aux **pilotes** et au **site web** sont à formuler sur le
 [dépôt de code Ergo‑L](https://github.com/Nuclear-Squid/ErgoL) — en français ou
 en anglais, à votre convenance.
 

@@ -4,6 +4,12 @@ title = "Foire aux questions"
 
 **🚧 En construction 🚧**
 
+<style>
+h4 {
+    font-size: 1.1rem;
+}
+</style>
+
 Cette page apporte des réponses aux questions les plus fréquentes. N’hésitez pas
 à nous rejoindre sur [le serveur Discord Ergo‑L](https://discord.gg/5xR5K3nAFX)
 pour en savoir davantage !
@@ -37,6 +43,11 @@ Pilotes
 
 ### Linux
 
+#### Ma disposition clavier ne fonctionne plus. Que faire ?
+
+Cela peut arriver après une mise à jour. Il vous suffit de la réinstaller avec
+[XKalamine]. Notez qu’il existe d’[autres méthodes][xkb-custom] plus robustes.
+
 #### Pourquoi la touche [★]{.odk} fonctionne-t-elle en la maintenant pressée, alors que c’est une [touche morte] ?
 
 Bien que la touche [★]{.odk} soit qualifiée de [touche morte], elle est
@@ -55,3 +66,5 @@ Exemple pour Ergo‑L :
 [glossaire]:        /glossaire
 [touche morte]:     /glossaire#touche-morte-def
 [QWERTY-Lafayette]: /lafayette/#qwerty-lafayette
+[XKalamine]:        https://github.com/OneDeadKey/kalamine#xkalamine
+[xkb-custom]:       https://github.com/OneDeadKey/kalamine#linux-root-xkb_symbols
