@@ -1,6 +1,5 @@
 +++
 title = "Aide"
-layout = "single"
 +++
 
 Perdu·e dans la galaxie des dispositions clavier ?<br>
@@ -9,17 +8,17 @@ Une panne dans la propulsion ?
 :::{.highlight}
 Cartographie des dispositions clavier
 
-: Notre constellation : **[Ergo‑L](/)**, [Erglace](/erglace), [QWERTY-Lafayette](/lafayette)
+: Notre constellation : **[Ergo‑L](/presentation)**, [Erglace](/erglace), [QWERTY-Lafayette](/lafayette)
 
 : Une planète de pionniers : [Bépo](/bepo)
 
-: Préparer votre voyage avec le **[comparatif](/comparatif)**
+: Préparer votre voyage avec le **[comparatif](/alternatives#tableau-comparatif)**
 
-[Lexique](/aide/lexique)
+[Glossaire](/glossaire)
 
 : Ne naviguez pas à vue, utilisez le radar des **définitions** des termes difficiles
 
-[Foire aux questions](/aide/faq)
+[Foire aux questions](/faq)
 
 : Accédez à toute la sagesse des Ergonautes avec les réponses aux **questions
 fréquentes**

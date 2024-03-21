@@ -15,7 +15,7 @@ Projet et site web
 #### Que veut dire \[…\] ?
 
 Certains termes sont spécifiques à la création de dispositions clavier ou à la
-typographie. Notre [lexique] permet d’y voir plus clair.
+typographie. Notre [glossaire] permet d’y voir plus clair.
 
 
 #### D’où vient le nom « Ergo‑L » ?
@@ -52,6 +52,6 @@ Exemple pour Ergo‑L :
 - [★]{.kbd} [A]{.kbd} → `à`
 - [★]{.kbd} (maintien) [A]{.kbd} [★]{.kbd} (relâche) → `à`
 
-[lexique]: /lexique
-[touche morte]: /lexique#dead-key
+[glossaire]:        /glossaire
+[touche morte]:     /glossaire#touche-morte-def
 [QWERTY-Lafayette]: /lafayette/#qwerty-lafayette

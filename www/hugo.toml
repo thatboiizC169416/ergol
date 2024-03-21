@@ -79,7 +79,7 @@ author = "authors"
         weight  = 5
     [[menus.main]]
         name    = "FAQ"
-        pageRef = "/aide/faq"
+        pageRef = "/faq"
         parent  = "Aide"
     [[menus.main]]
         name    = "Glossaire"
