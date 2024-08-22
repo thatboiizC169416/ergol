@@ -120,7 +120,8 @@ window.addEventListener('DOMContentLoaded', () => {
         .map(letter => odk[letter]);
 
     const lessonLetters = rawLetters.concat(deadkeyLetters).join('');
-    const newLetters = rawLetters.slice(-INCLUDE_NEW_LETTERS).join('');
+    const newLettersCount = gLessonLevel == STARTING_LEVEL ? STARTING_LEVEL : INCLUDE_NEW_LETTERS;
+    const newLetters = rawLetters.slice(-newLettersCount).join('');
     const lessonRe = new RegExp(`^[${lessonLetters}]*[${newLetters}][${lessonLetters}]*$`)
     const lessonFilter = word => lessonRe.test(word)
 
