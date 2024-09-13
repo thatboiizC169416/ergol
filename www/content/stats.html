@@ -4,13 +4,13 @@ title = "Analyseur"
 [params]
 description = "Fréquences de touches obtenues avec le “Don Quichotte” de Cervantès."
 cssSheets = ["/css/heatmap.css"]
-jsModules = ["/js/x-keyboard.js", "/js/collapsable-table.js"]
+jsModules = ["/js/x-keyboard.js", "/js/collapsable-table.js", "js/stats-canvas.js"]
 jsScripts = ["/js/layout-analyzer.js", "/js/keebs.js"]
 footer = "quantifié par [x-keyboard](https://onedeadkey.github.io/x-keyboard)"
 +++
 
 <div class="keyboard">
-  <input spellcheck="false" />
+  <input spellcheck="false" placeholder="" />
   <x-keyboard></x-keyboard>
 </div>
 
@@ -38,26 +38,17 @@ footer = "quantifié par [x-keyboard](https://onedeadkey.github.io/x-keyboard)"
 
 <h2>Métriques</h2>
 
-<h3>Charge des doigts</h3>
-<small><span id="load-left"></span> / <span id="load-right"></span></small>
-<div id="load">
-  <canvas></canvas>
-  <table></table>
-</div>
+<section id="load">
+  <h3>Charge des doigts</h3>
+  <small></small>
+  <stats-canvas></stats-canvas>
+</section>
 
-<h3>Digrammes à un doigt</h3>
-<small><span id="sfu-all"></span></small>
-<div id="sfu">
-  <canvas></canvas>
-  <table></table>
-</div>
-
-<h3>Touches doublées</h3>
-<small><span id="sku-all"></span></small>
-<div id="sku">
-  <canvas></canvas>
-  <table></table>
-</div>
+<section id="sfu">
+  <h3>Digrammes de même doigt/touche</h3>
+  <small><span id="sfu-all"></span> / <span id="sku-all"></span></small>
+  <stats-canvas></stats-canvas>
+</section>
 
 <collapsable-table id="Achoppements">
   <small>
@@ -106,21 +97,21 @@ footer = "quantifié par [x-keyboard](https://onedeadkey.github.io/x-keyboard)"
 <p><strong>Ces métriques ne sont pas des cibles d’optimisation !</strong></p>
 
 <blockquote cite="https://fr.wikipedia.org/wiki/Loi_de_Goodhart">
-  <p>Lorsqu'une métrique devient un objectif, elle cesse d'être une bonne métrique.</p>
-  <p style="text-align: right;">— <a
-    href="https://fr.wikipedia.org/wiki/Loi_de_Goodhart">loi de Goodhart</a></p>
+  Lorsqu’une métrique devient un objectif, elle cesse d’être une bonne métrique.
+  <cite>— <a href="https://fr.wikipedia.org/wiki/Loi_de_Goodhart">loi de
+    Goodhart</a><cite>
 </blockquote>
 
 <blockquote>
-  <p>Les chiffres sont aux analystes ce que les lampadaires sont aux ivrognes :
-  ils fournissent bien plus un appui qu'un éclairage.
-  <p style="text-align: right;">— Jean Dion</p>
+  Les chiffres sont aux analystes ce que les lampadaires sont aux ivrognes :
+  ils fournissent bien plus un appui qu’un éclairage.
+  <cite>— Jean Dion<cite>
   <!-- Le Devoir - 4 juin 1997 -->
 </blockquote>
 
 <p> Notre recommandation : utilisez ces métriques non pour mesurer les qualités
 d’une disposition de clavier, mais pour essayer d’en évaluer le défaut le plus
-gênant. Puis itérez sur votre layout jusqu’à ce que ce que ce défaut soit
+gênant. Puis itérez sur votre layout jusqu’à ce que ce défaut soit
 suffisamment réduit… sans en créer un pire ailleurs. </p>
 
 <p> Et recommencez. :-) </p>
