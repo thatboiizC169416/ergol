@@ -1,5 +1,0 @@
-build
-dist
-*.vim*
-*.custom
-www/public
